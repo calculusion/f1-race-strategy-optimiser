@@ -1,0 +1,314 @@
+<!doctype html>
+
+<html lang="en" class="antialiased">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ReUI Sign Up</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/reicon@latest/cdn/reicon.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: #050505;
+      }
+
+      .bg-grid {
+        background-size: 32px 32px;
+
+        background-image:
+          linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+          );
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-[#050505] text-white">
+    <main class="min-h-screen flex flex-col lg:flex-row">
+      <!-- LEFT: SIGN UP -->
+
+      <section
+        class="relative w-full lg:w-[58%] min-h-screen flex items-center justify-center px-6 py-10 sm:px-10"
+      >
+        <!-- Logo -->
+
+        <div class="absolute top-8 left-6 sm:left-10 flex items-center gap-2">
+          <div
+            class="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-semibold"
+          >
+            U
+          </div>
+
+          <span class="text-base font-semibold"> ReUI </span>
+        </div>
+
+        <!-- Compact Sign Up Form -->
+
+        <div class="w-full max-w-[420px] mt-4">
+          <!-- Heading -->
+
+          <div class="mb-5">
+            <h1
+              class="text-[22px] sm:text-[20px] text-[#FFFFFF] font-semibold tracking-tight text-center"
+            >
+              Create your ReUI account.
+            </h1>
+
+            <p class="text-xs text-[#FFFFFF]/50 text-center mt-2">
+              Get started with your free account.
+            </p>
+          </div>
+
+          <form class="space-y-4">
+            <!-- Desktop: 2 columns | Mobile: 1 column -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Full Name -->
+              <div>
+                <label
+                  for="name"
+                  class="block mb-2 text-[14px] font-medium text-[#FFFFFF]"
+                >
+                  Full name
+                </label>
+
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="John Doe"
+                  class="w-full h-9 px-3 rounded-lg border border-neutral-800 bg-transparent text-sm text-[#FFFFFF] placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
+                />
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label
+                  for="email"
+                  class="block mb-2 text-[14px] font-medium text-[#FFFFFF]"
+                >
+                  Email
+                </label>
+
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="johndoe@email.com"
+                  class="w-full h-9 px-3 rounded-lg border border-neutral-800 bg-transparent text-sm text-[#FFFFFF] placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
+                />
+              </div>
+
+              <!-- Password -->
+              <div>
+                <label
+                  for="password"
+                  class="block mb-2 text-[14px] font-medium text-[#FFFFFF]"
+                >
+                  Password
+                </label>
+
+                <div class="relative">
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Create password"
+                    class="w-full h-9 pl-3 pr-10 rounded-lg border border-neutral-800 bg-transparent text-sm text-[#FFFFFF] placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
+                  />
+
+                  <button
+                    type="button"
+                    aria-label="Show password"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-300"
+                  >
+                    <i data-lucide="eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Confirm Password -->
+              <div>
+                <label
+                  for="confirm-password"
+                  class="block mb-2 text-[14px] font-medium text-[#FFFFFF]"
+                >
+                  Confirm password
+                </label>
+
+                <div class="relative">
+                  <input
+                    type="password"
+                    id="confirm-password"
+                    placeholder="Confirm password"
+                    class="w-full h-9 pl-3 pr-10 rounded-lg border border-neutral-800 bg-transparent text-sm text-[#FFFFFF] placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
+                  />
+
+                  <button
+                    type="button"
+                    aria-label="Show password"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-300"
+                  >
+                    <i data-lucide="eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Terms -->
+            <label
+              class="flex items-start gap-2 text-xs text-[#FFFFFF]/50 cursor-pointer pt-1"
+            >
+              <input type="checkbox" class="mt-0.5 accent-white" />
+
+              <span>
+                I agree to the
+                <a href="#" class="text-white hover:underline">
+                  Terms of Service
+                </a>
+                and
+                <a href="#" class="text-white hover:underline">
+                  Privacy Policy </a
+                >.
+              </span>
+            </label>
+
+            <!-- Create Account -->
+            <button
+              type="submit"
+              class="w-full h-9 rounded-lg bg-white text-black text-sm font-medium hover:bg-neutral-200 transition"
+            >
+              Create account
+            </button>
+          </form>
+
+          <!-- Divider -->
+
+          <div class="flex items-center gap-3 my-6">
+            <div class="h-px flex-1 bg-neutral-800"></div>
+
+            <span class="text-xs text-[#FFFFFF]/60 whitespace-nowrap">
+              Or continue with
+            </span>
+
+            <div class="h-px flex-1 bg-neutral-800"></div>
+          </div>
+
+          <!-- Social Buttons -->
+
+          <div class="grid grid-cols-3 gap-2.5">
+            <!-- Google -->
+
+            <button
+              class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
+            >
+              <img
+                src="sign-login-icons/google.svg"
+                alt="Google"
+                class="w-4 h-4"
+              />
+
+              <span class="hidden sm:inline"> Google </span>
+            </button>
+
+            <!-- Apple -->
+
+            <button
+              class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
+            >
+              <img
+                src="sign-login-icons/apple.svg"
+                alt="Apple"
+                class="w-4 h-4"
+              />
+
+              <span class="hidden sm:inline"> Apple </span>
+            </button>
+
+            <!-- GitHub -->
+
+            <button
+              class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
+            >
+              <img
+                src="sign-login-icons/github.png"
+                alt="GitHub"
+                class="w-4 h-4"
+              />
+
+              <span class="hidden sm:inline"> GitHub </span>
+            </button>
+          </div>
+
+          <!-- Login -->
+
+          <p class="text-center text-sm text-neutral-400 mt-8">
+            Already have an account?
+
+            <a
+              href="signin.html"
+              class="text-[#FFFFFF] font-medium hover:underline underline-offset-4"
+            >
+              Sign in
+            </a>
+          </p>
+        </div>
+
+        <!-- Footer -->
+
+        <p
+          class="absolute bottom-6 left-0 right-0 px-6 text-center text-[11px] text-[#FFFFFF]/50"
+        >
+          By creating an account, you agree to ReUI's
+
+          <a href="#" class="text-[#FFFFFF] hover:underline">
+            Terms of Service
+          </a>
+
+          and
+
+          <a href="#" class="text-[#FFFFFF] hover:underline"> Privacy Policy </a
+          >.
+        </p>
+      </section>
+
+      <!-- RIGHT: IMAGE -->
+
+      <section
+        class="hidden lg:flex lg:w-[42%] min-h-screen relative overflow-hidden bg-grid p-8 xl:p-10 items-center justify-center"
+      >
+        <div
+          class="relative z-10 w-full h-full max-w-[680px] flex items-center justify-center"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=85&w=1600&auto=format&fit=crop"
+            alt="Team working together"
+            class="w-full h-[calc(100vh-80px)] max-h-[850px] object-cover rounded-2xl border border-neutral-800/80 shadow-2xl"
+          />
+        </div>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
