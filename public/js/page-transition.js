@@ -1,27 +1,41 @@
 (() => {
   "use strict";
 
-  const duration = 650;
-  const easing = "cubic-bezier(0.22, 1, 0.36, 1)";
+  const DURATION = 700;
+  const EASING = "cubic-bezier(0.76, 0, 0.24, 1)";
 
-  // Page entrance
-  document.documentElement.style.opacity = "0";
-  document.documentElement.style.transform = "translateY(4px)";
-  document.documentElement.style.filter = "blur(2px)";
+  // Prevent white flash before the page is painted
+  document.documentElement.style.backgroundColor = "#050505";
+  document.body.style.backgroundColor = "#050505";
 
+  // Create a dark transition layer
+  const transition = document.createElement("div");
+
+  transition.style.cssText = `
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: #050505;
+      opacity: 1;
+      pointer-events: none;
+      transition: opacity ${DURATION}ms ${EASING};
+  `;
+
+  document.body.appendChild(transition);
+
+  // Premium slow reveal
   requestAnimationFrame(() => {
-    document.documentElement.style.transition = `
-          opacity ${duration}ms ${easing},
-          transform ${duration}ms ${easing},
-          filter ${duration}ms ${easing}
-      `;
-
-    document.documentElement.style.opacity = "1";
-    document.documentElement.style.transform = "translateY(0)";
-    document.documentElement.style.filter = "blur(0)";
+    requestAnimationFrame(() => {
+      transition.style.opacity = "0";
+    });
   });
 
-  // Internal page navigation
+  // Remove after entrance
+  setTimeout(() => {
+    transition.remove();
+  }, DURATION + 50);
+
+  // Page navigation
   document.addEventListener("click", (event) => {
     const link = event.target.closest("a");
 
@@ -45,34 +59,46 @@
 
     const destination = new URL(href, window.location.href);
 
-    // External link
+    // Don't animate external links
     if (destination.origin !== window.location.origin) {
       return;
     }
 
-    // Same page
+    // Don't animate same-page links
     if (
       destination.pathname === window.location.pathname &&
-      destination.search === window.location.search
+      destination.search === window.location.search &&
+      destination.hash === window.location.hash
     ) {
       return;
     }
 
     event.preventDefault();
 
-    // Premium exit
-    document.documentElement.style.transition = `
-          opacity ${duration}ms ${easing},
-          transform ${duration}ms ${easing},
-          filter ${duration}ms ${easing}
+    // Create exit layer
+    const exitTransition = document.createElement("div");
+
+    exitTransition.style.cssText = `
+          position: fixed;
+          inset: 0;
+          z-index: 99999;
+          background: #050505;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity ${DURATION}ms ${EASING};
       `;
 
-    document.documentElement.style.opacity = "0";
-    document.documentElement.style.transform = "translateY(-4px)";
-    document.documentElement.style.filter = "blur(2px)";
+    document.body.appendChild(exitTransition);
+
+    // Slow premium fade
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        exitTransition.style.opacity = "1";
+      });
+    });
 
     setTimeout(() => {
       window.location.href = destination.href;
-    }, duration);
+    }, DURATION);
   });
 })();
