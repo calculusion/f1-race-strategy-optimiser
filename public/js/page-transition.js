@@ -4,11 +4,11 @@
   const DURATION = 700;
   const EASING = "cubic-bezier(0.76, 0, 0.24, 1)";
 
-  // Prevent white flash before the page is painted
-  document.documentElement.style.backgroundColor = "#050505";
-  document.body.style.backgroundColor = "#050505";
+  // Prevent white background
+  document.documentElement.style.background = "#050505";
+  document.body.style.background = "#050505";
 
-  // Create a dark transition layer
+  // Create ONE transition layer
   const transition = document.createElement("div");
 
   transition.style.cssText = `
@@ -23,11 +23,9 @@
 
   document.body.appendChild(transition);
 
-  // Premium slow reveal
+  // Page entrance
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      transition.style.opacity = "0";
-    });
+    transition.style.opacity = "0";
   });
 
   // Remove after entrance
@@ -35,7 +33,7 @@
     transition.remove();
   }, DURATION + 50);
 
-  // Page navigation
+  // Navigation
   document.addEventListener("click", (event) => {
     const link = event.target.closest("a");
 
@@ -59,12 +57,12 @@
 
     const destination = new URL(href, window.location.href);
 
-    // Don't animate external links
+    // External link
     if (destination.origin !== window.location.origin) {
       return;
     }
 
-    // Don't animate same-page links
+    // Same page
     if (
       destination.pathname === window.location.pathname &&
       destination.search === window.location.search &&
@@ -75,27 +73,10 @@
 
     event.preventDefault();
 
-    // Create exit layer
-    const exitTransition = document.createElement("div");
+    // Reuse the SAME transition layer
+    document.body.appendChild(transition);
 
-    exitTransition.style.cssText = `
-          position: fixed;
-          inset: 0;
-          z-index: 99999;
-          background: #050505;
-          opacity: 0;
-          pointer-events: none;
-          transition: opacity ${DURATION}ms ${EASING};
-      `;
-
-    document.body.appendChild(exitTransition);
-
-    // Slow premium fade
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        exitTransition.style.opacity = "1";
-      });
-    });
+    transition.style.opacity = "1";
 
     setTimeout(() => {
       window.location.href = destination.href;
