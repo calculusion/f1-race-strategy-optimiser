@@ -1,28 +1,27 @@
 (() => {
   "use strict";
 
-  const DURATION = 420;
-  const EASING = "cubic-bezier(0.22, 1, 0.36, 1)";
+  const duration = 650;
+  const easing = "cubic-bezier(0.22, 1, 0.36, 1)";
 
-  // Initial page entrance
-  document.documentElement.classList.add("page-enter");
+  // Page entrance
+  document.documentElement.style.opacity = "0";
+  document.documentElement.style.transform = "translateY(4px)";
+  document.documentElement.style.filter = "blur(2px)";
 
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      document.documentElement.classList.add("page-enter-active");
-    });
+    document.documentElement.style.transition = `
+          opacity ${duration}ms ${easing},
+          transform ${duration}ms ${easing},
+          filter ${duration}ms ${easing}
+      `;
+
+    document.documentElement.style.opacity = "1";
+    document.documentElement.style.transform = "translateY(0)";
+    document.documentElement.style.filter = "blur(0)";
   });
 
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      document.documentElement.classList.remove(
-        "page-enter",
-        "page-enter-active",
-      );
-    }, DURATION);
-  });
-
-  // Page navigation
+  // Internal page navigation
   document.addEventListener("click", (event) => {
     const link = event.target.closest("a");
 
@@ -46,10 +45,12 @@
 
     const destination = new URL(href, window.location.href);
 
+    // External link
     if (destination.origin !== window.location.origin) {
       return;
     }
 
+    // Same page
     if (
       destination.pathname === window.location.pathname &&
       destination.search === window.location.search
@@ -59,15 +60,19 @@
 
     event.preventDefault();
 
-    document.documentElement.classList.remove(
-      "page-enter",
-      "page-enter-active",
-    );
+    // Premium exit
+    document.documentElement.style.transition = `
+          opacity ${duration}ms ${easing},
+          transform ${duration}ms ${easing},
+          filter ${duration}ms ${easing}
+      `;
 
-    document.documentElement.classList.add("page-exit");
+    document.documentElement.style.opacity = "0";
+    document.documentElement.style.transform = "translateY(-4px)";
+    document.documentElement.style.filter = "blur(2px)";
 
     setTimeout(() => {
       window.location.href = destination.href;
-    }, DURATION);
+    }, duration);
   });
 })();
