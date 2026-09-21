@@ -7,7 +7,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/reicon@latest/cdn/reicon.js"></script>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -35,6 +35,30 @@
             transparent 1px
           );
       }
+      html {
+        overflow-x: hidden;
+      }
+
+      html.page-enter {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      html.page-enter-active {
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+          opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+          transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      html.page-exit {
+        opacity: 0;
+        transform: translateY(-10px);
+        transition:
+          opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+          transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
     </style>
   </head>
 
@@ -57,7 +81,9 @@
         <!-- Compact login card -->
         <div class="w-full max-w-[360px] mt-4">
           <div class="mb-5">
-            <h1 class="text-[22px] sm:text-[20px] text-[#FFFFFF] font-semibold tracking-tight text-center">
+            <h1
+              class="text-[22px] sm:text-[20px] text-[#FFFFFF] font-semibold tracking-tight text-center"
+            >
               Log in to your ReUI account.
             </h1>
           </div>
@@ -137,21 +163,33 @@
             <button
               class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
             >
-              <img src="sign-login-icons/google.svg" alt="Google" class="w-4 h-4" />
+              <img
+                src="sign-login-icons/google.svg"
+                alt="Google"
+                class="w-4 h-4"
+              />
               <span class="hidden sm:inline">Google</span>
             </button>
 
             <button
               class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
             >
-              <img src="sign-login-icons/apple.svg" alt="Google" class="w-4 h-4" />
+              <img
+                src="sign-login-icons/apple.svg"
+                alt="Google"
+                class="w-4 h-4"
+              />
               <span class="hidden sm:inline">Apple</span>
             </button>
 
             <button
               class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
             >
-            <img src="sign-login-icons/github.png" alt="Google" class="w-4 h-4" />
+              <img
+                src="sign-login-icons/github.png"
+                alt="Google"
+                class="w-4 h-4"
+              />
               <span class="hidden sm:inline">GitHub</span>
             </button>
           </div>
@@ -177,8 +215,7 @@
             >Terms of Service</a
           >
           and
-          <a href="#" class="text-[#FFFFFF] hover:underline">Privacy Policy</a
-          >.
+          <a href="#" class="text-[#FFFFFF] hover:underline">Privacy Policy</a>.
         </p>
       </section>
 
@@ -186,7 +223,6 @@
       <section
         class="hidden lg:flex lg:w-[42%] min-h-screen relative overflow-hidden bg-grid p-8 xl:p-10 items-center justify-center"
       >
-
         <div
           class="relative z-10 w-full h-full max-w-[680px] flex items-center justify-center"
         >
