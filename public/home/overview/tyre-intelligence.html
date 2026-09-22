@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Tyre Intelligence</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/reicon@latest/cdn/reicon.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: #080808;
+        color: #ffffff;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #080808;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #303030;
+        border-radius: 10px;
+      }
+
+      .panel {
+        background: #151515;
+        border: 1px solid #292929;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.025),
+          0 0 0 1px rgba(255, 255, 255, 0.015);
+      }
+
+      .panel-hover:hover {
+        border-color: #3a3a3a;
+        background: #171717;
+      }
+
+      .grid-bg {
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px
+          );
+        background-size: 32px 32px;
+      }
+    </style>
+    <style>
+      /* Hide scrollbar, keep scrolling */
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      html {
+        scrollbar-width: none;
+      }
+
+      body {
+        -ms-overflow-style: none;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen">
+    <!-- =====================================================
+       APP
+  ====================================================== -->
+
+    <!-- Extreme Left Panel -->
+    <div class="min-h-screen flex">
+      <aside
+        class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[278px] bg-[#090909] border-r border-[#242424] z-50"
+      >
+        <div class="w-full flex">
+          <!-- ICON RAIL -->
+
+          <div
+            class="w-[58px] border-r border-[#242424] flex flex-col items-center"
+          >
+            <!-- Logo -->
+
+            <div
+              class="h-[54px] w-full flex items-center justify-center border-b border-[#242424]"
+            >
+              <div
+                class="w-8 h-8 rounded-lg bg-[#eeeeee] text-black flex items-center justify-center font-semibold text-lg"
+              >
+                U
+              </div>
+            </div>
+
+            <!-- Extreme Left: Navigation icons -->
+            <div class="flex flex-col items-center gap-1.5 pt-4">
+              <!-- 1. Dashboard -->
+              <button
+                class="w-8 h-8 rounded-lg bg-[#242424] flex items-center justify-center text-white transition-colors"
+                title="Dashboard"
+              >
+                <img src="/website-icons/home.svg" alt="" width="18" height="18" />
+              </button>
+
+              <!-- 2. Resources -->
+              <button
+                class="w-8 h-8 rounded-lg flex items-center justify-center text-[#777] hover:text-white hover:bg-[#181818] transition-colors"
+                title="Analytics"
+              >
+                <img src="/website-icons/graph.svg" alt="" width="18" height="18" />
+              </button>
+
+              <!-- 3. Settings -->
+              <button
+                class="w-8 h-8 rounded-lg flex items-center justify-center text-[#777] hover:text-white hover:bg-[#181818] transition-colors"
+                title="Settings"
+              >
+                <img src="/website-icons/settings.svg" alt="" width="18" height="10" />
+              </button>
+            </div>
+
+            <!-- Bottom profile -->
+            <div class="mt-auto mb-5">
+              <div
+                class="w-8 h-8 rounded-full overflow-hidden border border-[#333]"
+              >
+                <img
+                  src="https://i.pravatar.cc/100?img=12"
+                  class="w-full h-full object-cover"
+                  alt="Profile"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- SIDEBAR MENU CONTENT -->
+          <div class="flex-1 flex flex-col">
+            <!--Team Name -->
+            <div
+              class="h-[54px] px-3 flex items-center border-b border-[#242424]"
+            >
+              <div
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 mr-2"
+              ></div>
+
+              <span class="text-sm font-semibold"> Acme Inc </span>
+
+              <i
+                data-lucide="chevrons-up-down"
+                class="w-3.5 ml-2 text-[#666]"
+              ></i>
+            </div>
+
+            <!-- A. Overview -->
+            <div class="px-3 py-5 overflow-y-auto">
+              <p
+                class="text-[10px] font-semibold text-[#777] uppercase tracking-wide px-1 mb-2"
+              >
+                Overview
+              </p>
+
+              <nav class="space-y-1">
+                <a
+                  href="/home/overview/race-overview.html"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
+                >
+                <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Race Overview
+                </a>
+
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
+                >
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Pre-Race Analysis
+                </a>
+
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
+                >
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Live Race Strategy
+                </a>
+
+                <a
+                  href="/home/overview/tyre-intelligence.html"
+                  class="flex items-center gap-1 px-2 py-1.5 rounded-md bg-[#282828] text-white text-[13px] font-medium"
+                >
+                <re-icon icon="arrows-right" class="w-5 text-[#FFFFFF]"></re-icon>
+                  Tyre Intelligence
+                </a>
+              </nav>
+            </div>
+
+            <!-- B. Strategy -->
+            <div class="px-3 py-5 overflow-y-auto">
+              <p
+                class="text-[10px] font-semibold text-[#777] uppercase tracking-wide px-1 mb-2"
+              >
+                Strategy
+              </p>
+
+              <nav class="space-y-1">
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
+                >
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Pit Strategy
+                </a>
+
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
+                >
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Car Performance
+                </a>
+
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
+                >
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Race Simulator
+                </a>
+              </nav>
+            </div>
+
+            <!-- C. System -->
+            <div class="px-3 py-5 overflow-y-auto">
+              <p
+                class="text-[10px] font-semibold text-[#777] uppercase tracking-wide px-1 mb-2"
+              >
+                System
+              </p>
+
+              <nav class="space-y-1">
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
+                >
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Model Analysis
+                </a>
+              </nav>
+            </div>
+
+            <!-- Bottom card -->
+            <div class="mt-auto p-3">
+              <div class="rounded-xl border border-[#303030] bg-[#111] p-3">
+                <p class="text-sm font-medium mb-2">Forecast rolls up by...</p>
+
+                <p class="text-sm text-[#999] leading-5">
+                  Commit, best case, and pipeline now total per...
+                </p>
+
+                <img
+                  src="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=500&auto=format&fit=crop"
+                  class="w-full h-[92px] object-cover rounded-lg mt-4 opacity-90"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ===================================================
+         MAIN AREA
+      ==================================================== -->
+
+      <div class="flex-1 lg:ml-[278px] min-w-0">
+
+        <!-- =================================================
+           TOP BAR
+        ================================================== -->
+
+        <header
+          class="h-[54px] border-b border-[#242424] bg-[#090909] sticky top-0 z-40 flex items-center"
+        >
+          <div
+            class="px-4 lg:px-5 w-full flex items-center justify-between gap-4"
+          >
+            <!-- Breadcrumb -->
+
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="text-[#888] text-sm"> CRM </span>
+
+              <span class="text-[#444]"> / </span>
+
+              <span class="text-sm font-medium"> Dashboard </span>
+            </div>
+
+            <!-- Right -->
+
+            <div class="flex items-center gap-5">
+              <!-- Date -->
+              <div
+                class="hidden sm:flex items-center gap-2 text-[12px] text-[#FFFFFF]"
+              >
+                <re-icon icon="calendar3" weight="filled" class="w-4 h-4 text-[#888]"></re-icon>
+                <span id="currentDate" class="text-[#FFFFFF]">
+                  Monday, 22 Jun 2027
+                </span>
+              </div>
+
+              <!-- Weather -->
+              <div
+                class="hidden sm:flex items-center gap-2 text-[12px] text-[#FFFFFF]"
+              >
+                <re-icon icon="snowflake" class="w-4 h-4 text-[#888]"></re-icon>
+                <span id="weather" class="text-[#FFFFFF]"> 28°C </span>
+              </div>
+
+              <!-- Location -->
+              <div
+                class="hidden sm:flex items-center gap-2 text-[12px] text-[#FFFFFF]"
+              >
+                <re-icon icon="location-alt" weight="filled" class="w-4 h-4 text-[#888]"></re-icon>
+                <span id="weather" class="text-[#FFFFFF]"> Abu Dhabi, UAE </span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- =================================================
+           DASHBOARD
+        ================================================== -->
+
+        <main class="mt-1 p-4 lg:p-5">
+          <!-- Breadcrumb -->
+          <div class="flex items-center gap-1 mb-5 text-[12px]">
+            <span class="text-[#B6B6B6]/60"> Home </span>
+            <re-icon icon="arrow-right2" class="w-3.5 text-[#B6B6B6]"></re-icon>
+
+            <span class="text-[#B6B6B6]/60"> Overview</span>
+            <re-icon icon="arrow-right2" class="w-3.5 text-[#B6B6B6]"></re-icon>
+
+            <span class="text-[#B6B6B6]"> Tyre Intelligence </span>
+          </div>
+
+          <!-- =================================================
+             KPI CARDS
+          ================================================== -->
+
+          <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            <!-- KPI 1 -->
+
+            <div class="panel panel-hover rounded-xl p-4">
+              <div class="flex items-start justify-between">
+                <div class="flex gap-3">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-[#242424] border border-[#333] flex items-center justify-center"
+                  >
+                    <i data-lucide="trending-up" class="w-5 text-[#aaa]"></i>
+                  </div>
+
+                  <div>
+                    <p class="text-base font-medium">Open Pipeline</p>
+
+                    <p class="text-xs text-[#777] mt-0.5">11.8% above plan</p>
+                  </div>
+                </div>
+
+                <span
+                  class="text-xs text-[#00d890] bg-[#063c2c] border border-[#075d42] px-2 py-1 rounded-md"
+                >
+                  +11.8%
+                </span>
+              </div>
+
+              <div class="flex items-end justify-between mt-7">
+                <span class="text-2xl font-semibold"> $4.82M </span>
+
+                <div class="flex gap-1 items-end h-9">
+                  <span class="w-1.5 h-4 bg-[#075d42] rounded-sm"></span>
+                  <span class="w-1.5 h-6 bg-[#08734f] rounded-sm"></span>
+                  <span class="w-1.5 h-7 bg-[#088a5e] rounded-sm"></span>
+                  <span class="w-1.5 h-8 bg-[#099e6c] rounded-sm"></span>
+                  <span class="w-1.5 h-6 bg-[#088a5e] rounded-sm"></span>
+                  <span class="w-1.5 h-9 bg-[#0bad76] rounded-sm"></span>
+                  <span class="w-1.5 h-10 bg-[#0bbf80] rounded-sm"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- KPI 2 -->
+
+            <div class="panel panel-hover rounded-xl p-4">
+              <div class="flex items-start justify-between">
+                <div class="flex gap-3">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-[#242424] border border-[#333] flex items-center justify-center"
+                  >
+                    <i data-lucide="columns-3" class="w-5 text-[#aaa]"></i>
+                  </div>
+
+                  <div>
+                    <p class="text-base font-medium">Open Deals</p>
+
+                    <p class="text-xs text-[#777] mt-0.5">
+                      84% of quota target
+                    </p>
+                  </div>
+                </div>
+
+                <span
+                  class="text-xs text-[#9b5cff] bg-[#26144b] border border-[#4d2788] px-2 py-1 rounded-md"
+                >
+                  +9.4%
+                </span>
+              </div>
+
+              <div class="flex items-end justify-between mt-7">
+                <span class="text-2xl font-semibold"> 36 </span>
+
+                <div class="flex gap-1 items-end h-9">
+                  <span class="w-1.5 h-3 bg-[#43227b] rounded-sm"></span>
+                  <span class="w-1.5 h-5 bg-[#542d98] rounded-sm"></span>
+                  <span class="w-1.5 h-6 bg-[#6135ad] rounded-sm"></span>
+                  <span class="w-1.5 h-7 bg-[#7542c5] rounded-sm"></span>
+                  <span class="w-1.5 h-8 bg-[#8750dd] rounded-sm"></span>
+                  <span class="w-1.5 h-9 bg-[#945bfa] rounded-sm"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- KPI 3 -->
+
+            <div class="panel panel-hover rounded-xl p-4">
+              <div class="flex items-start justify-between">
+                <div class="flex gap-3">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-[#242424] border border-[#333] flex items-center justify-center"
+                  >
+                    <i data-lucide="users" class="w-5 text-[#aaa]"></i>
+                  </div>
+
+                  <div>
+                    <p class="text-base font-medium">New Contacts</p>
+
+                    <p class="text-xs text-[#777] mt-0.5">42 via referral</p>
+                  </div>
+                </div>
+
+                <span
+                  class="text-xs text-[#00d890] bg-[#063c2c] border border-[#075d42] px-2 py-1 rounded-md"
+                >
+                  +18.6%
+                </span>
+              </div>
+
+              <div class="flex items-end justify-between mt-7">
+                <span class="text-2xl font-semibold"> 128 </span>
+
+                <div class="flex gap-1 items-end h-9">
+                  <span class="w-1.5 h-3 bg-[#075d42] rounded-sm"></span>
+                  <span class="w-1.5 h-5 bg-[#08734f] rounded-sm"></span>
+                  <span class="w-1.5 h-7 bg-[#099e6c] rounded-sm"></span>
+                  <span class="w-1.5 h-8 bg-[#0bad76] rounded-sm"></span>
+                  <span class="w-1.5 h-10 bg-[#0bbf80] rounded-sm"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- KPI 4 -->
+
+            <div class="panel panel-hover rounded-xl p-4">
+              <div class="flex items-start justify-between">
+                <div class="flex gap-3">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-[#242424] border border-[#333] flex items-center justify-center"
+                  >
+                    <i data-lucide="triangle-alert" class="w-5 text-[#aaa]"></i>
+                  </div>
+
+                  <div>
+                    <p class="text-base font-medium">Deals At Risk</p>
+
+                    <p class="text-xs text-[#777] mt-0.5">$3.96M exposure</p>
+                  </div>
+                </div>
+
+                <span
+                  class="text-xs text-[#f0b400] bg-[#3c3100] border border-[#6c5700] px-2 py-1 rounded-md"
+                >
+                  -2.1%
+                </span>
+              </div>
+
+              <div class="flex items-end justify-between mt-7">
+                <span class="text-2xl font-semibold"> 17 </span>
+
+                <div class="flex gap-1 items-end h-9">
+                  <span class="w-1.5 h-8 bg-[#665000] rounded-sm"></span>
+                  <span class="w-1.5 h-7 bg-[#806500] rounded-sm"></span>
+                  <span class="w-1.5 h-6 bg-[#947600] rounded-sm"></span>
+                  <span class="w-1.5 h-7 bg-[#a88600] rounded-sm"></span>
+                  <span class="w-1.5 h-6 bg-[#806500] rounded-sm"></span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- =================================================
+             MAIN GRID
+        ================================================== -->
+
+          <section
+            class="grid grid-cols-1 xl:grid-cols-[1.25fr_0.95fr] gap-5 mt-5"
+          >
+            <!-- =================================================
+               PERFORMANCE
+          ================================================== -->
+
+            <div class="panel rounded-xl p-5">
+              <div class="flex items-center justify-between mb-7">
+                <h2 class="text-lg font-semibold">Performance</h2>
+
+                <button
+                  class="h-8 px-3 rounded-lg border border-[#383838] bg-[#202020] text-sm flex items-center gap-3"
+                >
+                  Quarter
+                  <i data-lucide="chevron-down" class="w-3.5"></i>
+                </button>
+              </div>
+
+              <!-- Metrics -->
+
+              <div class="grid grid-cols-3 gap-5">
+                <div>
+                  <p class="text-2xl font-semibold">$2.4M</p>
+
+                  <p class="text-xs text-[#888] mt-1">Closed Won</p>
+
+                  <p class="text-xs text-[#00d890] mt-2">↗ +11.8%</p>
+                </div>
+
+                <div>
+                  <p class="text-2xl font-semibold">26.4%</p>
+
+                  <p class="text-xs text-[#888] mt-1">Win Rate</p>
+
+                  <p class="text-xs text-[#00d890] mt-2">↗ +1.2 pts</p>
+                </div>
+
+                <div>
+                  <p class="text-2xl font-semibold">48 days</p>
+
+                  <p class="text-xs text-[#888] mt-1">Sales Cycle</p>
+
+                  <p class="text-xs text-[#ff5c63] mt-2">↘ +9.4%</p>
+                </div>
+              </div>
+
+              <div class="h-px bg-[#292929] my-6"></div>
+
+              <!-- Pipeline Progress -->
+
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-sm font-medium"> Pipeline Progress </span>
+
+                  <span class="text-sm font-semibold"> 76% </span>
+                </div>
+
+                <div class="h-1 rounded-full bg-[#292929] overflow-hidden">
+                  <div class="h-full w-[76%] bg-[#dedede]"></div>
+                </div>
+              </div>
+
+              <div class="h-px bg-[#292929] my-6"></div>
+
+              <!-- Recent Activity -->
+
+              <div>
+                <h3 class="text-sm font-medium mb-4">Recent Activity</h3>
+
+                <div class="space-y-3">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-3.5 h-3.5 rounded-full border-2 border-[#00d890]"
+                    ></div>
+
+                    <span class="text-sm flex-1">
+                      Helio Manufacturing returned redlines
+                    </span>
+
+                    <span
+                      class="text-xs text-[#00d890] border border-[#075d42] bg-[#063c2c] px-2 py-1 rounded-md"
+                    >
+                      Cleared
+                    </span>
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-3.5 h-3.5 rounded-full border-2 border-[#008cff]"
+                    ></div>
+
+                    <span class="text-sm flex-1">
+                      Quartz Payments booked a security review
+                    </span>
+
+                    <span
+                      class="text-xs text-[#9b5cff] border border-[#4d2788] bg-[#26144b] px-2 py-1 rounded-md"
+                    >
+                      Review
+                    </span>
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-3.5 h-3.5 rounded-full border-2 border-[#f0b400]"
+                    ></div>
+
+                    <span class="text-sm flex-1">
+                      Vera Capital lost its exec sponsor
+                    </span>
+
+                    <span
+                      class="text-xs text-[#f0b400] border border-[#6c5700] bg-[#3c3100] px-2 py-1 rounded-md"
+                    >
+                      Watch
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom buttons -->
+
+              <div class="grid grid-cols-2 gap-2 mt-8">
+                <button
+                  class="h-8 rounded-lg border border-[#3b3b3b] bg-[#202020] text-sm"
+                >
+                  Schedule
+                </button>
+
+                <button
+                  class="h-8 rounded-lg bg-[#e7e7e7] text-black text-sm font-medium"
+                >
+                  Full Report
+                </button>
+              </div>
+            </div>
+
+            <!-- =================================================
+               RIGHT COLUMN
+          ================================================== -->
+
+            <div class="space-y-5">
+              <!-- QUOTA COVERAGE -->
+
+              <div class="panel rounded-xl p-5">
+                <div class="flex items-center justify-between">
+                  <h2 class="font-semibold">
+                    Quota Coverage
+
+                    <i
+                      data-lucide="info"
+                      class="inline-block w-3.5 text-[#777] ml-1"
+                    ></i>
+                  </h2>
+
+                  <div
+                    class="flex items-center bg-[#242424] border border-[#333] rounded-lg p-0.5"
+                  >
+                    <button class="px-2 py-1 rounded-md bg-[#3a3a3a] text-sm">
+                      Week
+                    </button>
+
+                    <button class="px-2 py-1 text-sm text-[#999]">Month</button>
+
+                    <button class="px-2 py-1 text-sm text-[#999]">Year</button>
+                  </div>
+                </div>
+
+                <div class="flex items-end gap-2 mt-7">
+                  <span class="text-3xl font-semibold"> 86% </span>
+
+                  <span class="text-xs text-[#00d890] mb-1"> +5.8% </span>
+
+                  <span class="text-xs text-[#777] mb-1"> vs quota plan </span>
+                </div>
+
+                <!-- Coverage bars -->
+
+                <div class="flex gap-[4px] mt-7">
+                  <script>
+                    for (let i = 0; i < 40; i++) {
+                      document.write(
+                        `<span class="flex-1 h-7 rounded-sm ${
+                          i < 35 ? "bg-[#00dca0]" : "bg-[#292929]"
+                        }"></span>`,
+                      );
+                    }
+                  </script>
+                </div>
+
+                <div class="flex items-center justify-between mt-7">
+                  <div class="text-sm text-[#888]">
+                    In play:
+                    <span class="text-white font-semibold ml-1"> $3.84M </span>
+                  </div>
+
+                  <div class="flex items-center">
+                    <div class="flex -space-x-2">
+                      <img
+                        src="https://i.pravatar.cc/40?img=5"
+                        class="w-7 h-7 rounded-full border-2 border-[#151515]"
+                      />
+
+                      <img
+                        src="https://i.pravatar.cc/40?img=8"
+                        class="w-7 h-7 rounded-full border-2 border-[#151515]"
+                      />
+
+                      <img
+                        src="https://i.pravatar.cc/40?img=11"
+                        class="w-7 h-7 rounded-full border-2 border-[#151515]"
+                      />
+                    </div>
+
+                    <span class="text-xs text-[#888] ml-3"> 9 Members </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PIPELINE SOURCED -->
+
+              <div class="panel rounded-xl p-5">
+                <div class="flex items-center justify-between">
+                  <h2 class="font-semibold">
+                    Pipeline Sourced
+
+                    <i
+                      data-lucide="info"
+                      class="inline-block w-3.5 text-[#777] ml-1"
+                    ></i>
+                  </h2>
+
+                  <div
+                    class="flex items-center bg-[#242424] border border-[#333] rounded-lg p-0.5"
+                  >
+                    <button class="px-2 py-1 rounded-md bg-[#3a3a3a] text-sm">
+                      Week
+                    </button>
+
+                    <button class="px-2 py-1 text-sm text-[#999]">Month</button>
+
+                    <button class="px-2 py-1 text-sm text-[#999]">Year</button>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-8 mt-6">
+                  <!-- Doughnut -->
+
+                  <div class="relative w-[150px] h-[150px] shrink-0">
+                    <canvas id="pipelineChart"></canvas>
+
+                    <div
+                      class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
+                    >
+                      <span class="text-xs text-[#777]"> Sourced </span>
+
+                      <span class="text-lg font-semibold"> $842K </span>
+                    </div>
+                  </div>
+
+                  <!-- Legend -->
+
+                  <div class="flex-1 space-y-5">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <span
+                          class="w-2.5 h-2.5 rounded-full bg-[#00b84d]"
+                        ></span>
+
+                        <span class="text-sm"> Inbound </span>
+                      </div>
+
+                      <div>
+                        <span class="font-medium text-sm"> $396K </span>
+
+                        <span class="text-xs text-[#666] ml-3"> 47% </span>
+                      </div>
+                    </div>
+
+                    <div class="h-px bg-[#292929]"></div>
+
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <span
+                          class="w-2.5 h-2.5 rounded-full bg-[#3087f0]"
+                        ></span>
+
+                        <span class="text-sm"> Outbound </span>
+                      </div>
+
+                      <div>
+                        <span class="font-medium text-sm"> $194K </span>
+
+                        <span class="text-xs text-[#666] ml-3"> 23% </span>
+                      </div>
+                    </div>
+
+                    <div class="h-px bg-[#292929]"></div>
+
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <span
+                          class="w-2.5 h-2.5 rounded-full bg-[#e3a900]"
+                        ></span>
+
+                        <span class="text-sm"> Partner </span>
+                      </div>
+
+                      <div>
+                        <span class="font-medium text-sm"> $210K </span>
+
+                        <span class="text-xs text-[#666] ml-3"> 25% </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- =================================================
+             TEAM PERFORMANCE
+        ================================================== -->
+
+          <section class="panel rounded-xl p-5 mt-5">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="font-semibold">Team Performance</h2>
+
+                <p class="text-xs text-[#777] mt-1">
+                  Quota and open deals by rep
+                </p>
+              </div>
+
+              <span
+                class="text-xs text-[#9b5cff] bg-[#26144b] border border-[#4d2788] px-2 py-1 rounded-md"
+              >
+                6 reps
+              </span>
+            </div>
+
+            <div
+              class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-3 mt-5"
+            >
+              <div class="bg-[#111] border border-[#292929] rounded-lg p-3">
+                <p class="text-xs text-[#777]">Alex</p>
+                <p class="text-xl font-semibold mt-1">112%</p>
+                <p class="text-xs text-[#00d890] mt-1">Quota</p>
+              </div>
+
+              <div class="bg-[#111] border border-[#292929] rounded-lg p-3">
+                <p class="text-xs text-[#777]">Sarah</p>
+                <p class="text-xl font-semibold mt-1">104%</p>
+                <p class="text-xs text-[#00d890] mt-1">Quota</p>
+              </div>
+
+              <div class="bg-[#111] border border-[#292929] rounded-lg p-3">
+                <p class="text-xs text-[#777]">James</p>
+                <p class="text-xl font-semibold mt-1">98%</p>
+                <p class="text-xs text-[#888] mt-1">Quota</p>
+              </div>
+
+              <div class="bg-[#111] border border-[#292929] rounded-lg p-3">
+                <p class="text-xs text-[#777]">Maya</p>
+                <p class="text-xl font-semibold mt-1">94%</p>
+                <p class="text-xs text-[#888] mt-1">Quota</p>
+              </div>
+
+              <div class="bg-[#111] border border-[#292929] rounded-lg p-3">
+                <p class="text-xs text-[#777]">Daniel</p>
+                <p class="text-xl font-semibold mt-1">87%</p>
+                <p class="text-xs text-[#888] mt-1">Quota</p>
+              </div>
+
+              <div class="bg-[#111] border border-[#292929] rounded-lg p-3">
+                <p class="text-xs text-[#777]">Olivia</p>
+                <p class="text-xl font-semibold mt-1">81%</p>
+                <p class="text-xs text-[#ff5c63] mt-1">Needs focus</p>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- =====================================================
+       ICONS
+  ====================================================== -->
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      lucide.createIcons();
+
+      // Pipeline sourced doughnut chart
+
+      const ctx = document.getElementById("pipelineChart").getContext("2d");
+
+      new Chart(ctx, {
+        type: "doughnut",
+
+        data: {
+          labels: ["Inbound", "Outbound", "Partner"],
+
+          datasets: [
+            {
+              data: [396, 194, 210],
+
+              backgroundColor: ["#00b84d", "#3087f0", "#e3a900"],
+
+              borderColor: "#151515",
+
+              borderWidth: 5,
+
+              hoverOffset: 3,
+            },
+          ],
+        },
+
+        options: {
+          responsive: true,
+
+          maintainAspectRatio: false,
+
+          cutout: "70%",
+
+          plugins: {
+            legend: {
+              display: false,
+            },
+
+            tooltip: {
+              enabled: true,
+            },
+          },
+        },
+      });
+    </script>
+    <script src="/js/page-transition.js"></script>
+  </body>
+</html>
