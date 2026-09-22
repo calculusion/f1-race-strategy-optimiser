@@ -113,60 +113,34 @@
               </div>
             </div>
 
-            <!-- Navigation icons -->
-
+            <!-- Extreme Left: Navigation icons -->
             <div class="flex flex-col items-center gap-1.5 pt-4">
-              <!-- Dashboard -->
+              <!-- 1. Dashboard -->
               <button
                 class="w-8 h-8 rounded-lg bg-[#242424] flex items-center justify-center text-white transition-colors"
                 title="Dashboard"
               >
-                <i data-lucide="home" class="w-[15px] h-[15px]"></i>
+                <img src="website-icons/home.svg" alt="" width="18" height="18" />
               </button>
 
-              <!-- Overview -->
-              <button
-                class="w-8 h-8 rounded-lg flex items-center justify-center text-[#777] hover:text-white hover:bg-[#181818] transition-colors"
-                title="Overview"
-              >
-                <i data-lucide="circle-dot" class="w-[15px] h-[15px]"></i>
-              </button>
-
-              <!-- Activity -->
-              <button
-                class="w-8 h-8 rounded-lg flex items-center justify-center text-[#777] hover:text-white hover:bg-[#181818] transition-colors"
-                title="Activity"
-              >
-                <i data-lucide="activity" class="w-[15px] h-[15px]"></i>
-              </button>
-
-              <!-- Contacts -->
-              <button
-                class="w-8 h-8 rounded-lg flex items-center justify-center text-[#777] hover:text-white hover:bg-[#181818] transition-colors"
-                title="Contacts"
-              >
-                <i data-lucide="users" class="w-[15px] h-[15px]"></i>
-              </button>
-
-              <!-- Analytics -->
+              <!-- 2. Resources -->
               <button
                 class="w-8 h-8 rounded-lg flex items-center justify-center text-[#777] hover:text-white hover:bg-[#181818] transition-colors"
                 title="Analytics"
               >
-                <i data-lucide="bar-chart-3" class="w-[15px] h-[15px]"></i>
+                <img src="website-icons/graph.svg" alt="" width="18" height="18" />
               </button>
 
-              <!-- Settings -->
+              <!-- 3. Settings -->
               <button
                 class="w-8 h-8 rounded-lg flex items-center justify-center text-[#777] hover:text-white hover:bg-[#181818] transition-colors"
                 title="Settings"
               >
-                <i data-lucide="settings" class="w-[15px] h-[15px]"></i>
+                <img src="website-icons/settings.svg" alt="" width="18" height="10" />
               </button>
             </div>
 
             <!-- Bottom profile -->
-
             <div class="mt-auto mb-5">
               <div
                 class="w-8 h-8 rounded-full overflow-hidden border border-[#333]"
@@ -180,11 +154,9 @@
             </div>
           </div>
 
-          <!-- SIDEBAR CONTENT -->
-
+          <!-- SIDEBAR MENU CONTENT -->
           <div class="flex-1 flex flex-col">
-            <!-- Workspace -->
-
+            <!--Team Name -->
             <div
               class="h-[54px] px-3 flex items-center border-b border-[#242424]"
             >
@@ -200,80 +172,104 @@
               ></i>
             </div>
 
+            <!-- A. Overview -->
             <div class="px-3 py-5 overflow-y-auto">
-              <!-- Overview -->
-
               <p
-                class="text-[11px] font-medium text-[#777] uppercase tracking-wide px-1 mb-2"
+                class="text-[10px] font-semibold text-[#777] uppercase tracking-wide px-1 mb-2"
               >
                 Overview
               </p>
 
               <nav class="space-y-1">
                 <a
-                  href="#"
-                  class="flex items-center gap-3 px-2.5 py-2 rounded-md bg-[#282828] text-white text-sm font-medium"
+                  href="dashboard.html"
+                  class="flex items-center gap-1 px-2 py-1.5 rounded-md bg-[#282828] text-white text-[13px] font-medium"
                 >
-                  <i data-lucide="layout-grid" class="w-4"></i>
-                  Dashboard
+                  <re-icon icon="arrows-right" class="w-5 text-[#FFFFFF]"></re-icon>
+                  Race Overview
                 </a>
 
                 <a
                   href="#"
-                  class="flex items-center gap-3 px-2.5 py-2 rounded-md text-[#ddd] hover:bg-[#191919] text-sm"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
                 >
-                  <i data-lucide="calendar-days" class="w-4"></i>
-                  Today
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Pre-Race Analysis
                 </a>
 
                 <a
                   href="#"
-                  class="flex items-center gap-3 px-2.5 py-2 rounded-md text-[#ddd] hover:bg-[#191919] text-sm"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
                 >
-                  <i data-lucide="history" class="w-4"></i>
-                  Activity Feed
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Live Race Strategy
                 </a>
 
                 <a
                   href="#"
-                  class="flex items-center gap-3 px-2.5 py-2 rounded-md text-[#ddd] hover:bg-[#191919] text-sm"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
                 >
-                  <i data-lucide="zap" class="w-4"></i>
-                  Quick Stats
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Tyre Intelligence
                 </a>
               </nav>
+            </div>
 
-              <div class="h-px bg-[#252525] my-5"></div>
-
-              <!-- Goals -->
-
+            <!-- B. Strategy -->
+            <div class="px-3 py-5 overflow-y-auto">
               <p
-                class="text-[11px] font-medium text-[#777] uppercase tracking-wide px-1 mb-2"
+                class="text-[10px] font-semibold text-[#777] uppercase tracking-wide px-1 mb-2"
               >
-                Goals
+                Strategy
               </p>
 
               <nav class="space-y-1">
                 <a
                   href="#"
-                  class="flex items-center gap-3 px-2.5 py-2 rounded-md text-[#ddd] hover:bg-[#191919] text-sm"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
                 >
-                  <i data-lucide="gauge" class="w-4"></i>
-                  Attainment
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Pit Strategy
                 </a>
 
                 <a
                   href="#"
-                  class="flex items-center gap-3 px-2.5 py-2 rounded-md text-[#ddd] hover:bg-[#191919] text-sm"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
                 >
-                  <i data-lucide="scissors" class="w-4"></i>
-                  Quota Plan
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Car Performance
+                </a>
+
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
+                >
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Race Simulator
+                </a>
+              </nav>
+            </div>
+
+            <!-- C. System -->
+            <div class="px-3 py-5 overflow-y-auto">
+              <p
+                class="text-[10px] font-semibold text-[#777] uppercase tracking-wide px-1 mb-2"
+              >
+                System
+              </p>
+
+              <nav class="space-y-1">
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-[#B6B6B6] hover:bg-[#191919] hover:text-[#FFFFFF]"
+                >
+                  <re-icon icon="arrows-right" class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"></re-icon>
+                  Model Analysis
                 </a>
               </nav>
             </div>
 
             <!-- Bottom card -->
-
             <div class="mt-auto p-3">
               <div class="rounded-xl border border-[#303030] bg-[#111] p-3">
                 <p class="text-sm font-medium mb-2">Forecast rolls up by...</p>
@@ -295,12 +291,13 @@
 
       <!-- ===================================================
          MAIN AREA
-    ==================================================== -->
+      ==================================================== -->
 
       <div class="flex-1 lg:ml-[278px] min-w-0">
+
         <!-- =================================================
            TOP BAR
-      ================================================== -->
+        ================================================== -->
 
         <header
           class="h-[54px] border-b border-[#242424] bg-[#090909] sticky top-0 z-40 flex items-center"
@@ -352,26 +349,23 @@
 
         <!-- =================================================
            DASHBOARD
-      ================================================== -->
+        ================================================== -->
 
-        <main class="p-4 lg:p-5">
+        <main class="mt-1 p-4 lg:p-5">
           <!-- Breadcrumb -->
+          <div class="flex items-center gap-1 mb-5 text-[12px]">
+            <span class="text-[#B6B6B6]/60"> Home </span>
+            <re-icon icon="arrow-right2" class="w-3.5 text-[#B6B6B6]"></re-icon>
 
-          <div class="flex items-center gap-2 mb-5 text-sm">
-            <span class="text-[#777]"> Home </span>
+            <span class="text-[#B6B6B6]/60"> Overview</span>
+            <re-icon icon="arrow-right2" class="w-3.5 text-[#B6B6B6]"></re-icon>
 
-            <i data-lucide="chevron-right" class="w-3.5 text-[#555]"></i>
-
-            <span class="text-[#777]"> CRM </span>
-
-            <i data-lucide="chevron-right" class="w-3.5 text-[#555]"></i>
-
-            <span> Dashboard </span>
+            <span class="text-[#B6B6B6]"> Race Overview </span>
           </div>
 
           <!-- =================================================
              KPI CARDS
-        ================================================== -->
+          ================================================== -->
 
           <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
             <!-- KPI 1 -->
