@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>SavePoint</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico" />
+
+    <!-- PNG Favicons -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon/favicon-32x32.png"
+    />
+
+    <!-- Apple -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-touch-icon.png"
+    />
+
+    <!-- Android -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="favicon/android-chrome-512x512.png"
+    />
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="favicon/site.webmanifest" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#09090b" />
+    <meta name="msapplication-TileColor" content="#09090b" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="https://unpkg.com/reicon@latest/cdn/reicon.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Custom Scrollbar for premium feel */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Custom Range Slider */
+      input[type="range"] {
+        -webkit-appearance: none;
+        background: transparent;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        background: #ffffff;
+        cursor: pointer;
+        margin-top: -4px;
+        box-shadow: 0 0 0 2px #09090b;
+      }
+      input[type="range"]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 4px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+      }
+
+      @keyframes setupFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .setup-animate-fade {
+        animation: setupFadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+      }
+
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      @keyframes fadeUpIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fade-up {
+        animation: fadeUpIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      /* Checkbox Customization */
+      .custom-checkbox input:checked + div {
+        background-color: #6c5ce7;
+        border-color: #6c5ce7;
+      }
+      .custom-checkbox input:checked + div svg {
+        opacity: 1;
+      }
+
+      #mouseGlow {
+        position: fixed;
+        width: 420px;
+        height: 420px;
+        pointer-events: none;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(79, 140, 255, 0.1) 0%,
+          rgba(79, 140, 255, 0.04) 35%,
+          transparent 75%
+        );
+        filter: blur(70px);
+        transform: translate(-50%, -50%);
+        z-index: 50;
+        mix-blend-mode: screen;
+        opacity: 0.8;
+        transition:
+          left 0.08s ease,
+          top 0.08s ease;
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex flex-col bg-[#09090b] text-slate-200 font-sans antialiased"
+  >
+    <canvas
+      id="gradient"
+      class="fixed inset-0 w-full h-full z-0 pointer-events-none"
+    ></canvas>
+    <!-- Navigation -->
+    <header
+      class="relative shrink-0 sticky top-0 z-30 h-14 md:h-16 px-4 md:px-5 flex items-center justify-between"
+    >
+      <!-- Logo -->
+      <div
+        onclick="window.location.href = 'index.html'"
+        class="cursor-pointer shrink-0"
+      >
+        <img
+          src="assets/SavePoint.png"
+          alt="SavePoint Logo"
+          class="h-5 w-auto object-contain"
+        />
+      </div>
+
+      <!-- Right Actions -->
+      <div class="hidden md:flex items-center gap-2">
+        <!-- Better Stack -->
+        <a
+          href="https://savepointgg.betteruptime.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-[#151517]/50 backdrop-blur-xl border border-white/5 text-[13px] font-regular text-zinc-300 hover:text-white hover:bg-[#1b1b1e] transition-all duration-200"
+        >
+          <img
+            src="website-icons/betterstack-dark.svg"
+            alt="BetterStack"
+            width="16"
+            height="16"
+          />
+        </a>
+
+        <!-- Behance -->
+        <a
+          href="https://discord.gg/JGRU4a9GDd"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-[#151517]/50 backdrop-blur-xl border border-white/5 text-[13px] font-regular text-zinc-300 hover:text-white hover:bg-[#1b1b1e] transition-all duration-200"
+        >
+          <img
+            src="website-icons/behance.png"
+            alt="Discord"
+            width="18"
+            height="18"
+          />
+        </a>
+
+        <!-- GitHub -->
+        <a
+          href="https://github.com/calculusion/continue-game-project"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-[#151517]/50 backdrop-blur-xl border border-white/5 text-[13px] font-regular text-zinc-300 hover:text-white hover:bg-[#1b1b1e] transition-all duration-200"
+        >
+          <img
+            src="https://cdn.reicon.dev/logos/github/original.svg"
+            alt="GitHub"
+            width="16"
+            height="16"
+          />
+          GitHub
+        </a>
+
+        <!-- FastF1 Library -->
+        <a
+          href="https://docs.fastf1.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-white text-[13px] font-medium text-[#09090b] hover:bg-zinc-200 transition-all duration-200"
+        >
+          <img
+            src="https://cdn.reicon.dev/logos/steamdb/original.svg"
+            alt="SteamDB"
+            width="16"
+            height="16"
+          />
+          FastF1
+        </a>
+      </div>
+
+      <!-- Mobile -->
+      <div class="flex md:hidden items-center gap-1.5">
+        <!-- Better Stack -->
+        <a
+          href="https://savepointgg.betteruptime.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Better Stack"
+          class="w-9 h-9 flex items-center justify-center rounded-full bg-[#151517]/50 backdrop-blur-xl border border-white/5 hover:bg-[#1b1b1e] transition-all duration-200"
+        >
+          <img src="icons/betterstack-dark.svg" alt="" width="16" height="16" />
+        </a>
+
+        <!-- Discord -->
+        <a
+          href="https://discord.gg/JGRU4a9GDd"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Discord"
+          class="w-9 h-9 flex items-center justify-center rounded-full bg-[#151517]/50 backdrop-blur-xl border border-white/5 hover:bg-[#1b1b1e] transition-all duration-200"
+        >
+          <img
+            src="https://cdn.reicon.dev/logos/discord/original.svg"
+            alt=""
+            width="16"
+            height="16"
+          />
+        </a>
+
+        <!-- GitHub -->
+        <a
+          href="https://github.com/calculusion/continue-game-project"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          class="w-9 h-9 flex items-center justify-center rounded-full bg-[#151517]/50 backdrop-blur-xl border border-white/5 hover:bg-[#1b1b1e] transition-all duration-200"
+        >
+          <img
+            src="https://cdn.reicon.dev/logos/github/original.svg"
+            alt=""
+            width="16"
+            height="16"
+          />
+        </a>
+
+        <!-- SteamDB -->
+        <a
+          href="https://steamdb.info/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="SteamDB"
+          class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-zinc-200 transition-all duration-200"
+        >
+          <img
+            src="https://cdn.reicon.dev/logos/steamdb/original.svg"
+            alt=""
+            width="16"
+            height="16"
+          />
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main
+      class="flex-1 min-h-0 relative z-10 grid grid-rows-[1fr_auto] overflow-y-auto"
+    >
+      <div
+        class="h-full flex flex-col items-center justify-center px-3 md:px-6 pb-20 md:pb-24"
+      >
+        <!-- Top Badges -->
+        <div
+          class="flex flex-wrap items-center justify-center gap-2 md:gap-4 mb-7 md:mb-10"
+        >
+          <div
+            class="flex items-center gap-2 bg-white/5 border border-white/5 rounded-full px-2.5 py-1.5 md:px-3"
+          >
+            <re-icon icon="library" class="w-4 h-4"></re-icon>
+            <span class="text-[11px] md:text-[12px] font-medium text-zinc-300"
+              >FastF1 Telemetry</span
+            >
+          </div>
+          <div
+            class="flex items-center gap-2 bg-white/5 border border-white/5 rounded-full px-2.5 py-1.5 md:px-3"
+          >
+            <img
+              src="https://cdn.reicon.dev/logos/steam/original.svg"
+              alt="Steam"
+              width="18"
+              height="18"
+            />
+            <span class="text-[11px] md:text-[12px] font-medium text-zinc-300"
+              >ML-Powered Strategy</span
+            >
+          </div>
+        </div>
+
+        <!-- Hero Text -->
+        <div class="text-center max-w-4xl mx-auto space-y-6">
+          <h1
+            class="text-[30px] md:text-7xl font-serif text-white tracking-tight leading-[1.08] md:leading-[1] font-normal"
+          >
+            The race strategy<br />your team actually needs.
+          </h1>
+          <p
+            class="text-[13px] md:text-[17px] leading-4 md:leading-normal text-zinc-200 max-w-[330px] md:max-w-2xl mx-auto font-regular"
+          >
+            A predictive F1 strategy platform<br class="hidden md:block" />
+            to analyse tyres, simulate pit strategies, and make race-day
+            decisions.
+          </p>
+        </div>
+
+        <!-- Call to Actions -->
+        <div
+          class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mt-7 md:mt-8 w-full max-w-[360px] md:max-w-4xl"
+        >
+          <button
+            onclick="window.location.href = 'collections.html'"
+            class="flex justify-center items-center gap-2 bg-white text-[#09090b] hover:bg-gray-200 rounded-full px-2 py-2.5 md:px-3 md:py-3 text-[12px] md:text-[14px] font-medium transition-colors"
+          >
+            <re-icon icon="search3" class="h-3.5 w-3.5 md:h-4 md:w-4"></re-icon>
+            Browse Games
+          </button>
+
+          <button
+            onclick="window.location.href = 'signin.html'"
+            class="flex justify-center items-center gap-2 bg-[#151517]/50 backdrop-blur-xl border border-white/5 hover:bg-[#1b1b1e] transition-all duration-200 text-white rounded-full px-2 py-2.5 md:px-3 md:py-3 text-[12px] md:text-[14px] font-medium"
+          >
+            <re-icon
+              icon="routing3"
+              class="h-3.5 w-3.5 md:h-4 md:w-4"
+            ></re-icon>
+            Roadmap & Issues
+          </button>
+
+          <button
+            onclick="window.location.href = 'support-us.html'"
+            class="flex justify-center items-center gap-2 bg-[#151517]/50 backdrop-blur-xl border border-white/5 hover:bg-[#1b1b1e] transition-all duration-200 text-white rounded-full px-2 py-2.5 md:px-3 md:py-3 text-[12px] md:text-[14px] font-medium"
+          >
+            <re-icon
+              icon="hand-stars"
+              class="h-3.5 w-3.5 md:h-4 md:w-4"
+            ></re-icon>
+            Support SavePoint
+          </button>
+
+          <button
+            onclick="window.open('https://discord.gg/JGRU4a9GDd', '_blank')"
+            class="flex justify-center items-center gap-2 bg-white text-[#09090b] hover:bg-gray-200 rounded-full px-2 py-2.5 md:px-3 md:py-3 text-[12px] md:text-[14px] font-medium transition-colors"
+          >
+            <re-icon icon="doc" class="h-3.5 w-3.5 md:h-4 md:w-4"></re-icon>
+            Docs Guide
+          </button>
+        </div>
+
+        <!-- Integrations -->
+        <div class="hidden md:flex flex-col items-center w-full mt-10">
+          <!-- Heading -->
+          <p
+            class="text-[10px] uppercase tracking-widest text-zinc-300 font-bold mb-6"
+          >
+            Integrations
+          </p>
+
+          <!-- Row 1 -->
+          <div class="flex items-center justify-center gap-x-8">
+            <!-- Steam -->
+            <div class="flex items-center gap-2 text-zinc-200">
+              <img
+                src="icons/steamicon.svg"
+                alt="Steam"
+                width="18"
+                height="18"
+              />
+              <span class="text-[14px] font-regular"> Steam </span>
+            </div>
+
+            <!-- Epic Games -->
+            <div class="flex items-center gap-2 text-zinc-200">
+              <img
+                src="icons/epicgames.webp"
+                alt="Steam"
+                width="18"
+                height="18"
+              />
+              <span class="text-[13px] font-medium"> Epic Games </span>
+            </div>
+
+            <!-- XBOX Games PC -->
+            <div class="flex items-center gap-2 text-zinc-200">
+              <img src="icons/xboxpc.webp" alt="Steam" width="18" height="18" />
+              <span class="text-[13px] font-medium"> Xbox Games PC </span>
+            </div>
+
+            <!-- PlayStation -->
+            <div class="flex items-center gap-2 text-zinc-200">
+              <img src="icons/pslogo.svg" alt="Steam" width="20" height="20" />
+              <span class="text-[13px] font-medium"> PlayStation </span>
+            </div>
+
+            <!-- GOG -->
+            <div class="flex items-center gap-2 text-zinc-200">
+              <img src="icons/gogicon.svg" alt="Steam" width="18" height="18" />
+              <span class="text-[13px] font-medium"> GOG </span>
+            </div>
+
+            <!-- JavaScript -->
+            <div class="flex items-center gap-2 text-zinc-200">
+              <img
+                src="icons/lunaicon.svg"
+                alt="Steam"
+                width="18"
+                height="18"
+              />
+              <span class="text-[13px] font-medium"> Amazon Luna </span>
+            </div>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="flex items-center justify-center gap-x-8 mt-4">
+            <!-- Nintendo -->
+            <div class="flex items-center gap-2 text-zinc-200">
+              <img
+                src="https://cdn.reicon.dev/logos/nintendo-switch/original.svg"
+                alt="Nintendo Switch"
+                width="20"
+                height="20"
+              />
+              <span class="text-[13px] font-medium"> Nintendo Games </span>
+            </div>
+
+            <!-- Nintendo -->
+            <div class="flex items-center gap-2 text-zinc-200">
+              <img
+                src="https://cdn.reicon.dev/logos/android/original.svg"
+                alt="Android"
+                width="20"
+                height="20"
+              />
+              <span class="text-[13px] font-medium"> Android </span>
+            </div>
+
+            <!-- Nintendo -->
+            <div class="flex items-center gap-2 text-zinc-200">
+              <img
+                src="https://cdn.reicon.dev/logos/nvidia-nemotron/original.svg"
+                alt="Nvidia Nemotron"
+                width="20"
+                height="20"
+              />
+              <span class="text-[13px] font-medium"> Geforce Now </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Integrations: Mobile -->
+        <div class="flex md:hidden flex-col items-center w-full mt-7">
+          <!-- Heading -->
+          <p
+            class="text-[9px] uppercase tracking-widest text-zinc-300 font-bold mb-3"
+          >
+            Integrations
+          </p>
+
+          <!-- Row 1 -->
+          <div class="flex items-center justify-center gap-2">
+            <!-- Steam -->
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img
+                src="icons/steamicon.svg"
+                alt="Steam"
+                width="18"
+                height="18"
+              />
+            </div>
+
+            <!-- Epic Games -->
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img
+                src="icons/epicgames.webp"
+                alt="Epic Games"
+                width="18"
+                height="18"
+              />
+            </div>
+
+            <!-- Xbox -->
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img
+                src="icons/xboxpc.webp"
+                alt="Xbox Games PC"
+                width="18"
+                height="18"
+              />
+            </div>
+
+            <!-- PlayStation -->
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img
+                src="icons/pslogo.svg"
+                alt="PlayStation"
+                width="20"
+                height="20"
+              />
+            </div>
+
+            <!-- GOG -->
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img src="icons/gogicon.svg" alt="GOG" width="18" height="18" />
+            </div>
+
+            <!-- Amazon Luna -->
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img
+                src="icons/lunaicon.svg"
+                alt="Amazon Luna"
+                width="18"
+                height="18"
+              />
+            </div>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="flex items-center justify-center gap-1.5 mt-1.5">
+            <!-- Nintendo -->
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img
+                src="https://cdn.reicon.dev/logos/nintendo-switch/original.svg"
+                alt="Nintendo Switch"
+                width="20"
+                height="20"
+              />
+            </div>
+
+            <!-- Android -->
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img
+                src="https://cdn.reicon.dev/logos/android/original.svg"
+                alt="Android"
+                width="20"
+                height="20"
+              />
+            </div>
+
+            <!-- GeForce Now -->
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img
+                src="https://cdn.reicon.dev/logos/nvidia-nemotron/original.svg"
+                alt="GeForce Now"
+                width="20"
+                height="20"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Footer -->
+      <div class="absolute bottom-0 left-0 w-full">
+        <div
+          class="w-full max-w-4xl mx-auto flex flex-wrap justify-center items-center py-2 md:py-3"
+        >
+          <div
+            class="relative px-2.5 md:px-10 py-1.5 md:py-2 flex items-center gap-2 after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-4 md:after:h-5 after:w-px after:bg-white/40"
+          >
+            <span
+              class="font-serif text-[17px] md:text-[20px] font-medium text-white tracking-tight"
+              >8,381+</span
+            >
+            <span class="text-[9px] md:text-[13px] text-zinc-300 font-medium"
+              >Race Laps</span
+            >
+          </div>
+
+          <div
+            class="relative px-2.5 md:px-10 py-1.5 md:py-2 flex items-center gap-2 after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-4 md:after:h-5 after:w-px after:bg-white/40"
+          >
+            <span
+              class="font-serif text-[17px] md:text-[20px] font-medium text-white tracking-tight"
+              >530+</span
+            >
+            <span class="text-[9px] md:text-[13px] text-zinc-300 font-medium"
+              >Tyre Stints</span
+            >
+          </div>
+
+          <div
+            class="relative px-2.5 md:px-10 py-1.5 md:py-2 flex items-center gap-2 after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-4 md:after:h-5 after:w-px after:bg-white/40"
+          >
+            <span
+              class="font-serif text-[17px] md:text-[20px] font-medium text-white tracking-tight"
+              >9</span
+            >
+            <span class="text-[9px] md:text-[13px] text-zinc-300 font-medium"
+              >Race Weekends</span
+            >
+          </div>
+
+          <div
+            class="relative px-2.5 md:px-10 py-1.5 md:py-2 flex items-center gap-2"
+          >
+            <span
+              class="font-serif text-[17px] md:text-[20px] font-medium text-white tracking-tight"
+              >4</span
+            >
+            <span class="text-[9px] md:text-[13px] text-zinc-300 font-medium"
+              >Tyre Compounds</span
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+    </script>
+
+    <script type="module">
+      import { NeatGradient } from "https://cdn.jsdelivr.net/npm/@firecms/neat/+esm";
+
+      const config = {
+        colors: [
+          {
+            color: "#000000",
+            enabled: true,
+          },
+          {
+            color: "#6C5CE7",
+            enabled: true,
+          },
+          {
+            color: "#0F0025",
+            enabled: true,
+          },
+          {
+            color: "#14080A",
+            enabled: true,
+          },
+          {
+            color: "#001129",
+            enabled: true,
+          },
+        ],
+
+        speed: 2,
+        horizontalPressure: 4,
+        verticalPressure: 4,
+        waveFrequencyX: 3,
+        waveFrequencyY: 2,
+        waveAmplitude: 1,
+
+        secondaryWaveEnabled: false,
+        secondaryWaveFrequencyX: 3,
+        secondaryWaveFrequencyY: 3,
+        secondaryWaveAmplitude: 5,
+        secondaryWaveSpeed: 0.6,
+        secondaryWaveAngle: 1,
+
+        shadows: 2,
+        highlights: 2,
+        colorBrightness: 1,
+        colorSaturation: -1,
+
+        wireframe: false,
+        antialias: false,
+        colorBlending: 7,
+
+        backgroundColor: "#09090b",
+        backgroundAlpha: 1,
+
+        grainScale: 2,
+        grainSparsity: 0,
+        grainIntensity: 0,
+        grainSpeed: 1,
+
+        resolution: 0.75,
+
+        yOffset: 0,
+        yOffsetWaveMultiplier: 2.2,
+        yOffsetColorMultiplier: 2.5,
+        yOffsetFlowMultiplier: 2.8,
+
+        flowDistortionA: 0,
+        flowDistortionB: 0,
+        flowScale: 1,
+        flowEase: 0,
+        flowEnabled: false,
+
+        enableProceduralTexture: false,
+
+        transparentTextureVoid: false,
+        textureMode: "bitmap",
+        bakeEdgeSoftness: 1,
+        textureVoidLikelihood: 0.45,
+        textureVoidWidthMin: 200,
+        textureVoidWidthMax: 486,
+        textureBandDensity: 2.15,
+        textureColorBlending: 0.01,
+        textureSeed: 333,
+        textureEase: 0.68,
+
+        proceduralBackgroundColor: "#000000",
+
+        textureShapeTriangles: 20,
+        textureShapeCircles: 15,
+        textureShapeBars: 15,
+        textureShapeSquiggles: 10,
+
+        domainWarpEnabled: false,
+        domainWarpIntensity: 0,
+        domainWarpScale: 3,
+
+        vignetteIntensity: 0,
+        vignetteRadius: 0.8,
+
+        fresnelEnabled: false,
+        fresnelPower: 2,
+        fresnelIntensity: 0.5,
+        fresnelColor: "#FFFFFF",
+
+        iridescenceEnabled: false,
+        iridescenceIntensity: 0.5,
+        iridescenceSpeed: 1,
+
+        prismEdgeEnabled: false,
+        prismEdgeIntensity: 0.5,
+        prismEdgeThinness: 3,
+        prismEdgeSpread: 1,
+        prismEdgeSpeed: 0.5,
+        prismEdgeRipple: 1,
+
+        bloomIntensity: 0,
+        bloomThreshold: 0.7,
+
+        chromaticAberration: 0,
+
+        shapeType: "plane",
+        shapeRotationX: 0,
+        shapeRotationY: 0,
+        shapeRotationZ: 0,
+
+        shapeAutoRotateSpeedX: 0,
+        shapeAutoRotateSpeedY: 0,
+
+        sphereRadius: 15,
+        torusRadius: 15,
+        torusTube: 5,
+
+        cylinderRadius: 10,
+        cylinderHeight: 40,
+
+        planeBend: 0,
+        planeTwist: 0,
+
+        silhouetteFade: 0.25,
+        cylinderFade: 0.08,
+        ribbonFade: 0.05,
+
+        flatShading: true,
+        cameraLock: true,
+
+        cameraX: 0,
+        cameraY: 0,
+        cameraZ: 0,
+
+        cameraRotationX: 0,
+        cameraRotationY: 0,
+        cameraRotationZ: 0,
+
+        cameraZoom: 1,
+      };
+
+      const gradient = new NeatGradient({
+        ref: document.getElementById("gradient"),
+        ...config,
+      });
+
+      window.addEventListener("scroll", () => {
+        gradient.yOffset = window.scrollY;
+      });
+    </script>
+  </body>
+</html>
