@@ -38,6 +38,13 @@ module.exports = async (req, res) => {
         });
       }
 
+      if (password.length < 6) {
+        return res.status(400).json({
+          success: false,
+          message: "Password must be at least 6 characters.",
+        });
+      }
+
       const { data, error } = await supabase.auth.signUp({
         email: email.trim(),
         password,

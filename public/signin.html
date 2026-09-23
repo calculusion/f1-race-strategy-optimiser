@@ -7,6 +7,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/reicon@latest/cdn/reicon.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -278,6 +279,8 @@
     <script>
       lucide.createIcons();
     </script>
+    <script src="/js/page-transition.js"></script>
+    <script src="/js/supabase.js"></script>
     <script src="/js/auth.js"></script>
 
     <script>
@@ -307,14 +310,6 @@
             message.textContent = data.message;
             message.classList.remove("hidden");
 
-            // Save session for now
-            if (data.session) {
-              localStorage.setItem(
-                "supabase_session",
-                JSON.stringify(data.session),
-              );
-            }
-
             // Go to dashboard
             window.location.href = "/home/overview/race-overview.html";
           } catch (error) {
@@ -325,7 +320,22 @@
             button.classList.remove("opacity-60");
           }
         });
+
+      const googleSigninBtn = document.getElementById("googleSigninBtn");
+
+      if (googleSigninBtn) {
+        googleSigninBtn.addEventListener("click", () => {
+          socialLogin("google");
+        });
+      }
+
+      const githubSigninBtn = document.getElementById("githubSigninBtn");
+
+      if (githubSigninBtn) {
+        githubSigninBtn.addEventListener("click", () => {
+          socialLogin("github");
+        });
+      }
     </script>
-    <script src="/js/page-transition.js"></script>
   </body>
 </html>

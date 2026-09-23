@@ -10,6 +10,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/reicon@latest/cdn/reicon.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -371,6 +372,8 @@
     <script>
       lucide.createIcons();
     </script>
+    <script src="/js/page-transition.js"></script>
+    <script src="/js/supabase.js"></script>
     <script src="/js/auth.js"></script>
 
     <script>
@@ -393,6 +396,7 @@
 
           const button = document.getElementById("signupSubmit");
 
+          // Password validation
           if (password !== confirmPassword) {
             message.textContent = "Passwords do not match.";
             message.classList.remove("hidden");
@@ -422,7 +426,22 @@
             button.classList.remove("opacity-60");
           }
         });
+
+      const googleSignupBtn = document.getElementById("googleSignupBtn");
+
+      if (googleSignupBtn) {
+        googleSignupBtn.addEventListener("click", () => {
+          socialLogin("google");
+        });
+      }
+
+      const githubSignupBtn = document.getElementById("githubSignupBtn");
+
+      if (githubSignupBtn) {
+        githubSignupBtn.addEventListener("click", () => {
+          socialLogin("github");
+        });
+      }
     </script>
-    <script src="/js/page-transition.js"></script>
   </body>
 </html>

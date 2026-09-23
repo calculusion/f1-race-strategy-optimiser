@@ -1,3 +1,7 @@
+// ==========================================
+// EMAIL AUTH REQUEST
+// ==========================================
+
 async function authRequest(payload) {
   const response = await fetch("/api/auth", {
     method: "POST",
@@ -14,4 +18,79 @@ async function authRequest(payload) {
   }
 
   return data;
+}
+
+// ==========================================
+// SOCIAL LOGIN
+// ==========================================
+
+async function socialLogin(provider) {
+  try {
+    const redirectTo = `${window.location.origin}/home/overview/race-overview.html`;
+
+    const { error } = await supabaseClient.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo,
+      },
+    });
+
+    if (error) {
+      console.error(`${provider} login error:`, error);
+
+      alert(error.message);
+    }
+  } catch (error) {
+    console.error("Social login error:", error);
+
+    alert("Unable to continue with social login.");
+  }
+}
+
+// ==========================================
+// GOOGLE SIGN IN
+// ==========================================
+
+const googleSigninBtn = document.getElementById("googleSigninBtn");
+
+if (googleSigninBtn) {
+  googleSigninBtn.addEventListener("click", () => {
+    socialLogin("google");
+  });
+}
+
+// ==========================================
+// GITHUB SIGN IN
+// ==========================================
+
+const githubSigninBtn = document.getElementById("githubSigninBtn");
+
+if (githubSigninBtn) {
+  githubSigninBtn.addEventListener("click", () => {
+    socialLogin("github");
+  });
+}
+
+// ==========================================
+// GOOGLE SIGN UP
+// ==========================================
+
+const googleSignupBtn = document.getElementById("googleSignupBtn");
+
+if (googleSignupBtn) {
+  googleSignupBtn.addEventListener("click", () => {
+    socialLogin("google");
+  });
+}
+
+// ==========================================
+// GITHUB SIGN UP
+// ==========================================
+
+const githubSignupBtn = document.getElementById("githubSignupBtn");
+
+if (githubSignupBtn) {
+  githubSignupBtn.addEventListener("click", () => {
+    socialLogin("github");
+  });
 }
