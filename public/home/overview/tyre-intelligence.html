@@ -448,10 +448,113 @@
             </div>
           </div>
 
+          <!-- Race Playback Controls -->
+          <div class="panel rounded-xl px-4 py-3 mb-4">
+            <div class="flex items-center gap-4">
+              <!-- Play / Pause -->
+              <button
+                id="playPauseBtn"
+                type="button"
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#FFFFFF] text-[#111111] hover:bg-[#E8E8E8] transition"
+                title="Play"
+              >
+                <re-icon id="playPauseIcon" icon="play" class="w-4"></re-icon>
+              </button>
+
+              <!-- Current Lap -->
+              <div class="flex items-center gap-2 shrink-0">
+                <span class="text-[11px] text-[#777]">LAP</span>
+
+                <span
+                  id="currentLap"
+                  class="text-[14px] font-semibold text-white tabular-nums"
+                >
+                  32
+                </span>
+
+                <span class="text-[11px] text-[#666]"> / 57 </span>
+              </div>
+
+              <!-- Timeline -->
+              <div class="flex-1 min-w-0">
+                <div class="relative h-1.5 rounded-full bg-[#292929]">
+                  <!-- Progress -->
+                  <div
+                    id="raceProgress"
+                    class="absolute left-0 top-0 h-full rounded-full bg-[#FFFFFF]"
+                    style="width: 56.1%"
+                  ></div>
+
+                  <!-- Current Position -->
+                  <div
+                    id="raceProgressDot"
+                    class="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white border-2 border-[#111111]"
+                    style="left: 56.1%"
+                  ></div>
+                </div>
+
+                <!-- Lap markers -->
+                <div class="flex justify-between mt-2 text-[9px] text-[#666]">
+                  <span>L1</span>
+                  <span>L10</span>
+                  <span>L20</span>
+                  <span>L30</span>
+                  <span>L40</span>
+                  <span>L50</span>
+                  <span>L57</span>
+                </div>
+              </div>
+
+              <!-- Speed -->
+              <div
+                class="flex items-center gap-1 p-1 rounded-lg border border-[#292929] bg-[#151515] shrink-0"
+              >
+                <button
+                  type="button"
+                  data-speed="0.5"
+                  class="speed-btn px-2 py-1 rounded-md text-[10px] text-[#777] hover:text-white"
+                >
+                  0.5×
+                </button>
+
+                <button
+                  type="button"
+                  data-speed="1"
+                  class="speed-btn px-2 py-1 rounded-md text-[10px] bg-[#292929] text-white"
+                >
+                  1×
+                </button>
+
+                <button
+                  type="button"
+                  data-speed="2"
+                  class="speed-btn px-2 py-1 rounded-md text-[10px] text-[#777] hover:text-white"
+                >
+                  2×
+                </button>
+
+                <button
+                  type="button"
+                  data-speed="4"
+                  class="speed-btn px-2 py-1 rounded-md text-[10px] text-[#777] hover:text-white"
+                >
+                  4×
+                </button>
+              </div>
+
+              <!-- Live -->
+              <button
+                id="liveBtn"
+                type="button"
+                class="flex items-center gap-1.5 px-3 h-8 rounded-lg border border-[#292929] text-[10px] font-medium text-[#00D890] hover:bg-[#191919] shrink-0"
+              >
+                LIVE
+              </button>
+            </div>
+          </div>
+
           <!-- Temperature -->
-          <div
-            class="relative p-[3px] mb-4"
-          >
+          <div class="relative p-[3px] mb-4">
             <!-- Inner container -->
             <div
               class="relative overflow-hidden rounded-[8px] border border-[#242424] bg-[#151515]"
@@ -515,10 +618,7 @@
                   <div
                     class="w-8 h-8 shrink-0 rounded-lg bg-[#2BBBD7] flex items-center justify-center"
                   >
-                    <re-icon
-                      icon="drop"
-                      class="w-5 text-[#FFFFFF]"
-                    ></re-icon>
+                    <re-icon icon="drop" class="w-5 text-[#FFFFFF]"></re-icon>
                   </div>
 
                   <div class="min-w-0 flex flex-col justify-center">
@@ -539,10 +639,7 @@
                   <div
                     class="w-8 h-8 shrink-0 rounded-lg bg-[#262626] flex items-center justify-center"
                   >
-                    <re-icon
-                      icon="wind"
-                      class="w-5 text-[#FFFFFF]"
-                    ></re-icon>
+                    <re-icon icon="wind" class="w-5 text-[#FFFFFF]"></re-icon>
                   </div>
 
                   <div class="min-w-0 flex flex-col justify-center">
@@ -581,9 +678,7 @@
                 </div>
 
                 <!-- Rain -->
-                <div
-                  class="flex items-center gap-2 px-2.5 py-2"
-                >
+                <div class="flex items-center gap-2 px-2.5 py-2">
                   <div
                     class="w-8 h-8 shrink-0 rounded-lg bg-[#757D6F] flex items-center justify-center"
                   >
@@ -758,136 +853,125 @@
           >
             <!-- =================================================
                PERFORMANCE
-          ================================================== -->
-
-            <div class="panel rounded-xl p-5">
-              <div class="flex items-center justify-between mb-7">
-                <h2 class="text-lg font-semibold">Performance</h2>
-
-                <button
-                  class="h-8 px-3 rounded-lg border border-[#383838] bg-[#202020] text-sm flex items-center gap-3"
-                >
-                  Quarter
-                  <i data-lucide="chevron-down" class="w-3.5"></i>
-                </button>
-              </div>
-
-              <!-- Metrics -->
-
-              <div class="grid grid-cols-3 gap-5">
+            ================================================== -->
+            <div class="panel rounded-xl p-5 h-[310px] overflow-hidden">
+              <!-- Header -->
+              <div class="flex items-center justify-between mb-4">
                 <div>
-                  <p class="text-2xl font-semibold">$2.4M</p>
-
-                  <p class="text-xs text-[#888] mt-1">Closed Won</p>
-
-                  <p class="text-xs text-[#00d890] mt-2">↗ +11.8%</p>
-                </div>
-
-                <div>
-                  <p class="text-2xl font-semibold">26.4%</p>
-
-                  <p class="text-xs text-[#888] mt-1">Win Rate</p>
-
-                  <p class="text-xs text-[#00d890] mt-2">↗ +1.2 pts</p>
-                </div>
-
-                <div>
-                  <p class="text-2xl font-semibold">48 days</p>
-
-                  <p class="text-xs text-[#888] mt-1">Sales Cycle</p>
-
-                  <p class="text-xs text-[#ff5c63] mt-2">↘ +9.4%</p>
-                </div>
-              </div>
-
-              <div class="h-px bg-[#292929] my-6"></div>
-
-              <!-- Pipeline Progress -->
-
-              <div>
-                <div class="flex items-center justify-between mb-3">
-                  <span class="text-sm font-medium"> Pipeline Progress </span>
-
-                  <span class="text-sm font-semibold"> 76% </span>
-                </div>
-
-                <div class="h-1 rounded-full bg-[#292929] overflow-hidden">
-                  <div class="h-full w-[76%] bg-[#dedede]"></div>
-                </div>
-              </div>
-
-              <div class="h-px bg-[#292929] my-6"></div>
-
-              <!-- Recent Activity -->
-
-              <div>
-                <h3 class="text-sm font-medium mb-4">Recent Activity</h3>
-
-                <div class="space-y-3">
-                  <div class="flex items-center gap-3">
-                    <div
-                      class="w-3.5 h-3.5 rounded-full border-2 border-[#00d890]"
-                    ></div>
-
-                    <span class="text-sm flex-1">
-                      Helio Manufacturing returned redlines
-                    </span>
-
-                    <span
-                      class="text-xs text-[#00d890] border border-[#075d42] bg-[#063c2c] px-2 py-1 rounded-md"
-                    >
-                      Cleared
-                    </span>
-                  </div>
-
-                  <div class="flex items-center gap-3">
-                    <div
-                      class="w-3.5 h-3.5 rounded-full border-2 border-[#008cff]"
-                    ></div>
-
-                    <span class="text-sm flex-1">
-                      Quartz Payments booked a security review
-                    </span>
-
-                    <span
-                      class="text-xs text-[#9b5cff] border border-[#4d2788] bg-[#26144b] px-2 py-1 rounded-md"
-                    >
-                      Review
-                    </span>
-                  </div>
-
-                  <div class="flex items-center gap-3">
-                    <div
-                      class="w-3.5 h-3.5 rounded-full border-2 border-[#f0b400]"
-                    ></div>
-
-                    <span class="text-sm flex-1">
-                      Vera Capital lost its exec sponsor
-                    </span>
-
-                    <span
-                      class="text-xs text-[#f0b400] border border-[#6c5700] bg-[#3c3100] px-2 py-1 rounded-md"
-                    >
-                      Watch
-                    </span>
+                  <div class="flex items-center gap-2">
+                    <h2 class="text-lg font-semibold">
+                      Strategy Recommendation
+                    </h2>
                   </div>
                 </div>
               </div>
 
-              <!-- Bottom buttons -->
+              <!-- Main Recommendation -->
+              <div
+                class="rounded-xl border border-dashed border-[#292929] bg-[#151515] p-2"
+              >
+                <div class="flex items-start justify-between">
+                  <!-- Recommendation -->
+                  <div>
+                    <div class="flex items-baseline gap-2">
+                      <span class="text-[28px] font-semibold text-white">
+                        PIT
+                      </span>
 
-              <div class="grid grid-cols-2 gap-2 mt-8">
-                <button
-                  class="h-8 rounded-lg border border-[#3b3b3b] bg-[#202020] text-sm"
-                >
-                  Schedule
-                </button>
+                      <span class="text-[14px] text-[#888]"> Lap 32 </span>
+                    </div>
 
-                <button
-                  class="h-8 rounded-lg bg-[#e7e7e7] text-black text-sm font-medium"
-                >
-                  Full Report
-                </button>
+                    <p class="text-xs text-[#B6B6B6] mt-1">
+                      Switch to
+                      <span class="text-white font-medium">MEDIUM</span>
+                      compound
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Reason -->
+                <div class="mt-3 rounded-lg bg-[#09090b] px-3 py-2.5">
+                  <div class="flex items-start gap-2">
+                    <re-icon
+                      icon="sparkles"
+                      class="w-3.5 text-[#888] mt-0.5 shrink-0"
+                    ></re-icon>
+
+                    <p class="text-[11px] leading-5 text-[#999]">
+                      Tyre degradation is accelerating. A pit stop around
+                      <span class="text-white">Lap 32</span>
+                      is expected to minimize total race time.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Strategy Metrics -->
+              <div class="grid grid-cols-5 gap-4 mt-5">
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <re-icon
+                      icon="course-up"
+                      class="w-3 h-3 text-[#B6B6B6]"
+                    ></re-icon>
+
+                    <p class="text-[10px] text-[#B6B6B6]">Pace Gain</p>
+                  </div>
+                  <p class="text-[18px] font-semibold mt-1">+0.42s</p>
+                  <p class="text-[10px] text-[#00D890] mt-1">per lap</p>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <re-icon
+                      icon="course-up"
+                      class="w-3 h-3 text-[#B6B6B6]"
+                    ></re-icon>
+
+                    <p class="text-[10px] text-[#B6B6B6]">Stint Life</p>
+                  </div>
+                  <p class="text-[18px] font-semibold mt-1">22 laps</p>
+                  <p class="text-[10px] text-[#FFD444] mt-1">expected</p>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <re-icon
+                      icon="course-up"
+                      class="w-3 h-3 text-[#B6B6B6]"
+                    ></re-icon>
+
+                    <p class="text-[10px] text-[#B6B6B6]">Net Gain</p>
+                  </div>
+                  <p class="text-[18px] font-semibold mt-1">+4.8s</p>
+                  <p class="text-[10px] text-[#00D890] mt-1">projected</p>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <re-icon
+                      icon="course-up"
+                      class="w-3 h-3 text-[#B6B6B6]"
+                    ></re-icon>
+
+                    <p class="text-[10px] text-[#B6B6B6]">Pit Probability</p>
+                  </div>
+                  <p class="text-[18px] font-semibold mt-1">78%</p>
+                  <p class="text-[10px] text-[#F62440] mt-1">expected</p>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <re-icon
+                      icon="course-up"
+                      class="w-3 h-3 text-[#B6B6B6]"
+                    ></re-icon>
+
+                    <p class="text-[10px] text-[#B6B6B6]">Confidence</p>
+                  </div>
+                  <p class="text-[18px] font-semibold mt-1">84%</p>
+                  <p class="text-[10px] text-[#F62440] mt-1">model</p>
+                </div>
               </div>
             </div>
 
@@ -895,243 +979,217 @@
                RIGHT COLUMN
           ================================================== -->
 
-            <div class="space-y-5">
-              <!-- QUOTA COVERAGE -->
+            <div class="panel rounded-xl p-5">
+              <!-- Header -->
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h2 class="font-semibold">Tyre Degradation</h2>
 
-              <div class="panel rounded-xl p-5">
-                <div class="flex items-center justify-between">
-                  <h2 class="font-semibold">
-                    Quota Coverage
-
-                    <i
-                      data-lucide="info"
-                      class="inline-block w-3.5 text-[#777] ml-1"
-                    ></i>
-                  </h2>
-
-                  <div
-                    class="flex items-center bg-[#242424] border border-[#333] rounded-lg p-0.5"
-                  >
-                    <button class="px-2 py-1 rounded-md bg-[#3a3a3a] text-sm">
-                      Week
-                    </button>
-
-                    <button class="px-2 py-1 text-sm text-[#999]">Month</button>
-
-                    <button class="px-2 py-1 text-sm text-[#999]">Year</button>
-                  </div>
-                </div>
-
-                <div class="flex items-end gap-2 mt-7">
-                  <span class="text-3xl font-semibold"> 86% </span>
-
-                  <span class="text-xs text-[#00d890] mb-1"> +5.8% </span>
-
-                  <span class="text-xs text-[#777] mb-1"> vs quota plan </span>
-                </div>
-
-                <!-- Coverage bars -->
-
-                <div class="flex gap-[4px] mt-7">
-                  <script>
-                    for (let i = 0; i < 40; i++) {
-                      document.write(
-                        `<span class="flex-1 h-7 rounded-sm ${
-                          i < 35 ? "bg-[#00dca0]" : "bg-[#292929]"
-                        }"></span>`,
-                      );
-                    }
-                  </script>
-                </div>
-
-                <div class="flex items-center justify-between mt-7">
-                  <div class="text-sm text-[#888]">
-                    In play:
-                    <span class="text-white font-semibold ml-1"> $3.84M </span>
-                  </div>
-
-                  <div class="flex items-center">
-                    <div class="flex -space-x-2">
-                      <img
-                        src="https://i.pravatar.cc/40?img=5"
-                        class="w-7 h-7 rounded-full border-2 border-[#151515]"
-                      />
-
-                      <img
-                        src="https://i.pravatar.cc/40?img=8"
-                        class="w-7 h-7 rounded-full border-2 border-[#151515]"
-                      />
-
-                      <img
-                        src="https://i.pravatar.cc/40?img=11"
-                        class="w-7 h-7 rounded-full border-2 border-[#151515]"
-                      />
-                    </div>
-
-                    <span class="text-xs text-[#888] ml-3"> 9 Members </span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- PIPELINE SOURCED -->
-
-              <div class="panel rounded-xl p-5">
-                <div class="flex items-center justify-between">
-                  <h2 class="font-semibold">
-                    Pipeline Sourced
-
-                    <i
-                      data-lucide="info"
-                      class="inline-block w-3.5 text-[#777] ml-1"
-                    ></i>
-                  </h2>
-
-                  <div
-                    class="flex items-center bg-[#242424] border border-[#333] rounded-lg p-0.5"
-                  >
-                    <button class="px-2 py-1 rounded-md bg-[#3a3a3a] text-sm">
-                      Week
-                    </button>
-
-                    <button class="px-2 py-1 text-sm text-[#999]">Month</button>
-
-                    <button class="px-2 py-1 text-sm text-[#999]">Year</button>
-                  </div>
-                </div>
-
-                <div class="flex items-center gap-8 mt-6">
-                  <!-- Doughnut -->
-
-                  <div class="relative w-[150px] h-[150px] shrink-0">
-                    <canvas id="pipelineChart"></canvas>
-
-                    <div
-                      class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
+                    <span
+                      class="flex items-center gap-1.5 text-[10px] text-[#00D890]"
                     >
-                      <span class="text-xs text-[#777]"> Sourced </span>
-
-                      <span class="text-lg font-semibold"> $842K </span>
-                    </div>
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-[#00D890]"
+                      ></span>
+                      LIVE
+                    </span>
                   </div>
 
-                  <!-- Legend -->
+                  <p class="text-[11px] text-[#777] mt-1">
+                    Current tyre performance
+                  </p>
+                </div>
 
-                  <div class="flex-1 space-y-5">
-                    <div class="flex items-center justify-between">
-                      <div class="flex items-center gap-3">
-                        <span
-                          class="w-2.5 h-2.5 rounded-full bg-[#00b84d]"
-                        ></span>
+                <!-- Current Tyre -->
+                <div
+                  class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-[#333] bg-[#202020]"
+                >
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#FFD100]"></span>
 
-                        <span class="text-sm"> Inbound </span>
-                      </div>
+                  <span class="text-xs font-medium"> MEDIUM </span>
 
-                      <div>
-                        <span class="font-medium text-sm"> $396K </span>
+                  <span class="text-[10px] text-[#777]"> 18 laps </span>
+                </div>
+              </div>
 
-                        <span class="text-xs text-[#666] ml-3"> 47% </span>
-                      </div>
-                    </div>
+              <!-- Graph -->
+              <div class="relative mt-7">
+                <!-- Y-axis labels -->
+                <div
+                  class="absolute left-0 top-0 bottom-7 flex flex-col justify-between text-[9px] text-[#666]"
+                >
+                  <span>1:23.5</span>
+                  <span>1:24.0</span>
+                  <span>1:24.5</span>
+                  <span>1:25.0</span>
+                  <span>1:25.5</span>
+                </div>
 
-                    <div class="h-px bg-[#292929]"></div>
+                <!-- Graph -->
+                <div class="ml-12">
+                  <svg
+                    viewBox="0 0 700 240"
+                    class="w-full h-[240px]"
+                    preserveAspectRatio="none"
+                  >
+                    <!-- Horizontal grid -->
+                    <line
+                      x1="0"
+                      y1="15"
+                      x2="700"
+                      y2="15"
+                      stroke="#292929"
+                      stroke-width="1"
+                    />
 
-                    <div class="flex items-center justify-between">
-                      <div class="flex items-center gap-3">
-                        <span
-                          class="w-2.5 h-2.5 rounded-full bg-[#3087f0]"
-                        ></span>
+                    <line
+                      x1="0"
+                      y1="67"
+                      x2="700"
+                      y2="67"
+                      stroke="#292929"
+                      stroke-width="1"
+                    />
 
-                        <span class="text-sm"> Outbound </span>
-                      </div>
+                    <line
+                      x1="0"
+                      y1="119"
+                      x2="700"
+                      y2="119"
+                      stroke="#292929"
+                      stroke-width="1"
+                    />
 
-                      <div>
-                        <span class="font-medium text-sm"> $194K </span>
+                    <line
+                      x1="0"
+                      y1="171"
+                      x2="700"
+                      y2="171"
+                      stroke="#292929"
+                      stroke-width="1"
+                    />
 
-                        <span class="text-xs text-[#666] ml-3"> 23% </span>
-                      </div>
-                    </div>
+                    <line
+                      x1="0"
+                      y1="223"
+                      x2="700"
+                      y2="223"
+                      stroke="#292929"
+                      stroke-width="1"
+                    />
 
-                    <div class="h-px bg-[#292929]"></div>
+                    <!-- Predicted degradation area -->
+                    <path
+                      d="
+                      M 0 185
+                      C 100 175, 200 165, 300 150
+                      C 400 135, 500 110, 700 75
+                      L 700 223
+                      L 0 223
+                      Z
+                    "
+                      fill="#FFD100"
+                      fill-opacity="0.05"
+                    />
 
-                    <div class="flex items-center justify-between">
-                      <div class="flex items-center gap-3">
-                        <span
-                          class="w-2.5 h-2.5 rounded-full bg-[#e3a900]"
-                        ></span>
+                    <!-- Predicted degradation -->
+                    <path
+                      d="
+                      M 0 185
+                      C 100 175, 200 165, 300 150
+                      C 400 135, 500 110, 700 75
+                    "
+                      fill="none"
+                      stroke="#555"
+                      stroke-width="1.5"
+                      stroke-dasharray="5 5"
+                    />
 
-                        <span class="text-sm"> Partner </span>
-                      </div>
+                    <!-- Actual tyre pace -->
+                    <path
+                      d="
+                      M 0 178
+                      L 55 165
+                      L 110 172
+                      L 165 151
+                      L 220 158
+                      L 275 139
+                      L 330 145
+                      L 385 128
+                      L 440 135
+                      L 495 111
+                      L 550 118
+                      L 605 95
+                      L 660 103
+                      L 700 88
+                    "
+                      fill="none"
+                      stroke="#FFD100"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
 
-                      <div>
-                        <span class="font-medium text-sm"> $210K </span>
+                    <!-- Current lap line -->
+                    <line
+                      x1="550"
+                      y1="10"
+                      x2="550"
+                      y2="223"
+                      stroke="#00D890"
+                      stroke-width="1"
+                      stroke-dasharray="4 4"
+                    />
 
-                        <span class="text-xs text-[#666] ml-3"> 25% </span>
-                      </div>
-                    </div>
+                    <!-- Current point -->
+                    <circle
+                      cx="550"
+                      cy="118"
+                      r="5"
+                      fill="#111111"
+                      stroke="#00D890"
+                      stroke-width="2"
+                    />
+
+                    <circle cx="550" cy="118" r="2" fill="#00D890" />
+                  </svg>
+
+                  <!-- X-axis -->
+                  <div class="flex justify-between text-[9px] text-[#666] mt-1">
+                    <span>Lap 1</span>
+                    <span>5</span>
+                    <span>10</span>
+                    <span>15</span>
+                    <span>20</span>
+                    <span>24</span>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
 
-          <!-- =================================================
-             TEAM PERFORMANCE
-        ================================================== -->
-
-          <section class="panel rounded-xl p-5 mt-5">
-            <div class="flex items-center justify-between">
-              <div>
-                <h2 class="font-semibold">Team Performance</h2>
-
-                <p class="text-xs text-[#777] mt-1">
-                  Quota and open deals by rep
-                </p>
-              </div>
-
-              <span
-                class="text-xs text-[#9b5cff] bg-[#26144b] border border-[#4d2788] px-2 py-1 rounded-md"
+              <!-- Legend -->
+              <div
+                class="flex items-center gap-5 mt-5 pt-4 border-t border-[#292929]"
               >
-                6 reps
-              </span>
-            </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-[2px] bg-[#FFD100]"></span>
 
-            <div
-              class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-3 mt-5"
-            >
-              <div class="bg-[#111] border border-[#292929] rounded-lg p-3">
-                <p class="text-xs text-[#777]">Alex</p>
-                <p class="text-xl font-semibold mt-1">112%</p>
-                <p class="text-xs text-[#00d890] mt-1">Quota</p>
-              </div>
+                  <span class="text-[10px] text-[#777]"> Actual pace </span>
+                </div>
 
-              <div class="bg-[#111] border border-[#292929] rounded-lg p-3">
-                <p class="text-xs text-[#777]">Sarah</p>
-                <p class="text-xl font-semibold mt-1">104%</p>
-                <p class="text-xs text-[#00d890] mt-1">Quota</p>
-              </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-3 border-t border-dashed border-[#555]"></span>
 
-              <div class="bg-[#111] border border-[#292929] rounded-lg p-3">
-                <p class="text-xs text-[#777]">James</p>
-                <p class="text-xl font-semibold mt-1">98%</p>
-                <p class="text-xs text-[#888] mt-1">Quota</p>
-              </div>
+                  <span class="text-[10px] text-[#777]">
+                    Predicted degradation
+                  </span>
+                </div>
 
-              <div class="bg-[#111] border border-[#292929] rounded-lg p-3">
-                <p class="text-xs text-[#777]">Maya</p>
-                <p class="text-xl font-semibold mt-1">94%</p>
-                <p class="text-xs text-[#888] mt-1">Quota</p>
-              </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#00D890]"></span>
 
-              <div class="bg-[#111] border border-[#292929] rounded-lg p-3">
-                <p class="text-xs text-[#777]">Daniel</p>
-                <p class="text-xl font-semibold mt-1">87%</p>
-                <p class="text-xs text-[#888] mt-1">Quota</p>
-              </div>
-
-              <div class="bg-[#111] border border-[#292929] rounded-lg p-3">
-                <p class="text-xs text-[#777]">Olivia</p>
-                <p class="text-xl font-semibold mt-1">81%</p>
-                <p class="text-xs text-[#ff5c63] mt-1">Needs focus</p>
+                  <span class="text-[10px] text-[#777]"> Current lap </span>
+                </div>
               </div>
             </div>
           </section>
