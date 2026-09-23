@@ -48,10 +48,13 @@ module.exports = async (req, res) => {
       const { data, error } = await supabase.auth.signUp({
         email: email.trim(),
         password,
+
         options: {
           data: {
             full_name: name.trim(),
           },
+
+          emailRedirectTo: `${process.env.SITE_URL}/home/overview/race-overview.html`,
         },
       });
 
@@ -65,7 +68,7 @@ module.exports = async (req, res) => {
       return res.status(200).json({
         success: true,
         message:
-          "Account created successfully. Please check your email to confirm your account.",
+          "Account created successfully. Please check your email to confirm.",
         user: data.user
           ? {
               id: data.user.id,

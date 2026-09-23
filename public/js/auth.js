@@ -94,3 +94,55 @@ if (githubSignupBtn) {
     socialLogin("github");
   });
 }
+
+// ==========================================
+// PASSWORD VISIBILITY
+// ==========================================
+
+function setupPasswordToggle(buttonId, inputId) {
+  const button = document.getElementById(buttonId);
+  const input = document.getElementById(inputId);
+
+  if (!button || !input) {
+    return;
+  }
+
+  button.addEventListener("click", () => {
+    const isHidden = input.type === "password";
+
+    input.type = isHidden ? "text" : "password";
+
+    button.setAttribute(
+      "aria-label",
+      isHidden ? "Hide password" : "Show password",
+    );
+
+    const icon = button.querySelector("i");
+
+    if (icon) {
+      icon.setAttribute("data-lucide", isHidden ? "eye-off" : "eye");
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+  });
+}
+
+// ==========================================
+// SIGNUP PASSWORD
+// ==========================================
+
+setupPasswordToggle("toggleSignupPassword", "signupPassword");
+
+// ==========================================
+// SIGNUP CONFIRM PASSWORD
+// ==========================================
+
+setupPasswordToggle("toggleSignupConfirmPassword", "signupConfirmPassword");
+
+// ==========================================
+// SIGNIN PASSWORD
+// ==========================================
+
+setupPasswordToggle("toggleSigninPassword", "signinPassword");
