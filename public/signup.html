@@ -64,26 +64,10 @@
     <style>
       html,
       body {
-        background: #050505;
+        background: #09090b;
       }
       body {
         font-family: "Inter", sans-serif;
-      }
-
-      .bg-grid {
-        background-size: 32px 32px;
-
-        background-image:
-          linear-gradient(
-            to right,
-            rgba(255, 255, 255, 0.025) 1px,
-            transparent 1px
-          ),
-          linear-gradient(
-            to bottom,
-            rgba(255, 255, 255, 0.025) 1px,
-            transparent 1px
-          );
       }
     </style>
     <style>
@@ -118,7 +102,7 @@
     </style>
   </head>
 
-  <body class="h-screen overflow-hidden bg-[#050505] text-white">
+  <body class="h-screen overflow-hidden bg-[#09090b] text-white">
     <div
       id="pageTransition"
       class="fixed inset-0 z-[99999] flex items-center justify-center bg-[#09090b] opacity-0 pointer-events-none transition-opacity duration-700 ease-out"
@@ -132,29 +116,24 @@
     </div>
     <main
       id="pageContent"
-      class="min-h-screen flex flex-col lg:flex-row opacity-0 translate-y-2 transition-all duration-700 ease-out"
+      class="min-h-screen flex flex-col lg:flex-row opacity-100 translate-y-2 transition-all duration-700 ease-out"
     >
       <!-- LEFT: SIGN UP -->
 
       <section
         class="relative w-full lg:w-[58%] min-h-screen flex items-center justify-center px-6 py-10 sm:px-10"
       >
-        <!-- Logo -->
-        <div class="absolute top-8 left-6 sm:left-10 flex items-center gap-2">
-          <a href="index.html" aria-label="Go to sign in">
-            <img
-              src="/branding/lapslogobig.png"
-              alt="Logo"
-              class="h-6 object-contain cursor-pointer"
-            />
-          </a>
-        </div>
-
         <!-- Compact Sign Up Form -->
-
         <div class="w-full max-w-[420px] mt-4">
-          <!-- Heading -->
+          <div class="flex justify-center mb-6">
+            <img
+              src="/public/branding/lapslogobig.png"
+              alt="Laps"
+              class="h-7 w-auto object-contain"
+            />
+          </div>
 
+          <!-- Heading -->
           <div class="mb-5">
             <h1
               class="text-[22px] sm:text-[20px] text-[#FFFFFF] font-semibold tracking-tight text-center"
@@ -414,7 +393,7 @@
         class="hidden lg:flex lg:w-[42%] min-h-screen relative overflow-hidden bg-grid p-8 xl:p-10 items-center justify-center"
       >
         <div
-          class="relative z-10 w-full max-w-[680px] aspect-[3/4] flex items-center justify-center"
+          class="relative z-10 h-[calc(100vh-80px)] max-h-[850px] aspect-[3/4] max-w-full"
         >
           <img
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=85&w=1600&auto=format&fit=crop"
