@@ -113,37 +113,39 @@
     </div>
     <main
       id="pageContent"
-      class="min-h-screen flex flex-col lg:flex-row opacity-0 translate-y-2 transition-all duration-700 ease-out"
+      class="min-h-screen flex flex-col lg:flex-row opacity-100 translate-y-2 transition-all duration-700 ease-out"
     >
       <!-- LEFT: LOGIN -->
       <section
-        class="relative w-full lg:w-[58%] min-h-screen flex items-center justify-center px-6 py-10 sm:px-10"
+        class="relative w-full lg:w-[58%] min-h-screen flex items-center justify-center px-5 py-8 sm:px-8 lg:px-10 overflow-y-auto lg:overflow-hidden"
       >
-        <!-- Compact login card -->
-        <div class="w-full max-w-[360px] mt-4">
-          <div class="flex justify-center mb-6">
+        <!-- Compact Login Card -->
+        <div class="w-full max-w-[360px] mt-0 sm:mt-2 lg:mt-4 pb-16 lg:pb-0">
+          <!-- Logo -->
+          <div class="flex justify-center mb-5 sm:mb-6">
             <img
               src="/branding/lapslogobig.png"
               alt="Laps"
-              class="h-7 w-auto object-contain"
+              class="h-6 sm:h-7 w-auto object-contain"
             />
           </div>
 
-          <div class="mb-5">
+          <!-- Heading -->
+          <div class="mb-4 sm:mb-5">
             <h1
-              class="text-[22px] sm:text-[20px] text-[#FFFFFF] font-semibold tracking-tight text-center"
+              class="text-[20px] sm:text-[21px] lg:text-[22px] text-white font-semibold tracking-tight text-center"
             >
               Log in to your laps account.
             </h1>
           </div>
 
           <!-- Login Form -->
-          <form id="signinForm" class="space-y-4">
+          <form id="signinForm" class="space-y-3.5 sm:space-y-4">
             <!-- Email -->
             <div>
               <label
                 for="signinEmail"
-                class="block mb-2 text-[14px] font-medium text-[#FFFFFF]"
+                class="block mb-1.5 text-[12px] sm:text-[13px] lg:text-[14px] font-medium text-white"
               >
                 Email
               </label>
@@ -154,16 +156,16 @@
                 name="email"
                 placeholder="johndoe@email.com"
                 autocomplete="email"
-                class="w-full h-9 px-3 rounded-lg border border-neutral-800 bg-transparent text-sm text-[#FFFFFF] placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
+                class="w-full h-10 sm:h-9 px-3 rounded-[9px] sm:rounded-lg border border-neutral-800 bg-transparent text-[13px] sm:text-sm text-white placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
               />
             </div>
 
             <!-- Password -->
             <div>
-              <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center justify-between mb-1.5">
                 <label
                   for="signinPassword"
-                  class="text-[14px] font-medium text-[#FFFFFF]"
+                  class="text-[12px] sm:text-[13px] lg:text-[14px] font-medium text-white"
                 >
                   Password
                 </label>
@@ -171,7 +173,7 @@
                 <a
                   id="forgotPasswordLink"
                   href="forgetpassword.html"
-                  class="text-xs text-neutral-400 hover:text-white transition"
+                  class="text-[10px] sm:text-xs text-neutral-400 hover:text-white transition"
                 >
                   Forgot password?
                 </a>
@@ -184,7 +186,7 @@
                   name="password"
                   placeholder="Enter password"
                   autocomplete="current-password"
-                  class="w-full h-9 pl-3 pr-10 rounded-lg border border-neutral-800 bg-transparent text-sm text-[#FFFFFF] placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
+                  class="w-full h-10 sm:h-9 pl-3 pr-10 rounded-[9px] sm:rounded-lg border border-neutral-800 bg-transparent text-[13px] sm:text-sm text-white placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
                 />
 
                 <button
@@ -201,7 +203,7 @@
             <!-- Error / Success Message -->
             <div
               id="signinMessage"
-              class="hidden rounded-lg border border-[#292929] bg-[#151515] px-3 py-2 text-[11px]"
+              class="hidden rounded-[9px] border border-[#292929] bg-[#151515] px-3 py-2 text-[11px]"
               role="alert"
             ></div>
 
@@ -209,9 +211,9 @@
             <button
               type="submit"
               id="signinSubmit"
-              class="w-full h-9 rounded-lg bg-white text-black text-sm font-medium hover:bg-neutral-200 transition"
+              class="w-full h-10 sm:h-9 rounded-[9px] sm:rounded-lg bg-white text-black text-[13px] sm:text-sm font-medium hover:bg-neutral-200 transition"
             >
-              <span id="signinSubmitText">Sign in</span>
+              <span id="signinSubmitText"> Sign in </span>
 
               <span id="signinSubmitLoading" class="hidden">
                 Signing in...
@@ -220,27 +222,30 @@
           </form>
 
           <!-- Divider -->
-          <div class="flex items-center gap-3 my-6">
+          <div class="flex items-center gap-3 my-5 sm:my-6">
             <div class="h-px flex-1 bg-neutral-800"></div>
-            <span class="text-xs text-[#FFFFFF]/60 whitespace-nowrap">
+
+            <span
+              class="text-[10px] sm:text-xs text-white/50 whitespace-nowrap"
+            >
               Or continue with
             </span>
+
             <div class="h-px flex-1 bg-neutral-800"></div>
           </div>
 
-          <!-- Social buttons -->
           <!-- Social Buttons -->
-          <div id="oauthButtons" class="grid grid-cols-3 gap-2.5">
+          <div id="oauthButtons" class="grid grid-cols-3 gap-2">
             <!-- Google -->
             <button
               type="button"
               id="googleSigninBtn"
-              class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
+              class="h-9 sm:h-8 flex items-center justify-center gap-1.5 sm:gap-2 bg-[#151515] rounded-[9px] border border-neutral-800 text-[11px] sm:text-sm font-medium hover:bg-neutral-900 transition"
             >
               <img
                 src="sign-login-icons/google.svg"
                 alt="Google"
-                class="w-4 h-4"
+                class="w-3.5 h-3.5 sm:w-4 sm:h-4"
               />
 
               <span class="hidden sm:inline"> Google </span>
@@ -250,12 +255,12 @@
             <button
               type="button"
               id="appleSigninBtn"
-              class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
+              class="h-9 sm:h-8 flex items-center justify-center gap-1.5 sm:gap-2 bg-[#151515] rounded-[9px] border border-neutral-800 text-[11px] sm:text-sm font-medium hover:bg-neutral-900 transition"
             >
               <img
                 src="sign-login-icons/apple.svg"
                 alt="Apple"
-                class="w-4 h-4"
+                class="w-3.5 h-3.5 sm:w-4 sm:h-4"
               />
 
               <span class="hidden sm:inline"> Apple </span>
@@ -265,39 +270,53 @@
             <button
               type="button"
               id="githubSigninBtn"
-              class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
+              class="h-9 sm:h-8 flex items-center justify-center gap-1.5 sm:gap-2 bg-[#151515] rounded-[9px] border border-neutral-800 text-[11px] sm:text-sm font-medium hover:bg-neutral-900 transition"
             >
               <img
                 src="sign-login-icons/github.png"
                 alt="GitHub"
-                class="w-4 h-4"
+                class="w-3.5 h-3.5 sm:w-4 sm:h-4"
               />
 
               <span class="hidden sm:inline"> GitHub </span>
             </button>
           </div>
-          <!-- Sign up -->
-          <p class="text-center text-sm text-neutral-400 mt-8">
+
+          <!-- Sign Up -->
+          <p
+            class="text-center text-[11px] sm:text-sm text-neutral-400 mt-6 sm:mt-8"
+          >
             Need an account?
+
             <a
               href="signup.html"
-              class="text-[#FFFFFF] font-medium hover:underline underline-offset-4"
+              class="text-white font-medium hover:underline underline-offset-4"
             >
               Sign up
             </a>
           </p>
+
+          <!-- Mobile Terms -->
+          <p
+            class="lg:hidden text-center mt-8 pb-2 px-2 text-[9px] leading-4 text-white/40"
+          >
+            By continuing, you agree to laps'
+            <a href="#" class="text-white hover:underline">
+              Terms of Service
+            </a>
+            and
+            <a href="#" class="text-white hover:underline"> Privacy Policy </a>.
+          </p>
         </div>
 
-        <!-- Terms -->
+        <!-- Desktop Terms -->
         <p
-          class="absolute bottom-6 left-0 right-0 px-6 text-center text-[11px] text-[#FFFFFF]/50"
+          class="hidden lg:block absolute bottom-6 left-0 right-0 px-6 text-center text-[11px] text-white/50"
         >
           By continuing, you agree to laps'
-          <a href="#" class="text-[#FFFFFF] hover:underline"
-            >Terms of Service</a
-          >
+          <a href="#" class="text-white hover:underline"> Terms of Service </a>
           and
-          <a href="#" class="text-[#FFFFFF] hover:underline">Privacy Policy</a>.
+          <a href="#" class="text-white hover:underline"> Privacy Policy </a>.
         </p>
       </section>
 
