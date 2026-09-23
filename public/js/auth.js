@@ -137,13 +137,9 @@ function setupPasswordToggle(buttonId, inputId) {
   const button = document.getElementById(buttonId);
   const input = document.getElementById(inputId);
 
-  if (!button || !input) {
-    return;
-  }
+  if (!button || !input) return;
 
   button.addEventListener("click", () => {
-    const icon = button.querySelector("i");
-
     const isHidden = input.type === "password";
 
     input.type = isHidden ? "text" : "password";
@@ -153,13 +149,15 @@ function setupPasswordToggle(buttonId, inputId) {
       isHidden ? "Hide password" : "Show password",
     );
 
-    if (icon) {
-      icon.setAttribute("data-lucide", isHidden ? "eye-off" : "eye");
+    // Replace the icon completely
+    button.innerHTML = `
+      <i
+        data-lucide="${isHidden ? "eye-off" : "eye"}"
+        class="w-4 h-4"
+      ></i>
+    `;
 
-      if (window.lucide) {
-        lucide.createIcons();
-      }
-    }
+    lucide.createIcons();
   });
 }
 
