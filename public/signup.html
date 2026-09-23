@@ -85,7 +85,7 @@
 
         <div class="absolute top-8 left-6 sm:left-10 flex items-center gap-2">
           <img
-            src="/public/branding/lapslogobig.png"
+            src="/branding/lapslogobig.png"
             alt="Logo"
             class="h-6 object-contain"
           />
@@ -108,7 +108,7 @@
             </p>
           </div>
 
-          <form class="space-y-4">
+          <form id="signupForm" class="space-y-4">
             <!-- Desktop: 2 columns | Mobile: 1 column -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <!-- Full Name -->
@@ -122,8 +122,10 @@
 
                 <input
                   type="text"
-                  id="name"
+                  id="signupName"
+                  name="name"
                   placeholder="John Doe"
+                  autocomplete="name"
                   class="w-full h-9 px-3 rounded-lg border border-neutral-800 bg-transparent text-sm text-[#FFFFFF] placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
                 />
               </div>
@@ -139,8 +141,10 @@
 
                 <input
                   type="email"
-                  id="email"
+                  id="signupEmail"
+                  name="email"
                   placeholder="johndoe@email.com"
+                  autocomplete="email"
                   class="w-full h-9 px-3 rounded-lg border border-neutral-800 bg-transparent text-sm text-[#FFFFFF] placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
                 />
               </div>
@@ -157,13 +161,16 @@
                 <div class="relative">
                   <input
                     type="password"
-                    id="password"
+                    id="signupPassword"
+                    name="password"
                     placeholder="Create password"
+                    autocomplete="new-password"
                     class="w-full h-9 pl-3 pr-10 rounded-lg border border-neutral-800 bg-transparent text-sm text-[#FFFFFF] placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
                   />
 
                   <button
                     type="button"
+                    id="toggleSignupPassword"
                     aria-label="Show password"
                     class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-300"
                   >
@@ -184,13 +191,16 @@
                 <div class="relative">
                   <input
                     type="password"
-                    id="confirm-password"
+                    id="signupConfirmPassword"
+                    name="confirmPassword"
                     placeholder="Confirm password"
+                    autocomplete="new-password"
                     class="w-full h-9 pl-3 pr-10 rounded-lg border border-neutral-800 bg-transparent text-sm text-[#FFFFFF] placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
                   />
 
                   <button
                     type="button"
+                    id="toggleSignupConfirmPassword"
                     aria-label="Show password"
                     class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-300"
                   >
@@ -204,7 +214,12 @@
             <label
               class="flex items-start gap-2 text-xs text-[#FFFFFF]/50 cursor-pointer pt-1"
             >
-              <input type="checkbox" class="mt-0.5 accent-white" />
+              <input
+                type="checkbox"
+                id="signupTerms"
+                name="terms"
+                class="mt-0.5 accent-white"
+              />
 
               <span>
                 I agree to the
@@ -218,12 +233,23 @@
               </span>
             </label>
 
+            <div
+              id="signupMessage"
+              class="hidden rounded-lg border border-[#292929] bg-[#151515] px-3 py-2 text-[11px]"
+              role="alert"
+            ></div>
+
             <!-- Create Account -->
             <button
               type="submit"
+              id="signupSubmit"
               class="w-full h-9 rounded-lg bg-white text-black text-sm font-medium hover:bg-neutral-200 transition"
             >
-              Create account
+              <span id="signupSubmitText">Create account</span>
+
+              <span id="signupSubmitLoading" class="hidden">
+                Creating account...
+              </span>
             </button>
           </form>
 
@@ -245,6 +271,8 @@
             <!-- Google -->
 
             <button
+              type="button"
+              id="googleSignupBtn"
               class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
             >
               <img
@@ -259,6 +287,8 @@
             <!-- Apple -->
 
             <button
+              type="button"
+              id="appleSignupBtn"
               class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
             >
               <img
@@ -273,6 +303,8 @@
             <!-- GitHub -->
 
             <button
+              type="button"
+              id="githubSignupBtn"
               class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
             >
               <img
@@ -323,12 +355,12 @@
         class="hidden lg:flex lg:w-[42%] min-h-screen relative overflow-hidden bg-grid p-8 xl:p-10 items-center justify-center"
       >
         <div
-          class="relative z-10 w-full h-full max-w-[680px] flex items-center justify-center"
+          class="relative z-10 w-full max-w-[680px] aspect-[3/4] flex items-center justify-center"
         >
           <img
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=85&w=1600&auto=format&fit=crop"
             alt="Team working together"
-            class="w-full h-[calc(100vh-80px)] max-h-[850px] object-cover rounded-2xl border border-neutral-800/80 shadow-2xl"
+            class="w-full h-full object-cover rounded-2xl border border-neutral-800/80 shadow-2xl"
           />
         </div>
       </section>
@@ -338,6 +370,58 @@
 
     <script>
       lucide.createIcons();
+    </script>
+    <script src="/js/auth.js"></script>
+
+    <script>
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const name = document.getElementById("signupName").value.trim();
+
+          const email = document.getElementById("signupEmail").value.trim();
+
+          const password = document.getElementById("signupPassword").value;
+
+          const confirmPassword = document.getElementById(
+            "signupConfirmPassword",
+          ).value;
+
+          const message = document.getElementById("signupMessage");
+
+          const button = document.getElementById("signupSubmit");
+
+          if (password !== confirmPassword) {
+            message.textContent = "Passwords do not match.";
+            message.classList.remove("hidden");
+            return;
+          }
+
+          button.disabled = true;
+          button.classList.add("opacity-60");
+
+          try {
+            const data = await authRequest({
+              action: "signup",
+              name,
+              email,
+              password,
+            });
+
+            message.textContent = data.message;
+            message.classList.remove("hidden");
+
+            document.getElementById("signupForm").reset();
+          } catch (error) {
+            message.textContent = error.message;
+            message.classList.remove("hidden");
+          } finally {
+            button.disabled = false;
+            button.classList.remove("opacity-60");
+          }
+        });
     </script>
     <script src="/js/page-transition.js"></script>
   </body>

@@ -69,7 +69,7 @@
     </div>
     <main
       id="pageContent"
-      class="min-h-screen flex flex-col lg:flex-row opacity-0 translate-y-2 transition-all duration-700 ease-out"
+      class="min-h-screen flex flex-col lg:flex-row opacity-100 translate-y-2 transition-all duration-700 ease-out"
     >
       <!-- LEFT: LOGIN -->
       <section
@@ -77,12 +77,11 @@
       >
         <!-- Logo -->
         <div class="absolute top-8 left-6 sm:left-10 flex items-center gap-2">
-          <div
-            class="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-semibold"
-          >
-            U
-          </div>
-          <span class="text-base font-semibold">ReUI</span>
+          <img
+            src="/branding/lapslogobig.png"
+            alt="Logo"
+            class="h-6 object-contain"
+          />
         </div>
 
         <!-- Compact login card -->
@@ -91,23 +90,27 @@
             <h1
               class="text-[22px] sm:text-[20px] text-[#FFFFFF] font-semibold tracking-tight text-center"
             >
-              Log in to your ReUI account.
+              Log in to your laps account.
             </h1>
           </div>
 
-          <form class="space-y-4">
+          <!-- Login Form -->
+          <form id="signinForm" class="space-y-4">
             <!-- Email -->
             <div>
               <label
-                for="email"
+                for="signinEmail"
                 class="block mb-2 text-[14px] font-medium text-[#FFFFFF]"
               >
                 Email
               </label>
+
               <input
-                type="text"
-                id="email"
+                type="email"
+                id="signinEmail"
+                name="email"
                 placeholder="johndoe@email.com"
+                autocomplete="email"
                 class="w-full h-9 px-3 rounded-lg border border-neutral-800 bg-transparent text-sm text-[#FFFFFF] placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
               />
             </div>
@@ -116,12 +119,14 @@
             <div>
               <div class="flex items-center justify-between mb-2">
                 <label
-                  for="password"
+                  for="signinPassword"
                   class="text-[14px] font-medium text-[#FFFFFF]"
                 >
                   Password
                 </label>
+
                 <a
+                  id="forgotPasswordLink"
                   href="forgetpassword.html"
                   class="text-xs text-neutral-400 hover:text-white transition"
                 >
@@ -132,13 +137,16 @@
               <div class="relative">
                 <input
                   type="password"
-                  id="password"
+                  id="signinPassword"
+                  name="password"
                   placeholder="Enter password"
+                  autocomplete="current-password"
                   class="w-full h-9 pl-3 pr-10 rounded-lg border border-neutral-800 bg-transparent text-sm text-[#FFFFFF] placeholder-neutral-500/80 outline-none transition focus:border-neutral-500"
                 />
 
                 <button
                   type="button"
+                  id="toggleSigninPassword"
                   aria-label="Show password"
                   class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-300"
                 >
@@ -147,12 +155,24 @@
               </div>
             </div>
 
-            <!-- Sign in -->
+            <!-- Error / Success Message -->
+            <div
+              id="signinMessage"
+              class="hidden rounded-lg border border-[#292929] bg-[#151515] px-3 py-2 text-[11px]"
+              role="alert"
+            ></div>
+
+            <!-- Sign In -->
             <button
               type="submit"
+              id="signinSubmit"
               class="w-full h-9 rounded-lg bg-white text-black text-sm font-medium hover:bg-neutral-200 transition"
             >
-              Sign in
+              <span id="signinSubmitText">Sign in</span>
+
+              <span id="signinSubmitLoading" class="hidden">
+                Signing in...
+              </span>
             </button>
           </form>
 
@@ -166,8 +186,12 @@
           </div>
 
           <!-- Social buttons -->
-          <div class="grid grid-cols-3 gap-2.5">
+          <!-- Social Buttons -->
+          <div id="oauthButtons" class="grid grid-cols-3 gap-2.5">
+            <!-- Google -->
             <button
+              type="button"
+              id="googleSigninBtn"
               class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
             >
               <img
@@ -175,32 +199,40 @@
                 alt="Google"
                 class="w-4 h-4"
               />
-              <span class="hidden sm:inline">Google</span>
+
+              <span class="hidden sm:inline"> Google </span>
             </button>
 
+            <!-- Apple -->
             <button
+              type="button"
+              id="appleSigninBtn"
               class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
             >
               <img
                 src="sign-login-icons/apple.svg"
-                alt="Google"
+                alt="Apple"
                 class="w-4 h-4"
               />
-              <span class="hidden sm:inline">Apple</span>
+
+              <span class="hidden sm:inline"> Apple </span>
             </button>
 
+            <!-- GitHub -->
             <button
+              type="button"
+              id="githubSigninBtn"
               class="h-8 flex items-center bg-[#151515] justify-center gap-2 rounded-[10px] border border-neutral-800 text-xs sm:text-sm font-medium hover:bg-neutral-900 transition"
             >
               <img
                 src="sign-login-icons/github.png"
-                alt="Google"
+                alt="GitHub"
                 class="w-4 h-4"
               />
-              <span class="hidden sm:inline">GitHub</span>
+
+              <span class="hidden sm:inline"> GitHub </span>
             </button>
           </div>
-
           <!-- Sign up -->
           <p class="text-center text-sm text-neutral-400 mt-8">
             Need an account?
@@ -217,7 +249,7 @@
         <p
           class="absolute bottom-6 left-0 right-0 px-6 text-center text-[11px] text-[#FFFFFF]/50"
         >
-          By continuing, you agree to ReUI's
+          By continuing, you agree to laps'
           <a href="#" class="text-[#FFFFFF] hover:underline"
             >Terms of Service</a
           >
@@ -231,12 +263,12 @@
         class="hidden lg:flex lg:w-[42%] min-h-screen relative overflow-hidden bg-grid p-8 xl:p-10 items-center justify-center"
       >
         <div
-          class="relative z-10 w-full h-full max-w-[680px] flex items-center justify-center"
+          class="relative z-10 w-full max-w-[680px] aspect-[3/4] flex items-center justify-center"
         >
           <img
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=85&w=1600&auto=format&fit=crop"
             alt="Team working together"
-            class="w-full h-[calc(100vh-80px)] max-h-[850px] object-cover rounded-2xl border border-neutral-800/80 shadow-2xl"
+            class="w-full h-full object-cover rounded-2xl border border-neutral-800/80 shadow-2xl"
           />
         </div>
       </section>
@@ -245,6 +277,54 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
       lucide.createIcons();
+    </script>
+    <script src="/js/auth.js"></script>
+
+    <script>
+      document
+        .getElementById("signinForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const email = document.getElementById("signinEmail").value.trim();
+
+          const password = document.getElementById("signinPassword").value;
+
+          const message = document.getElementById("signinMessage");
+
+          const button = document.getElementById("signinSubmit");
+
+          button.disabled = true;
+          button.classList.add("opacity-60");
+
+          try {
+            const data = await authRequest({
+              action: "signin",
+              email,
+              password,
+            });
+
+            message.textContent = data.message;
+            message.classList.remove("hidden");
+
+            // Save session for now
+            if (data.session) {
+              localStorage.setItem(
+                "supabase_session",
+                JSON.stringify(data.session),
+              );
+            }
+
+            // Go to dashboard
+            window.location.href = "/home/overview/race-overview.html";
+          } catch (error) {
+            message.textContent = error.message;
+            message.classList.remove("hidden");
+          } finally {
+            button.disabled = false;
+            button.classList.remove("opacity-60");
+          }
+        });
     </script>
     <script src="/js/page-transition.js"></script>
   </body>
