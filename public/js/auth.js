@@ -130,29 +130,36 @@ function setupPasswordToggle(buttonId, inputId) {
 }
 
 // ==========================================
-// Password Visibilty Eye
+// PASSWORD VISIBILITY
 // ==========================================
 
 function setupPasswordToggle(buttonId, inputId) {
   const button = document.getElementById(buttonId);
   const input = document.getElementById(inputId);
 
-  if (!button || !input) return;
+  if (!button || !input) {
+    return;
+  }
 
   button.addEventListener("click", () => {
     const icon = button.querySelector("i");
 
-    if (input.type === "password") {
-      input.type = "text";
-      button.setAttribute("aria-label", "Hide password");
-      icon.setAttribute("data-lucide", "eye-off");
-    } else {
-      input.type = "password";
-      button.setAttribute("aria-label", "Show password");
-      icon.setAttribute("data-lucide", "eye");
-    }
+    const isHidden = input.type === "password";
 
-    lucide.createIcons();
+    input.type = isHidden ? "text" : "password";
+
+    button.setAttribute(
+      "aria-label",
+      isHidden ? "Hide password" : "Show password",
+    );
+
+    if (icon) {
+      icon.setAttribute("data-lucide", isHidden ? "eye-off" : "eye");
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
   });
 }
 
@@ -174,10 +181,14 @@ setupPasswordToggle("toggleSignupConfirmPassword", "signupConfirmPassword");
 
 setupPasswordToggle("toggleSigninPassword", "signinPassword");
 
-setupPasswordToggle("toggleSignupPassword", "signupPassword");
-setupPasswordToggle("toggleSignupConfirmPassword", "signupConfirmPassword");
-
-setupPasswordToggle("toggleSigninPassword", "signinPassword");
+// ==========================================
+// RESET PASSWORD
+// ==========================================
 
 setupPasswordToggle("toggleResetPassword", "resetPassword");
+
+// ==========================================
+// RESET CONFIRM PASSWORD
+// ==========================================
+
 setupPasswordToggle("toggleResetConfirmPassword", "resetConfirmPassword");
