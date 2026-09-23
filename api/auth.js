@@ -155,7 +155,7 @@ module.exports = async (req, res) => {
       return res.status(200).json({
         success: true,
         message:
-          "If an account exists for this email, a password reset link has been sent.",
+          "If an account exists, a password reset link has been sent.",
       });
     }
 
