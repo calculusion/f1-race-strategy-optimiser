@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>SavePoint</title>
+    <title>F1 by laps</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon/favicon.ico" />
@@ -200,7 +200,7 @@
         class="cursor-pointer shrink-0"
       >
         <img
-          src="assets/SavePoint.png"
+          src="/branding/lapslogobig.png"
           alt="SavePoint Logo"
           class="h-5 w-auto object-contain"
         />
@@ -261,12 +261,6 @@
           rel="noopener noreferrer"
           class="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-white text-[13px] font-medium text-[#09090b] hover:bg-zinc-200 transition-all duration-200"
         >
-          <img
-            src="https://cdn.reicon.dev/logos/steamdb/original.svg"
-            alt="SteamDB"
-            width="16"
-            height="16"
-          />
           FastF1
         </a>
       </div>
@@ -281,7 +275,7 @@
           aria-label="Better Stack"
           class="w-9 h-9 flex items-center justify-center rounded-full bg-[#151517]/50 backdrop-blur-xl border border-white/5 hover:bg-[#1b1b1e] transition-all duration-200"
         >
-          <img src="icons/betterstack-dark.svg" alt="" width="16" height="16" />
+          <img src="website-icons/betterstack-dark.svg" alt="" width="16" height="16" />
         </a>
 
         <!-- Discord -->
@@ -325,7 +319,7 @@
           class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-zinc-200 transition-all duration-200"
         >
           <img
-            src="https://cdn.reicon.dev/logos/steamdb/original.svg"
+            src="website-icons/database.svg"
             alt=""
             width="16"
             height="16"
@@ -389,15 +383,15 @@
           class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mt-7 md:mt-8 w-full max-w-[360px] md:max-w-4xl"
         >
           <button
-            onclick="window.location.href = 'collections.html'"
+            onclick="window.location.href = 'signin.html'"
             class="flex justify-center items-center gap-2 bg-white text-[#09090b] hover:bg-gray-200 rounded-full px-2 py-2.5 md:px-3 md:py-3 text-[12px] md:text-[14px] font-medium transition-colors"
           >
             <re-icon icon="search3" class="h-3.5 w-3.5 md:h-4 md:w-4"></re-icon>
-            Browse Games
+            Create Account
           </button>
 
           <button
-            onclick="window.location.href = 'signin.html'"
+            onclick="window.location.href = ''"
             class="flex justify-center items-center gap-2 bg-[#151517]/50 backdrop-blur-xl border border-white/5 hover:bg-[#1b1b1e] transition-all duration-200 text-white rounded-full px-2 py-2.5 md:px-3 md:py-3 text-[12px] md:text-[14px] font-medium"
           >
             <re-icon
@@ -408,18 +402,18 @@
           </button>
 
           <button
-            onclick="window.location.href = 'support-us.html'"
+            onclick="window.location.href = ''"
             class="flex justify-center items-center gap-2 bg-[#151517]/50 backdrop-blur-xl border border-white/5 hover:bg-[#1b1b1e] transition-all duration-200 text-white rounded-full px-2 py-2.5 md:px-3 md:py-3 text-[12px] md:text-[14px] font-medium"
           >
             <re-icon
               icon="hand-stars"
               class="h-3.5 w-3.5 md:h-4 md:w-4"
             ></re-icon>
-            Support SavePoint
+            Support Laps
           </button>
 
           <button
-            onclick="window.open('https://discord.gg/JGRU4a9GDd', '_blank')"
+            onclick="window.open('', '_blank')"
             class="flex justify-center items-center gap-2 bg-white text-[#09090b] hover:bg-gray-200 rounded-full px-2 py-2.5 md:px-3 md:py-3 text-[12px] md:text-[14px] font-medium transition-colors"
           >
             <re-icon icon="doc" class="h-3.5 w-3.5 md:h-4 md:w-4"></re-icon>
@@ -427,113 +421,139 @@
           </button>
         </div>
 
-        <!-- Integrations -->
+        <!-- 11 Team -->
         <div class="hidden md:flex flex-col items-center w-full mt-10">
           <!-- Heading -->
           <p
             class="text-[10px] uppercase tracking-widest text-zinc-300 font-bold mb-6"
           >
-            Integrations
+            11 Teams
           </p>
 
           <!-- Row 1 -->
-          <div class="flex items-center justify-center gap-x-8">
-            <!-- Steam -->
-            <div class="flex items-center gap-2 text-zinc-200">
+          <div class="flex items-center justify-center gap-x-3">
+            <!-- RBR-->
+            <div class="flex items-center text-zinc-200">
               <img
-                src="icons/steamicon.svg"
-                alt="Steam"
-                width="18"
-                height="18"
+                src="/f1-teams/rbr-icon.png"
+                alt="RBR"
+                width="44"
+                height="44"
               />
-              <span class="text-[14px] font-regular"> Steam </span>
             </div>
 
-            <!-- Epic Games -->
-            <div class="flex items-center gap-2 text-zinc-200">
+            <!-- Mercedes -->
+            <div class="flex items-center text-zinc-200">
               <img
-                src="icons/epicgames.webp"
-                alt="Steam"
-                width="18"
-                height="18"
+                src="/f1-teams/mercedes-icon.avif"
+                alt="MERC"
+                width="42"
+                height="42"
               />
-              <span class="text-[13px] font-medium"> Epic Games </span>
             </div>
 
-            <!-- XBOX Games PC -->
-            <div class="flex items-center gap-2 text-zinc-200">
-              <img src="icons/xboxpc.webp" alt="Steam" width="18" height="18" />
-              <span class="text-[13px] font-medium"> Xbox Games PC </span>
-            </div>
-
-            <!-- PlayStation -->
-            <div class="flex items-center gap-2 text-zinc-200">
-              <img src="icons/pslogo.svg" alt="Steam" width="20" height="20" />
-              <span class="text-[13px] font-medium"> PlayStation </span>
-            </div>
-
-            <!-- GOG -->
-            <div class="flex items-center gap-2 text-zinc-200">
-              <img src="icons/gogicon.svg" alt="Steam" width="18" height="18" />
-              <span class="text-[13px] font-medium"> GOG </span>
-            </div>
-
-            <!-- JavaScript -->
-            <div class="flex items-center gap-2 text-zinc-200">
+            <!-- ferrari -->
+            <div class="flex items-center text-zinc-200">
               <img
-                src="icons/lunaicon.svg"
-                alt="Steam"
-                width="18"
-                height="18"
+                src="/f1-teams/ferrari-logo.avif"
+                alt="FER"
+                width="42"
+                height="42"
               />
-              <span class="text-[13px] font-medium"> Amazon Luna </span>
+            </div>
+
+            <!-- Racing Bulls -->
+            <div class="flex items-center text-zinc-200">
+              <img
+                src="/f1-teams/rb-logo.avif"
+                alt="RB"
+                width="42"
+                height="42"
+              />
+            </div>
+
+            <!-- Mclaren -->
+            <div class="flex items-center text-zinc-200">
+              <img
+                src="/f1-teams/mclaren-logo.avif"
+                alt="MCL"
+                width="42"
+                height="42"
+              />
+            </div>
+
+            <!-- Alpine -->
+            <div class="flex items-center text-zinc-200">
+              <img
+                src="/f1-teams/alpine-logo.avif"
+                alt="ALP"
+                width="42"
+                height="42"
+              />
             </div>
           </div>
 
           <!-- Row 2 -->
-          <div class="flex items-center justify-center gap-x-8 mt-4">
-            <!-- Nintendo -->
-            <div class="flex items-center gap-2 text-zinc-200">
+          <div class="flex items-center justify-center gap-x-3 mt-4">
+            <!-- Hass -->
+            <div class="flex items-center text-zinc-200">
               <img
-                src="https://cdn.reicon.dev/logos/nintendo-switch/original.svg"
-                alt="Nintendo Switch"
-                width="20"
-                height="20"
+                src="/f1-teams/haas-logo.avif"
+                alt="Hass"
+                width="42"
+                height="42"
               />
-              <span class="text-[13px] font-medium"> Nintendo Games </span>
             </div>
 
-            <!-- Nintendo -->
-            <div class="flex items-center gap-2 text-zinc-200">
+            <!-- Astom Martin -->
+            <div class="flex items-center text-zinc-200">
               <img
-                src="https://cdn.reicon.dev/logos/android/original.svg"
-                alt="Android"
-                width="20"
-                height="20"
+                src="/f1-teams/aston-martin-logo.avif"
+                alt="AST"
+                width="42"
+                height="42"
               />
-              <span class="text-[13px] font-medium"> Android </span>
             </div>
 
-            <!-- Nintendo -->
-            <div class="flex items-center gap-2 text-zinc-200">
+            <!-- Williams -->
+            <div class="flex items-center text-zinc-200">
               <img
-                src="https://cdn.reicon.dev/logos/nvidia-nemotron/original.svg"
-                alt="Nvidia Nemotron"
-                width="20"
-                height="20"
+                src="/f1-teams/2026-williams-logo.avif"
+                alt="WLM"
+                width="42"
+                height="42"
               />
-              <span class="text-[13px] font-medium"> Geforce Now </span>
+            </div>
+
+            <!-- Cadillac -->
+            <div class="flex items-center text-zinc-200">
+              <img
+                src="/f1-teams/cadillac-logo.avif"
+                alt="CAD"
+                width="42"
+                height="42"
+              />
+            </div>
+
+            <!-- AUDI -->
+            <div class="flex items-center text-zinc-200">
+              <img
+                src="/f1-teams/audi-logo.avif"
+                alt="AUDI"
+                width="42"
+                height="42"
+              />
             </div>
           </div>
         </div>
 
-        <!-- Integrations: Mobile -->
+        <!-- Teams: Mobile -->
         <div class="flex md:hidden flex-col items-center w-full mt-7">
           <!-- Heading -->
           <p
             class="text-[9px] uppercase tracking-widest text-zinc-300 font-bold mb-3"
           >
-            Integrations
+            11 Teams
           </p>
 
           <!-- Row 1 -->
@@ -541,55 +561,60 @@
             <!-- Steam -->
             <div class="w-8 h-8 flex items-center justify-center">
               <img
-                src="icons/steamicon.svg"
+                src="/f1-teams/rbr-icon.png"
                 alt="Steam"
-                width="18"
-                height="18"
+                width="34"
+                height="34"
               />
             </div>
 
             <!-- Epic Games -->
             <div class="w-8 h-8 flex items-center justify-center">
               <img
-                src="icons/epicgames.webp"
-                alt="Epic Games"
-                width="18"
-                height="18"
+                src="/f1-teams/mercedes-icon.avif"
+                alt="Steam"
+                width="34"
+                height="34"
               />
             </div>
 
             <!-- Xbox -->
             <div class="w-8 h-8 flex items-center justify-center">
               <img
-                src="icons/xboxpc.webp"
-                alt="Xbox Games PC"
-                width="18"
-                height="18"
+                src="/f1-teams/ferrari-logo.avif"
+                alt="Steam"
+                width="34"
+                height="34"
               />
             </div>
 
             <!-- PlayStation -->
             <div class="w-8 h-8 flex items-center justify-center">
               <img
-                src="icons/pslogo.svg"
-                alt="PlayStation"
-                width="20"
-                height="20"
+                src="/f1-teams/rb-logo.avif"
+                alt="Steam"
+                width="34"
+                height="34"
               />
             </div>
 
             <!-- GOG -->
             <div class="w-8 h-8 flex items-center justify-center">
-              <img src="icons/gogicon.svg" alt="GOG" width="18" height="18" />
+              <img
+                src="/f1-teams/mclaren-logo.avif"
+                alt="Steam"
+                width="34"
+                height="34"
+              />
             </div>
 
             <!-- Amazon Luna -->
             <div class="w-8 h-8 flex items-center justify-center">
               <img
-                src="icons/lunaicon.svg"
-                alt="Amazon Luna"
-                width="18"
-                height="18"
+                src="/f1-teams/alpine-logo.avif"
+                alt="Steam"
+                width="34"
+                height="34"
               />
             </div>
           </div>
@@ -599,30 +624,48 @@
             <!-- Nintendo -->
             <div class="w-8 h-8 flex items-center justify-center">
               <img
-                src="https://cdn.reicon.dev/logos/nintendo-switch/original.svg"
-                alt="Nintendo Switch"
-                width="20"
-                height="20"
+                src="/f1-teams/haas-logo.avif"
+                alt="Steam"
+                width="34"
+                height="34"
               />
             </div>
 
             <!-- Android -->
             <div class="w-8 h-8 flex items-center justify-center">
               <img
-                src="https://cdn.reicon.dev/logos/android/original.svg"
-                alt="Android"
-                width="20"
-                height="20"
+                src="/f1-teams/aston-martin-logo.avif"
+                alt="Steam"
+                width="34"
+                height="34"
               />
             </div>
 
             <!-- GeForce Now -->
             <div class="w-8 h-8 flex items-center justify-center">
               <img
-                src="https://cdn.reicon.dev/logos/nvidia-nemotron/original.svg"
-                alt="GeForce Now"
-                width="20"
-                height="20"
+                src="/f1-teams/2026-williams-logo.avif"
+                alt="Steam"
+                width="34"
+                height="34"
+              />
+            </div>
+
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img
+                src="/f1-teams/cadillac-logo.avif"
+                alt="Steam"
+                width="34"
+                height="34"
+              />
+            </div>
+
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img
+                src="/f1-teams/audi-logo.avif"
+                alt="Steam"
+                width="34"
+                height="34"
               />
             </div>
           </div>
@@ -675,7 +718,7 @@
           >
             <span
               class="font-serif text-[17px] md:text-[20px] font-medium text-white tracking-tight"
-              >4</span
+              >6</span
             >
             <span class="text-[9px] md:text-[13px] text-zinc-300 font-medium"
               >Tyre Compounds</span
@@ -696,23 +739,23 @@
       const config = {
         colors: [
           {
-            color: "#000000",
+            color: "#09090B",
             enabled: true,
           },
           {
-            color: "#6C5CE7",
+            color: "#180709",
             enabled: true,
           },
           {
-            color: "#0F0025",
+            color: "#2A080B",
             enabled: true,
           },
           {
-            color: "#14080A",
+            color: "#400B0F",
             enabled: true,
           },
           {
-            color: "#001129",
+            color: "#5A1014",
             enabled: true,
           },
         ],
