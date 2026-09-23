@@ -130,6 +130,33 @@ function setupPasswordToggle(buttonId, inputId) {
 }
 
 // ==========================================
+// Password Visibilty Eye
+// ==========================================
+
+function setupPasswordToggle(buttonId, inputId) {
+  const button = document.getElementById(buttonId);
+  const input = document.getElementById(inputId);
+
+  if (!button || !input) return;
+
+  button.addEventListener("click", () => {
+    const icon = button.querySelector("i");
+
+    if (input.type === "password") {
+      input.type = "text";
+      button.setAttribute("aria-label", "Hide password");
+      icon.setAttribute("data-lucide", "eye-off");
+    } else {
+      input.type = "password";
+      button.setAttribute("aria-label", "Show password");
+      icon.setAttribute("data-lucide", "eye");
+    }
+
+    lucide.createIcons();
+  });
+}
+
+// ==========================================
 // SIGNUP PASSWORD
 // ==========================================
 
@@ -146,3 +173,11 @@ setupPasswordToggle("toggleSignupConfirmPassword", "signupConfirmPassword");
 // ==========================================
 
 setupPasswordToggle("toggleSigninPassword", "signinPassword");
+
+setupPasswordToggle("toggleSignupPassword", "signupPassword");
+setupPasswordToggle("toggleSignupConfirmPassword", "signupConfirmPassword");
+
+setupPasswordToggle("toggleSigninPassword", "signinPassword");
+
+setupPasswordToggle("toggleResetPassword", "resetPassword");
+setupPasswordToggle("toggleResetConfirmPassword", "resetConfirmPassword");
