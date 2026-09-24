@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Laps Account | Manage your Profile</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/reicon@latest/cdn/reicon.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: #080808;
+        color: #ffffff;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #080808;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #303030;
+        border-radius: 10px;
+      }
+
+      .panel {
+        background: #151515;
+        border: 1px solid #292929;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.025),
+          0 0 0 1px rgba(255, 255, 255, 0.015);
+      }
+
+      .panel-hover:hover {
+        border-color: #3a3a3a;
+        background: #171717;
+      }
+
+      .grid-bg {
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px
+          );
+        background-size: 32px 32px;
+      }
+    </style>
+    <style>
+      /* Hide scrollbar, keep scrolling */
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      html {
+        scrollbar-width: none;
+      }
+
+      body {
+        -ms-overflow-style: none;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen">
+    <!-- =====================================================
+       APP
+  ====================================================== -->
+
+    <!-- Extreme Left Panel -->
+    <div class="min-h-screen flex">
+      <aside
+        class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[278px] bg-[#09090b] border-r border-[#B6B6B6]/15 z-50"
+      >
+        <div class="w-full flex">
+          <!-- ICON RAIL -->
+
+          <div
+            class="w-[58px] border-r border-[#B6B6B6]/15 flex flex-col items-center"
+          >
+            <!-- Logo -->
+
+            <div
+              class="h-[54px] w-full flex items-center justify-center border-b border-[#242424]"
+            >
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center">
+                <img
+                  src="/branding/lapslogoicon.png"
+                  alt="Logo"
+                  class="w-full h-full object-contain"
+                />
+              </div>
+            </div>
+
+            <!-- Extreme Left: Navigation icons -->
+            <div class="flex flex-col items-center gap-1.5 pt-4">
+              <!-- 1. Dashboard -->
+              <button
+                class="w-8 h-8 rounded-lg bg-[#242424] flex items-center justify-center text-white transition-colors"
+                title="Dashboard"
+              >
+                <img
+                  src="/website-icons/home.svg"
+                  alt=""
+                  width="18"
+                  height="18"
+                />
+              </button>
+
+              <!-- 2. Resources -->
+              <button
+                class="w-8 h-8 rounded-lg flex items-center justify-center text-[#777] hover:text-white hover:bg-[#181818] transition-colors"
+                title="Analytics"
+              >
+                <img
+                  src="/website-icons/graph.svg"
+                  alt=""
+                  width="18"
+                  height="18"
+                />
+              </button>
+
+              <!-- 3. Settings -->
+              <button
+                class="w-8 h-8 rounded-lg flex items-center justify-center text-[#777] hover:text-white hover:bg-[#181818] transition-colors"
+                title="Settings"
+              >
+                <img
+                  src="/website-icons/settings.svg"
+                  alt=""
+                  width="18"
+                  height="10"
+                />
+              </button>
+            </div>
+
+            <!-- Bottom profile -->
+            <div class="mt-auto mb-5">
+                <a
+                  href="profile.html"
+                  class="block w-8 h-8 rounded-full overflow-hidden border border-[#333] hover:border-[#555] transition"
+                >
+                  <img
+                    src="/public/website-icons/avatar.png"
+                    class="w-full h-full object-cover"
+                    alt="Profile"
+                  />
+                </a>
+              </div>
+          </div>
+
+          <!-- SIDEBAR MENU CONTENT -->
+          <div class="flex-1 flex flex-col">
+            <!--Team Name -->
+            <div
+              class="h-[54px] px-3 flex items-center border-b border-[#242424]"
+            >
+              <div
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 mr-2"
+              ></div>
+
+              <span class="text-sm font-semibold"> Acme Inc </span>
+
+              <i
+                data-lucide="chevrons-up-down"
+                class="w-3.5 ml-2 text-[#666]"
+              ></i>
+            </div>
+
+            <!-- A. Overview -->
+            <div class="px-3 py-5 overflow-y-auto">
+              <p
+                class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wide px-1 mb-2"
+              >
+                Overview
+              </p>
+
+              <nav class="space-y-1">
+                <a
+                  href="/home/overview/race-overview.html"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
+                >
+                  <re-icon
+                    icon="arrows-right"
+                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
+                  ></re-icon>
+                  Race Overview
+                </a>
+
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
+                >
+                  <re-icon
+                    icon="arrows-right"
+                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
+                  ></re-icon>
+                  Pre-Race Analysis
+                </a>
+
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
+                >
+                  <re-icon
+                    icon="arrows-right"
+                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
+                  ></re-icon>
+                  Live Race Strategy
+                </a>
+
+                <a
+                  href="/home/overview/tyre-intelligence.html"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
+                >
+                  <re-icon
+                    icon="arrows-right"
+                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
+                  ></re-icon>
+                  Tyre Intelligence
+                </a>
+              </nav>
+            </div>
+
+            <!-- B. Strategy -->
+            <div class="px-3 py-5 overflow-y-auto">
+              <p
+                class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wide px-1 mb-2"
+              >
+                Strategy
+              </p>
+
+              <nav class="space-y-1">
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
+                >
+                  <re-icon
+                    icon="arrows-right"
+                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
+                  ></re-icon>
+                  Pit Strategy
+                </a>
+
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
+                >
+                  <re-icon
+                    icon="arrows-right"
+                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
+                  ></re-icon>
+                  Car Performance
+                </a>
+
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
+                >
+                  <re-icon
+                    icon="arrows-right"
+                    class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"
+                  ></re-icon>
+                  Race Simulator
+                </a>
+              </nav>
+            </div>
+
+            <!-- C. System -->
+            <div class="px-3 py-5 overflow-y-auto">
+              <p
+                class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wide px-1 mb-2"
+              >
+                System
+              </p>
+
+              <nav class="space-y-1">
+                <a
+                  href="#"
+                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
+                >
+                  <re-icon
+                    icon="arrows-right"
+                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
+                  ></re-icon>
+                  Model Analysis
+                </a>
+              </nav>
+            </div>
+
+            <!-- Bottom card -->
+            <div class="mt-auto p-3">
+              <div class="rounded-[12px] bg-[#141416] p-3">
+                <p class="text-[13px] font-medium mb-2">Explore FastF1</p>
+
+                <p class="text-[12px] text-[#B6B6B6]">
+                  FastF1 is a open source telemetry F1 database.
+                </p>
+
+                <img
+                  src="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=500&auto=format&fit=crop"
+                  class="w-full h-[92px] object-cover rounded-lg mt-4 opacity-90"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ===================================================
+         MAIN AREA
+      ==================================================== -->
+
+      <div class="flex-1 lg:ml-[278px] min-w-0">
+        <!-- =================================================
+           TOP BAR
+        ================================================== -->
+
+        <header
+          class="h-[54px] border-b border-[#B6B6B6]/15 bg-[#09090b] fixed top-0 left-0 lg:left-[278px] right-0 z-40 flex items-center"
+        >
+          <div
+            class="px-4 lg:px-5 w-full flex items-center justify-between gap-4"
+          >
+            <!-- Breadcrumb -->
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="text-[#B6B6B6] text-sm"> Good Morning! </span>
+              <span class="text-sm font-medium"> Carlos Sainz </span>
+            </div>
+
+            <!-- Right -->
+            <div class="flex items-center gap-5">
+              <!-- Date -->
+              <div
+                class="hidden sm:flex items-center gap-2 text-[12px] text-[#FFFFFF]"
+              >
+                <re-icon
+                  icon="calendar3"
+                  weight="filled"
+                  class="w-4 h-4 text-[#888]"
+                ></re-icon>
+
+                <span id="currentDate" class="text-[#FFFFFF]">
+                  Monday, 22 Jun 2027
+                </span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!--=================================================
+           DASHBOARD
+        ================================================== -->
+        <main class="px-4 pb-4 pt-[70px] lg:px-5 lg:pb-5 lg:pt-[74px]">
+          <!-- =================================================
+            PROFILE MANAGER
+          ================================================== -->
+          <section
+            id="profileSection"
+            class="mt-0 w-full min-h-screen bg-[#090909] text-white px-1 sm:px-0 py-1"
+          >
+            <div id="profileHeader" class="mb-7">
+              <h1
+                id="profileTitle"
+                class="text-[20px] sm:text-[21px] font-semibold tracking-tight text-white"
+              >
+                Manage Profile
+              </h1>
+
+              <p
+                id="profileDescription"
+                class="mt-1 text-[12px] sm:text-[13px] text-[#B6B6B6]"
+              >
+                Manage the identity and regional details shared across your
+                workspace memberships.
+              </p>
+            </div>
+
+            <!-- SHARED PROFILE WARNING-->
+            <div
+              id="profileShareAlert"
+              class="mb-5 rounded-[9px] border border-[#705600] bg-[#17150B] px-3 py-2.5 sm:px-3.5"
+            >
+              <div
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+              >
+                <!-- Alert content -->
+                <div class="flex items-start gap-2.5">
+                  <div
+                    id="profileAlertIcon"
+                    class="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center"
+                  >
+                    <re-icon
+                      icon="shield-check"
+                      weight="filled"
+                      class="w-4 h-4 text-[#F2C300]"
+                    ></re-icon>
+                  </div>
+
+                  <div>
+                    <p
+                      id="profileAlertTitle"
+                      class="text-[11px] sm:text-[13px] font-semibold text-white"
+                    >
+                      Profile updates are shared
+                    </p>
+
+                    <p
+                      id="profileAlertDescription"
+                      class="mt-0.5 text-[11px] sm:text-[13px] text-[#B6B6B6]"
+                    >
+                      Changes sync to mentions, approvals, and people
+                      directories in every workspace you join.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PROFILE CARD -->
+            <div
+              id="profileCard"
+              class="relative overflow-hidden rounded-[13px] bg-[#141416] mt-7"
+            >
+              <!-- Inner card content -->
+              <div id="profileCardContent" class="px-4 py-5 sm:px-7 sm:py-6">
+                <!-- PROFILE PICTURE -->
+                <section id="profilePictureSection">
+                  <div
+                    id="profilePictureHeader"
+                    class="flex items-center gap-3"
+                  >
+                    <!-- Avatar -->
+                    <div
+                      id="profileAvatarWrapper"
+                      class="relative h-[52px] w-[52px] shrink-0 overflow-hidden rounded-full border border-[#333333] bg-[#242424]"
+                    >
+                      <img
+                        id="profileAvatar"
+                        src="/public/website-icons/avatar.png"
+                        alt="Profile picture"
+                        class="h-full w-full object-cover"
+                      />
+                    </div>
+
+                    <!-- Profile picture text -->
+                    <div id="profilePictureInfo">
+                      <p
+                        id="profilePictureTitle"
+                        class="text-[15px] font-semibold text-white"
+                      >
+                        Profile Picture
+                      </p>
+
+                      <p
+                        id="profilePictureDescription"
+                        class="mt-0.5 text-[13px] sm:text-[13px] text-[#B6B6B6]"
+                      >
+                        We only support PNGs, JPGS and JPEGs under 5MB.
+                      </p>
+
+                      <!-- Upload / Delete -->
+                      <div
+                        id="profilePictureActions"
+                        class="mt-2 flex items-center gap-2"
+                      >
+                        <button
+                          id="uploadProfilePicture"
+                          type="button"
+                          class="inline-flex h-7 items-center gap-1.5 rounded-[6px] bg-[#E8E8E8] px-2.5 text-[10px] sm:text-[11px] font-medium text-[#202020] hover:bg-white transition"
+                        >
+                          <re-icon
+                            icon="upload3"
+                            weight="filled"
+                            class="w-3.5 h-3.5"
+                          ></re-icon>
+                          Upload
+                        </button>
+
+                        <button
+                          id="deleteProfilePicture"
+                          type="button"
+                          aria-label="Delete profile picture"
+                          class="flex h-7 w-7 items-center justify-center rounded-[6px] bg-[#3A1A1A] text-[#D75A5A] hover:bg-[#4A2020] transition"
+                        >
+                          <re-icon
+                            icon="trash2"
+                            weight="filled"
+                            class="w-3.5 h-3.5"
+                          ></re-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- Divider -->
+                <div
+                  id="profileDividerOne"
+                  class="my-5 h-px bg-[#242425]"
+                ></div>
+
+                <!-- BASIC DETAILS -->
+                <section id="basicDetailsSection">
+                  <div id="basicDetailsHeader" class="mb-4">
+                    <h2
+                      id="basicDetailsTitle"
+                      class="text-[15px] font-semibold text-white"
+                    >
+                      Basic Details
+                    </h2>
+
+                    <p
+                      id="basicDetailsDescription"
+                      class="mt-1 text-[11px] sm:text-[13px] text-[#B6B6B6]"
+                    >
+                      Keep your contact and identity fields current.
+                    </p>
+                  </div>
+
+                  <div
+                    id="basicDetailsGrid"
+                    class="grid grid-cols-1 sm:grid-cols-3 gap-x-5 gap-y-4"
+                  >
+                    <!-- First Name -->
+                    <div id="firstNameField">
+                      <label
+                        for="firstName"
+                        class="mb-1.5 block text-[14px] font-semibold text-[#E5E5E5]"
+                      >
+                        First Name
+                      </label>
+
+                      <input
+                        id="firstName"
+                        type="text"
+                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#242425] bg-[#202020]/40 px-2.5 text-[11px] sm:text-[13px] text-white outline-none focus:border-[#666666]"
+                      />
+                    </div>
+
+                    <!-- Last Name -->
+                    <div id="lastNameField">
+                      <label
+                        for="lastName"
+                        class="mb-1.5 block text-[14px] font-semibold text-[#E5E5E5]"
+                      >
+                        Last Name
+                      </label>
+
+                      <input
+                        id="lastName"
+                        type="text"
+                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#242425] bg-[#202020]/40 px-2.5 text-[11px] sm:text-[13px] text-white placeholder-[#777777] outline-none focus:border-[#666666]"
+                      />
+                    </div>
+
+                    <!-- Primary Email -->
+                    <div id="primaryEmailField">
+                      <label
+                        for="primaryEmail"
+                        class="mb-1.5 block text-[14px] font-semibold text-[#E5E5E5]"
+                      >
+                        Primary Email Address
+                      </label>
+
+                      <input
+                        id="primaryEmail"
+                        type="email"
+                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#242425] bg-[#202020]/40 px-2.5 pr-9 text-[11px] sm:text-[13px] text-white outline-none focus:border-[#666666]"
+                      />
+
+                      <p
+                        id="primaryEmailHelp"
+                        class="mt-1.5 text-[10px] sm:text-[12px] text-[#777777]"
+                      >
+                        Used for sign-in, recovery, and workspace notices.
+                      </p>
+                    </div>
+
+                    <!-- Preferred Name -->
+                    <div id="preferredNameField">
+                      <label
+                        for="preferredName"
+                        class="mb-1.5 block text-[14px] font-semibold text-[#E5E5E5]"
+                      >
+                        Preferred Name
+                      </label>
+
+                      <input
+                        id="preferredName"
+                        type="text"
+                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#242425] bg-[#202020]/40 px-2.5 pr-9 text-[11px] sm:text-[13px] text-white outline-none focus:border-[#666666]"
+                      />
+                    </div>
+
+                    <!-- Username -->
+                    <div id="usernameField">
+                      <label
+                        for="username"
+                        class="mb-1.5 block text-[14px] font-semibold text-[#E5E5E5]"
+                      >
+                        Username
+                      </label>
+
+                      <input
+                        id="username"
+                        type="text"
+                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#242425] bg-[#202020]/40 px-2.5 pr-9 text-[11px] sm:text-[13px] text-white outline-none focus:border-[#666666]"
+                      />
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <!-- BOTTOM ACTION BAR -->
+              <div
+                id="profileActionBar"
+                class="border-t border-[#242425] bg-[#141416] px-4 py-3 sm:px-7"
+              >
+                <div
+                  class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+                >
+                  <p
+                    id="profileSaveDescription"
+                    class="text-[10px] sm:text-[13px] text-[#999999]"
+                  >
+                    Save once to update your shared profile across every
+                    workspace.
+                  </p>
+
+                  <div
+                    id="profileActionButtons"
+                    class="flex items-center justify-end gap-2"
+                  >
+                    <button
+                      id="resetProfileButton"
+                      type="button"
+                      class="h-7 rounded-[6px] border border-[#242425] bg-[#141416] px-2.5 text-[10px] sm:text-[12px] font-medium text-[#D0D0D0] hover:bg-[#2D2D2D] transition"
+                    >
+                      Reset
+                    </button>
+
+                    <button
+                      id="saveProfileButton"
+                      type="button"
+                      class="h-7 rounded-[6px] bg-[#E8E8E8] px-2.5 text-[10px] sm:text-[12px] font-medium text-[#202020] hover:bg-white transition"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/js/page-transition.js"></script>
+  </body>
+</html>
