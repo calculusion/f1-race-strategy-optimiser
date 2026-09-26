@@ -136,19 +136,15 @@
     <!-- Extreme Left Panel -->
     <div class="min-h-screen flex">
       <aside
-        class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[278px] bg-[#09090b] border-r border-[#B6B6B6]/15 z-50"
+        class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[265px] bg-[#09090b] border-r border-[#B6B6B6]/15 z-50"
       >
         <div class="w-full flex">
           <!-- ICON RAIL -->
 
-          <div
-            class="w-[58px] bg-[#171717] flex flex-col items-center"
-          >
+          <div class="w-[58px] bg-[#171717] flex flex-col items-center">
             <!-- Logo -->
 
-            <div
-              class="h-[54px] w-full flex items-center justify-center"
-            >
+            <div class="h-[54px] w-full flex items-center justify-center">
               <div class="w-6 h-6 rounded-lg flex items-center justify-center">
                 <img
                   src="/branding/lapslogoicon.png"
@@ -162,42 +158,60 @@
             <div class="flex flex-col items-center gap-1.5 pt-4">
               <!-- 1. Dashboard -->
               <button
-                class="w-7 h-7 rounded-lg flex items-center justify-center text-[#777] hover:text-white hover:bg-[#B6B6B6]/10 transition-colors"
-
+                class="w-7 h-7 rounded-lg flex items-center justify-center text-white hover:text-white hover:bg-[#B6B6B6]/10 transition-colors"
                 title="Dashboard"
               >
-                <img
-                  src="/website-icons/home.svg"
-                  alt=""
-                  width="16"
-                  height="16"
-                />
+                <re-icon
+                  icon="home-smile2"
+                  class="w-4 h-4 text-white"
+                ></re-icon>
               </button>
 
-              <!-- 2. Resources -->
+              <!-- 2. Pipeline -->
               <button
-                class="w-7 h-7 rounded-lg flex items-center justify-center text-[#777] hover:text-white hover:bg-[#B6B6B6]/10 transition-colors"
-                title="Analytics"
+                class="w-7 h-7 rounded-lg flex items-center justify-center text-white hover:text-white hover:bg-[#B6B6B6]/10 transition-colors"
+                title="Pipeline"
               >
-                <img
-                  src="/website-icons/graph.svg"
-                  alt=""
-                  width="16"
-                  height="16"
-                />
+                <re-icon
+                  icon="circle-graph"
+                  class="w-4 h-4 text-white"
+                ></re-icon>
               </button>
 
-              <!-- 3. Settings -->
+              <!-- 3. Activities -->
               <button
-                class="w-7 h-7 rounded-lg flex items-center justify-center text-[#777] hover:text-white hover:bg-[#B6B6B6]/10 transition-colors"
+                class="w-7 h-7 rounded-lg flex items-center justify-center text-white hover:text-white hover:bg-[#B6B6B6]/10 transition-colors"
+                title="Activities"
+              >
+                <re-icon icon="wave-pulse" class="w-4 h-4 text-white"></re-icon>
+              </button>
+
+              <!-- 4. Team -->
+              <button
+                class="w-7 h-7 rounded-lg flex items-center justify-center text-white hover:text-white hover:bg-[#B6B6B6]/10 transition-colors"
+                title="Team"
+              >
+                <re-icon icon="users" class="w-4 h-4 text-white"></re-icon>
+              </button>
+
+              <!-- 4. Reports -->
+              <button
+                class="w-7 h-7 rounded-lg flex items-center justify-center text-white hover:text-white hover:bg-[#B6B6B6]/10 transition-colors"
+                title="Reports"
+              >
+                <re-icon
+                  icon="course-up"
+                  weight="filled"
+                  class="w-4 h-4 text-white"
+                ></re-icon>
+              </button>
+
+              <!-- 6. Settings -->
+              <button
+                class="w-7 h-7 rounded-lg flex items-center justify-center text-white bg-[#B6B6B6]/10"
                 title="Settings"
               >
-                <img
-                  src="/website-icons/settings.svg"
-                  alt=""
-                  width="17"
-                  height="17"
-                />
+                <re-icon icon="gear" class="w-4 h-4"></re-icon>
               </button>
             </div>
 
@@ -220,13 +234,13 @@
           <div class="flex-1 flex flex-col">
             <!--Team Name -->
             <div
-              class="h-[54px] px-3 flex items-center border-b border-[#242424]"
+              class="h-[50px] px-3 flex items-center border-b border-[#242424]"
             >
               <div
                 class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 mr-2"
               ></div>
 
-              <span class="text-sm font-semibold"> Acme Inc </span>
+              <span class="text-[13px] font-semibold"> Laps Dashboard</span>
 
               <i
                 data-lucide="chevrons-up-down"
@@ -234,101 +248,46 @@
               ></i>
             </div>
 
-            <!-- A. Overview -->
+            <!-- A. Workspace -->
             <div class="px-3 py-5 overflow-y-auto">
               <p
-                class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wide px-1 mb-2"
+                class="text-[10px] font-semibold text-[#B6B6B6] uppercase tracking-wide px-1 mb-1"
               >
-                Overview
+                Workspace
               </p>
 
-              <nav class="space-y-1">
+              <nav class="space-y-0.5">
                 <a
-                  href="/home/overview/race-overview.html"
-                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
+                  href="profile.html"
+                  class="group flex items-center gap-0.5 px-1.5 py-1 rounded-md text-[12px] font-medium text-white hover:bg-[#171717] hover:text-[#FFFFFF]"
                 >
                   <re-icon
-                    icon="arrows-right"
-                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
+                    icon="arrow-right-down"
+                    class="w-6 text-white group-hover:text-white"
                   ></re-icon>
-                  Race Overview
+                  Manage Profile
                 </a>
 
                 <a
-                  href="#"
-                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
+                  href=""
+                  class="group flex items-center gap-0.5 px-1.5 py-1 rounded-md text-[12px] font-medium text-white hover:bg-[#171717] hover:text-[#FFFFFF]"
                 >
                   <re-icon
-                    icon="arrows-right"
-                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
+                    icon="arrow-right-down"
+                    class="w-6 text-white group-hover:text-white"
                   ></re-icon>
-                  Pre-Race Analysis
+                  Team Members
                 </a>
 
                 <a
-                  href="#"
-                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
+                  href=""
+                  class="group flex items-center gap-0,5 px-1.5 py-1 rounded-md text-[12px] font-medium text-white hover:bg-[#171717] hover:text-[#FFFFFF]"
                 >
                   <re-icon
-                    icon="arrows-right"
-                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
+                    icon="arrow-right-down"
+                    class="w-6 text-white group-hover:text-white"
                   ></re-icon>
-                  Live Race Strategy
-                </a>
-
-                <a
-                  href="/home/overview/tyre-intelligence.html"
-                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
-                >
-                  <re-icon
-                    icon="arrows-right"
-                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
-                  ></re-icon>
-                  Tyre Intelligence
-                </a>
-              </nav>
-            </div>
-
-            <!-- B. Strategy -->
-            <div class="px-3 py-5 overflow-y-auto">
-              <p
-                class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wide px-1 mb-2"
-              >
-                Strategy
-              </p>
-
-              <nav class="space-y-1">
-                <a
-                  href="#"
-                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
-                >
-                  <re-icon
-                    icon="arrows-right"
-                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
-                  ></re-icon>
-                  Pit Strategy
-                </a>
-
-                <a
-                  href="#"
-                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
-                >
-                  <re-icon
-                    icon="arrows-right"
-                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
-                  ></re-icon>
-                  Car Performance
-                </a>
-
-                <a
-                  href="#"
-                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
-                >
-                  <re-icon
-                    icon="arrows-right"
-                    class="w-5 text-[#B6B6B6] group-hover:text-[#FFFFFF]"
-                  ></re-icon>
-                  Race Simulator
+                  Latest Updates
                 </a>
               </nav>
             </div>
@@ -336,40 +295,65 @@
             <!-- C. System -->
             <div class="px-3 py-5 overflow-y-auto">
               <p
-                class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wide px-1 mb-2"
+                class="text-[10px] font-semibold text-[#B6B6B6] uppercase tracking-wide px-1 mb-1"
               >
-                System
+                Project
               </p>
 
-              <nav class="space-y-1">
+              <nav class="space-y-0.5">
                 <a
-                  href="#"
-                  class="group flex items-center gap-1 px-2 py-1.5 rounded-md text-[13px] font-medium text-zinc-400 hover:bg-[#141416] hover:text-[#FFFFFF]"
+                  href="profile.html"
+                  class="group flex items-center gap-0.5 px-1.5 py-1 rounded-md text-[12px] font-medium text-white hover:bg-[#171717] hover:text-[#FFFFFF]"
                 >
                   <re-icon
-                    icon="arrows-right"
-                    class="w-5 text-zinc-400 group-hover:text-[#FFFFFF]"
+                    icon="arrow-right-down"
+                    class="w-6 text-white group-hover:text-white"
                   ></re-icon>
-                  Model Analysis
+                  Issues & Bugs
+                </a>
+
+                <a
+                  href=""
+                  class="group flex items-center gap-0.5 px-1.5 py-1 rounded-md text-[12px] font-medium text-white hover:bg-[#171717] hover:text-[#FFFFFF]"
+                >
+                  <re-icon
+                    icon="arrow-right-down"
+                    class="w-6 text-white group-hover:text-white"
+                  ></re-icon>
+                  API Keys
+                </a>
+
+                <a
+                  href=""
+                  class="group flex items-center gap-0,5 px-1.5 py-1 rounded-md text-[12px] font-medium text-white hover:bg-[#171717] hover:text-[#FFFFFF]"
+                >
+                  <re-icon
+                    icon="arrow-right-down"
+                    class="w-6 text-white group-hover:text-white"
+                  ></re-icon>
+                  Webhooks
                 </a>
               </nav>
             </div>
 
             <!-- Bottom card -->
             <div class="mt-auto p-3">
-              <div class="rounded-[12px] bg-[#171717] border border-[#2E2F2F] p-3">
-                <p class="text-[12px] font-medium mb-1">Explore FastF1</p>
-
+              <a
+                href="https://docs.fastf1.dev/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block rounded-[12px] bg-[#171717] border border-[#2E2F2F] p-3"
+              >
+                <p class="text-[12px] font-medium mb-1">Documentation</p>
                 <p class="text-[12px] text-[#B6B6B6]">
-                  FastF1 is a open source telemetry F1 database.
+                  Read the project idea and research on mintlify.
                 </p>
-
                 <img
                   src="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=500&auto=format&fit=crop"
                   class="w-full h-[92px] object-cover rounded-lg mt-4 opacity-90"
                   alt=""
                 />
-              </div>
+              </a>
             </div>
           </div>
         </div>
@@ -385,15 +369,15 @@
         ================================================== -->
 
         <header
-          class="h-[54px] border-b border-[#B6B6B6]/15 bg-[#09090b] fixed top-0 left-0 lg:left-[278px] right-0 z-40 flex items-center"
+          class="h-[50px] border-b border-[#2E2F2F]/80 bg-[#09090b] fixed top-0 left-0 lg:left-[265px] right-0 z-40 flex items-center"
         >
           <div
-            class="px-4 lg:px-5 w-full flex items-center justify-between gap-4"
+            class="px-4 lg:px-6 w-full flex items-center justify-between gap-4"
           >
             <!-- Breadcrumb -->
             <div class="flex items-center gap-2 min-w-0">
-              <span class="text-[#B6B6B6] text-sm"> Good Morning! </span>
-              <span class="text-sm font-medium"> Carlos Sainz </span>
+              <span class="text-[#B6B6B6] text-[13px]"> Good Morning! </span>
+              <span class="text-[13px] font-medium"> Carlos Sainz </span>
             </div>
 
             <!-- Right -->
@@ -419,18 +403,20 @@
         <!--=================================================
            DASHBOARD
         ================================================== -->
-        <main class="px-4 pb-4 pt-[70px] lg:px-5 lg:pb-5 lg:pt-[74px]">
+        <main
+          class="pl-4 pr-4 pb-4 pt-[70px] lg:pl-3 lg:pr-5 lg:pb-5 lg:pt-[64px]"
+        >
           <!-- =================================================
             PROFILE MANAGER
           ================================================== -->
           <section
             id="profileSection"
-            class="mt-0 w-full min-h-screen bg-[#090909] text-white px-1 sm:px-0 py-1"
+            class="mt-0 w-full bg-[#090909] text-white px-1 sm:px-0 py-1"
           >
             <div id="profileHeader" class="mb-7">
               <h1
                 id="profileTitle"
-                class="text-[20px] sm:text-[21px] font-semibold tracking-tight text-white"
+                class="text-[20px] sm:text-[18px] font-semibold tracking-tight text-white"
               >
                 Manage Profile
               </h1>
@@ -488,7 +474,7 @@
             <!-- PROFILE CARD -->
             <div
               id="profileCard"
-              class="relative overflow-hidden rounded-[13px] bg-[#141416] mt-7"
+              class="relative overflow-hidden rounded-[13px] bg-[#171717] border border-[#2E2F2F] mt-7"
             >
               <!-- Inner card content -->
               <div id="profileCardContent" class="px-4 py-5 sm:px-7 sm:py-6">
@@ -501,7 +487,7 @@
                     <!-- Avatar -->
                     <div
                       id="profileAvatarWrapper"
-                      class="relative h-[52px] w-[52px] shrink-0 overflow-hidden rounded-full border border-[#333333] bg-[#242424]"
+                      class="relative h-[52px] w-[52px] shrink-0 overflow-hidden rounded-full border border-[#2E2F2F] bg-[#242424]"
                     >
                       <img
                         id="profileAvatar"
@@ -565,7 +551,7 @@
                 <!-- Divider -->
                 <div
                   id="profileDividerOne"
-                  class="my-5 h-px bg-[#242425]"
+                  class="my-5 h-px bg-[#2E2F2F]/60"
                 ></div>
 
                 <!-- BASIC DETAILS -->
@@ -602,7 +588,7 @@
                       <input
                         id="firstName"
                         type="text"
-                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#242425] bg-[#202020]/40 px-2.5 text-[11px] sm:text-[13px] text-white outline-none focus:border-[#666666]"
+                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#424242] bg-[#212121] px-2.5 text-[11px] sm:text-[13px] text-white outline-none focus:border-[#666666]"
                       />
                     </div>
 
@@ -618,7 +604,7 @@
                       <input
                         id="lastName"
                         type="text"
-                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#242425] bg-[#202020]/40 px-2.5 text-[11px] sm:text-[13px] text-white placeholder-[#777777] outline-none focus:border-[#666666]"
+                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#424242] bg-[#212121] px-2.5 text-[11px] sm:text-[13px] text-white placeholder-[#777777] outline-none focus:border-[#666666]"
                       />
                     </div>
 
@@ -634,15 +620,8 @@
                       <input
                         id="primaryEmail"
                         type="email"
-                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#242425] bg-[#202020]/40 px-2.5 pr-9 text-[11px] sm:text-[13px] text-white outline-none focus:border-[#666666]"
+                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#424242] bg-[#212121] px-2.5 pr-9 text-[11px] sm:text-[13px] text-white outline-none focus:border-[#666666]"
                       />
-
-                      <p
-                        id="primaryEmailHelp"
-                        class="mt-1.5 text-[10px] sm:text-[12px] text-[#777777]"
-                      >
-                        Used for sign-in, recovery, and workspace notices.
-                      </p>
                     </div>
 
                     <!-- Preferred Name -->
@@ -657,7 +636,7 @@
                       <input
                         id="preferredName"
                         type="text"
-                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#242425] bg-[#202020]/40 px-2.5 pr-9 text-[11px] sm:text-[13px] text-white outline-none focus:border-[#666666]"
+                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#424242] bg-[#212121] px-2.5 pr-9 text-[11px] sm:text-[13px] text-white outline-none focus:border-[#666666]"
                       />
                     </div>
 
@@ -673,7 +652,7 @@
                       <input
                         id="username"
                         type="text"
-                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#242425] bg-[#202020]/40 px-2.5 pr-9 text-[11px] sm:text-[13px] text-white outline-none focus:border-[#666666]"
+                        class="w-full h-7 sm:h-8 rounded-[8px] border border-[#424242] bg-[#212121] px-2.5 pr-9 text-[11px] sm:text-[13px] text-white outline-none focus:border-[#666666]"
                       />
                     </div>
                   </div>
@@ -683,7 +662,7 @@
               <!-- BOTTOM ACTION BAR -->
               <div
                 id="profileActionBar"
-                class="border-t border-[#242425] bg-[#141416] px-4 py-3 sm:px-7"
+                class="border-t border-[#2E2F2F]/90 bg-[#171717] px-4 py-3 sm:px-7"
               >
                 <div
                   class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
