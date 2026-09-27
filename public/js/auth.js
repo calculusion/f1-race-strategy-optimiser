@@ -20,6 +20,22 @@ async function authRequest(payload) {
   return data;
 }
 
+const result = await authRequest({
+  action: "signin",
+  email,
+  password,
+});
+
+console.log("API session:", result.session);
+
+const { data, error } = await supabaseClient.auth.setSession({
+  access_token: result.session.access_token,
+  refresh_token: result.session.refresh_token,
+});
+
+console.log("setSession result:", data);
+console.log("setSession error:", error);
+
 // ==========================================
 // EMAIL SIGN IN
 // ==========================================
@@ -45,10 +61,7 @@ if (signinForm) {
         throw new Error("Supabase did not return a valid session.");
       }
 
-      const { data, error } = await supabaseClient.auth.setSession({
-        access_token: result.session.access_token,
-        refresh_token: result.session.refresh_token,
-      });
+      
 
       if (error) throw error;
 
