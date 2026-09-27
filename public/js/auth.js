@@ -20,21 +20,9 @@ async function authRequest(payload) {
   return data;
 }
 
-const result = await authRequest({
-  action: "signin",
-  email,
-  password,
-});
-
-console.log("API session:", result.session);
-
-const { data, error } = await supabaseClient.auth.setSession({
-  access_token: result.session.access_token,
-  refresh_token: result.session.refresh_token,
-});
-
-console.log("setSession result:", data);
-console.log("setSession error:", error);
+// ==========================================
+// EMAIL SIGN IN
+// ==========================================
 
 // ==========================================
 // EMAIL SIGN IN
@@ -61,23 +49,28 @@ if (signinForm) {
         throw new Error("Supabase did not return a valid session.");
       }
 
-      console.log("API response:", result);
-      console.log("Session received:", result.session);
+      console.log("API session received:", !!result.session);
 
       const { data, error } = await supabaseClient.auth.setSession({
         access_token: result.session.access_token,
         refresh_token: result.session.refresh_token,
       });
 
-      console.log("Set session data:", data);
-      console.log("Set session error:", error);
-
-      const check = await supabaseClient.auth.getSession();
-      console.log("Session after saving:", check.data.session);
-
-      if (error) throw error;
+      if (error) {
+        throw error;
+      }
 
       console.log("Session established:", data.session);
+
+      const { data: sessionData, error: sessionError } =
+        await supabaseClient.auth.getSession();
+
+      console.log("Saved session:", sessionData.session);
+      console.log("Session error:", sessionError);
+
+      if (!sessionData.session) {
+        throw new Error("Session was not saved.");
+      }
 
       window.location.replace("/profile.html");
     } catch (error) {
@@ -159,40 +152,6 @@ const githubSignupBtn = document.getElementById("githubSignupBtn");
 if (githubSignupBtn) {
   githubSignupBtn.addEventListener("click", () => {
     socialLogin("github");
-  });
-}
-
-// ==========================================
-// PASSWORD VISIBILITY
-// ==========================================
-
-function setupPasswordToggle(buttonId, inputId) {
-  const button = document.getElementById(buttonId);
-  const input = document.getElementById(inputId);
-
-  if (!button || !input) {
-    return;
-  }
-
-  button.addEventListener("click", () => {
-    const isHidden = input.type === "password";
-
-    input.type = isHidden ? "text" : "password";
-
-    button.setAttribute(
-      "aria-label",
-      isHidden ? "Hide password" : "Show password",
-    );
-
-    const icon = button.querySelector("i");
-
-    if (icon) {
-      icon.setAttribute("data-lucide", isHidden ? "eye-off" : "eye");
-
-      if (window.lucide) {
-        lucide.createIcons();
-      }
-    }
   });
 }
 
