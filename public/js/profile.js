@@ -15,6 +15,7 @@ let isAvatarProcessing = false;
 // =========================================
 
 const profileAvatar = document.getElementById("profileAvatar");
+const sidebarAvatarImage = document.getElementById("sidebarAvatarImage");
 
 const profilePictureInput = document.getElementById("profilePictureInput");
 
@@ -175,36 +176,39 @@ function populateProfile(user, profile) {
 // =========================================
 
 function updateAvatarDisplay(user, profile) {
-  if (!profileAvatar) return;
+  const avatarElements = [profileAvatar, sidebarAvatarImage].filter(Boolean);
+
+  if (avatarElements.length === 0) return;
+
+  let avatarUrl = DEFAULT_AVATAR;
 
   // User explicitly removed their image.
   if (profile.avatar_removed) {
-    profileAvatar.src = DEFAULT_AVATAR;
-    return;
+    avatarUrl = DEFAULT_AVATAR;
   }
-
   // Custom uploaded image takes priority.
-  if (profile.avatar_path) {
+  else if (profile.avatar_path) {
     const { data } = supabaseClient.storage
       .from(AVATAR_BUCKET)
       .getPublicUrl(profile.avatar_path);
 
-    profileAvatar.src = data.publicUrl;
-  } else {
-    // Otherwise, use the Google or GitHub avatar.
-    profileAvatar.src = getProviderAvatar(user) || DEFAULT_AVATAR;
+    avatarUrl = data.publicUrl;
+  }
+  // Otherwise, use the Google or GitHub avatar.
+  else {
+    avatarUrl = getProviderAvatar(user) || DEFAULT_AVATAR;
   }
 
-  // Fall back to the default image if loading fails.
-  profileAvatar.onerror = () => {
-    profileAvatar.onerror = null;
-    profileAvatar.src = DEFAULT_AVATAR;
-  };
-}
+  // Update both the main profile image and sidebar image.
+  avatarElements.forEach((img) => {
+    img.onerror = () => {
+      img.onerror = null;
+      img.src = DEFAULT_AVATAR;
+    };
 
-// =========================================
-// LOAD PROFILE
-// =========================================
+    img.src = avatarUrl;
+  });
+}
 
 // =========================================
 // LOAD PROFILE
