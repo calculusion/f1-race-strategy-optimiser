@@ -19,11 +19,66 @@ document.addEventListener("DOMContentLoaded", () => {
   // Match the Tailwind lg breakpoint
   const mobileBreakpoint = 1024;
 
+  // Preserve the header's original inline styles
+  const originalHeaderStyles = header
+    ? {
+        backgroundColor: header.style.backgroundColor,
+        borderColor: header.style.borderColor,
+        backdropFilter: header.style.backdropFilter,
+      }
+    : null;
+
+  // Preserve original visibility of header elements
+  const originalVisibility = new Map();
+
+  if (header) {
+    header.querySelectorAll("*").forEach((element) => {
+      originalVisibility.set(element, element.style.visibility);
+    });
+  }
+
   // Change the menu icon
   function setMenuIcon(icon) {
     if (menuIcon) {
       menuIcon.setAttribute("icon", icon);
     }
+  }
+
+  // Make the header transparent and hide everything except
+  // the menu button and its icon.
+  function setHeaderOpen() {
+    if (!header || window.innerWidth >= mobileBreakpoint) return;
+
+    header.style.backgroundColor = "transparent";
+    header.style.borderColor = "transparent";
+    header.style.backdropFilter = "none";
+
+    header.querySelectorAll("*").forEach((element) => {
+      const isMenuButton = element === menuBtn;
+      const isMenuIcon = menuBtn.contains(element);
+      const isMenuButtonParent = element.contains(menuBtn);
+
+      if (isMenuButton || isMenuIcon || isMenuButtonParent) {
+        return;
+      }
+
+      element.style.visibility = "hidden";
+    });
+  }
+
+  // Restore the header to its original appearance
+  function setHeaderClosed() {
+    if (!header || !originalHeaderStyles) return;
+
+    header.style.backgroundColor = originalHeaderStyles.backgroundColor;
+    header.style.borderColor = originalHeaderStyles.borderColor;
+    header.style.backdropFilter = originalHeaderStyles.backdropFilter;
+
+    header.querySelectorAll("*").forEach((element) => {
+      if (originalVisibility.has(element)) {
+        element.style.visibility = originalVisibility.get(element);
+      }
+    });
   }
 
   // Open sidebar
@@ -38,11 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
     menuBtn.setAttribute("aria-label", "Close sidebar");
 
     setMenuIcon("x");
+    setHeaderOpen();
 
-    if (header && window.innerWidth < mobileBreakpoint) {
-      header.style.backgroundColor = "transparent";
-      header.style.borderColor = "transparent";
-      header.style.backdropFilter = "none";
+    if (chatbot) {
+      chatbot.style.visibility = "hidden";
+      chatbot.style.pointerEvents = "none";
     }
   }
 
@@ -58,15 +113,15 @@ document.addEventListener("DOMContentLoaded", () => {
     menuBtn.setAttribute("aria-label", "Open sidebar");
 
     setMenuIcon("menu");
+    setHeaderClosed();
 
-    if (header) {
-      header.style.backgroundColor = "";
-      header.style.borderColor = "";
-      header.style.backdropFilter = "";
+    if (chatbot) {
+      chatbot.style.visibility = "";
+      chatbot.style.pointerEvents = "";
     }
   }
 
-  // Set initial state
+  // Initial state
   if (window.innerWidth < mobileBreakpoint) {
     closeSidebar();
   } else {
@@ -78,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setMenuIcon("menu");
   }
 
-  // Toggle sidebar using the header button
+  // Toggle sidebar
   menuBtn.addEventListener("click", () => {
     const isClosed = sidebar.classList.contains("-translate-x-full");
 
@@ -89,10 +144,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Close when clicking outside the sidebar
+  // Close when clicking outside
   overlay.addEventListener("click", closeSidebar);
 
-  // Close when pressing Escape
+  // Close with Escape
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeSidebar();
@@ -126,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
       menuBtn.setAttribute("aria-label", "Open sidebar");
 
       setMenuIcon("menu");
+      setHeaderClosed();
 
       if (chatbot) {
         chatbot.style.visibility = "";
