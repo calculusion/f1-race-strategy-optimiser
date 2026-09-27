@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Laps Account | Manage Profile</title>
+    <title>Laps AccountㆍManage Profile</title>
 
     <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
 
@@ -137,7 +137,7 @@
       <!-- Extreme Left Panel -->
       <div class="min-h-screen flex">
         <aside
-          class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[265px] bg-[#0A0A0A] border-r border-[#2E2F2F]/80 z-50"
+          class="hidden -translate-x-full lg:translate-x-0 transition-transform duration-300 lg:flex fixed left-0 top-0 bottom-0 w-[265px] bg-[#0A0A0A] border-r border-[#2E2F2F]/80 z-50"
         >
           <div class="w-full flex">
             <!-- ICON RAIL -->
@@ -388,6 +388,11 @@
           </div>
         </aside>
 
+        <div
+          id="sidebarOverlay"
+          class="fixed inset-0 z-40 hidden bg-black/60 lg:hidden"
+        ></div>
+
         <!-- ===================================================
          MAIN AREA
       ==================================================== -->
@@ -404,13 +409,29 @@
               class="px-4 lg:px-6 w-full flex items-center justify-between gap-4"
             >
               <!-- Breadcrumb -->
-              <div class="flex items-center gap-1 min-w-0 text-[13px]">
-                <span class="text-[#B6B6B6] font-medium">Settings</span>
-                <re-icon
-                  icon="arrow-right2"
-                  class="w-3.5 h-3.5 text-[#B6B6B6]"
-                ></re-icon>
-                <span class="text-white font-medium">Workshop</span>
+              <div class="flex items-center gap-3 min-w-0">
+                <!-- Mobile Menu Button -->
+                <button
+                  id="sidebarToggle"
+                  type="button"
+                  aria-label="Open sidebar"
+                  aria-expanded="false"
+                  class="lg:hidden flex shrink-0 items-center justify-center w-8 h-8 rounded-md text-[#B6B6B6] hover:bg-[#191919] hover:text-white transition"
+                >
+                  <re-icon icon="menu" class="w-5 h-5"></re-icon>
+                </button>
+
+                <!-- Existing Breadcrumb -->
+                <div class="flex items-center gap-1 min-w-0 text-[13px]">
+                  <span class="text-[#B6B6B6] font-medium">Settings</span>
+
+                  <re-icon
+                    icon="arrow-right2"
+                    class="w-3.5 h-3.5 text-[#B6B6B6]"
+                  ></re-icon>
+
+                  <span class="text-white font-medium">Workshop</span>
+                </div>
               </div>
 
               <!-- Right: Quick Links -->
@@ -915,6 +936,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="/js/supabase.js"></script>
     <script src="/js/profile.js"></script>
+    <script src="/js/sidebar.js" defer></script>
     <script src="/js/page-transition.js"></script>
 
     <script type="module">
