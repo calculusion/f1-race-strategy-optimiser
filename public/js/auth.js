@@ -31,31 +31,32 @@ if (signinForm) {
     event.preventDefault();
 
     const email = document.getElementById("signinEmail").value.trim();
+
     const password = document.getElementById("signinPassword").value;
 
     try {
-      const data = await authRequest({
+      const result = await authRequest({
         action: "signin",
         email,
         password,
       });
 
-      if (!data.session) {
-        throw new Error("No session received.");
+      if (!result.session?.access_token || !result.session?.refresh_token) {
+        throw new Error("Supabase did not return a valid session.");
       }
 
-      const { error } = await supabaseClient.auth.setSession({
-        access_token: data.session.access_token,
-        refresh_token: data.session.refresh_token,
+      const { data, error } = await supabaseClient.auth.setSession({
+        access_token: result.session.access_token,
+        refresh_token: result.session.refresh_token,
       });
 
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
 
-      window.location.href = "/profile.html";
+      console.log("Session established:", data.session);
+
+      window.location.replace("/profile.html");
     } catch (error) {
-      console.error("Sign-in error:", error);
+      console.error("Manual sign-in failed:", error);
       alert(error.message || "Unable to sign in.");
     }
   });
