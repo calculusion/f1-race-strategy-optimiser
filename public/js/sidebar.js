@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuIcon = document.getElementById("mobileMenuIcon");
   const closeBtn = document.getElementById("closeSidebarBtn");
   const chatbot = document.getElementById("SavePointChatbot");
+  const header = document.getElementById("mainHeader");
 
   if (!menuBtn || !sidebar || !overlay) {
     console.error("Sidebar elements not found:", {
@@ -38,9 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setMenuIcon("x");
 
-    if (chatbot) {
-      chatbot.style.visibility = "hidden";
-      chatbot.style.pointerEvents = "none";
+    if (header && window.innerWidth < mobileBreakpoint) {
+      header.style.backgroundColor = "transparent";
+      header.style.borderColor = "transparent";
+      header.style.backdropFilter = "none";
     }
   }
 
@@ -57,9 +59,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setMenuIcon("menu");
 
-    if (chatbot) {
-      chatbot.style.visibility = "";
-      chatbot.style.pointerEvents = "";
+    if (header) {
+      header.style.backgroundColor = "";
+      header.style.borderColor = "";
+      header.style.backdropFilter = "";
     }
   }
 
