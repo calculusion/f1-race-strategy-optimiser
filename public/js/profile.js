@@ -437,6 +437,33 @@ deleteProfilePicture?.addEventListener("click", async () => {
   }
 });
 
+// LOGOUT
+const logoutButton = document.getElementById("logoutButton");
+
+if (logoutButton) {
+  logoutButton.addEventListener("click", async () => {
+    logoutButton.disabled = true;
+    logoutButton.textContent = "Logging out...";
+
+    try {
+      const { error } = await supabaseClient.auth.signOut();
+
+      if (error) {
+        throw error;
+      }
+
+      window.location.href = "/signin.html";
+    } catch (error) {
+      console.error("Logout failed:", error);
+      alert("Unable to log out. Please try again.");
+
+      logoutButton.disabled = false;
+      logoutButton.innerHTML =
+        '<re-icon icon="log-out" class="h-4 w-4"></re-icon> Log Out';
+    }
+  });
+}
+
 // =========================================
 // INITIALIZE PROFILE PAGE
 // =========================================
