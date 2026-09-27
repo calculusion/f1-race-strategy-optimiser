@@ -390,7 +390,7 @@
 
         <div
           id="sidebarOverlay"
-          class="fixed inset-0 z-40 hidden bg-black/60 lg:hidden"
+          class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-all duration-300 md:hidden"
         ></div>
 
         <!-- ===================================================
@@ -408,21 +408,25 @@
             <div
               class="px-4 lg:px-6 w-full flex items-center justify-between gap-4"
             >
-              <!-- Breadcrumb -->
+              <!-- Left: Mobile Logo / Desktop Breadcrumb -->
               <div class="flex items-center gap-3 min-w-0">
-                <!-- Mobile Menu Button -->
-                <button
-                  id="sidebarToggle"
-                  type="button"
-                  aria-label="Open sidebar"
-                  aria-expanded="false"
-                  class="lg:hidden flex shrink-0 items-center justify-center w-8 h-8 rounded-md text-[#B6B6B6] hover:bg-[#191919] hover:text-white transition"
+                <!-- Mobile Logo -->
+                <a
+                  href="/home/overview/race-overview.html"
+                  class="lg:hidden shrink-0 flex items-center"
+                  aria-label="Home"
                 >
-                  <re-icon icon="menu" class="w-5 h-5"></re-icon>
-                </button>
+                  <img
+                    src="/public/branding/lapslogobig.png"
+                    alt="Logo"
+                    class="h-5 w-auto object-contain"
+                  />
+                </a>
 
-                <!-- Existing Breadcrumb -->
-                <div class="flex items-center gap-1 min-w-0 text-[13px]">
+                <!-- Desktop Breadcrumb -->
+                <div
+                  class="hidden lg:flex items-center gap-1 min-w-0 text-[13px]"
+                >
                   <span class="text-[#B6B6B6] font-medium">Settings</span>
 
                   <re-icon
@@ -434,22 +438,25 @@
                 </div>
               </div>
 
-              <!-- Right: Quick Links -->
+              <!-- Right: Quick Links + Mobile Menu -->
               <div class="flex items-center gap-2 shrink-0">
                 <!-- Discord -->
                 <a
                   href="#"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex items-center gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
+                  aria-label="Discord"
+                  class="flex items-center justify-center sm:gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
                 >
                   <img
                     src="https://cdn.reicon.dev/logos/discord/original.svg"
-                    alt="Discord"
+                    alt=""
                     width="16"
                     height="16"
                   />
-                  <span class="text-[13px] font-medium">Discord</span>
+                  <span class="hidden sm:inline text-[13px] font-medium"
+                    >Discord</span
+                  >
                 </a>
 
                 <!-- GitHub -->
@@ -457,31 +464,52 @@
                   href="#"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex items-center gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
+                  aria-label="GitHub"
+                  class="flex items-center justify-center sm:gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
                 >
                   <img
                     src="https://cdn.reicon.dev/logos/github/original.svg"
-                    alt="Github"
+                    alt=""
                     width="16"
                     height="16"
                   />
-                  <span class="text-[13px] font-medium">GitHub</span>
+                  <span class="hidden sm:inline text-[13px] font-medium"
+                    >GitHub</span
+                  >
                 </a>
 
-                <!-- Fast F1 API -->
+                <!-- FastF1 API -->
                 <a
                   href="https://docs.fastf1.dev/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex items-center gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
+                  aria-label="FastF1 API"
+                  class="flex items-center justify-center sm:gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
                 >
                   <re-icon
                     icon="database"
                     weight="filled"
                     class="h-4 text-white"
                   ></re-icon>
-                  <span class="text-[13px] font-medium">FastF1 API</span>
+                  <span class="hidden sm:inline text-[13px] font-medium">
+                    FastF1 API
+                  </span>
                 </a>
+
+                <!-- Mobile Menu Button -->
+                <button
+                  id="mobileMenuBtn"
+                  type="button"
+                  aria-label="Open sidebar"
+                  aria-expanded="false"
+                  class="lg:hidden w-9 h-8 rounded-[10px] bg-[#171717] border border-[#252528] flex items-center justify-center text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
+                >
+                  <re-icon
+                    id="mobileMenuIcon"
+                    icon="menu"
+                    class="w-5 h-5"
+                  ></re-icon>
+                </button>
               </div>
             </div>
           </header>
