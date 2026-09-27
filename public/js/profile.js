@@ -218,37 +218,61 @@ async function loadProfile() {
   makeProfileReadOnly();
 
   try {
-    // Verify the signed-in user
     const user = await checkAuthentication();
-
     if (!user) return;
 
     currentUser = user;
 
-    // Fetch only this user's profile
-    const { data: profile, error: profileError } = await supabaseClient
-      .from("profiles")
+    const { data: existingProfile, error: fetchError } = await supabaseClient
+      .from(PROFILE_TABLE)
       .select("*")
       .eq("id", user.id)
       .maybeSingle();
 
-    if (profileError) {
-      console.error("Profile load error:", profileError);
+    if (fetchError) {
+      console.error("Profile fetch error:", fetchError);
       showProfileMessage("Unable to load profile.", true);
       return;
     }
 
+    let profile = existingProfile;
+
+    // Create a profile if one does not exist.
     if (!profile) {
-      showProfileMessage("Profile not found.", true);
-      return;
+      const { data: newProfile, error: insertError } = await supabaseClient
+        .from(PROFILE_TABLE)
+        .insert({
+          id: user.id,
+        })
+        .select()
+        .single();
+
+      if (insertError) {
+        console.error("Profile creation error:", insertError);
+        showProfileMessage(
+          "Unable to create your profile. Please check your database permissions.",
+          true,
+        );
+        return;
+      }
+
+      profile = newProfile;
     }
 
     currentProfile = profile;
 
     populateProfile(user, profile);
 
-    // Show the profile only after authentication
-    // and profile data have been verified.
+    ["fullName", "primaryEmail"].forEach((id) => {
+      const field = document.getElementById(id);
+
+      if (field) {
+        field.readOnly = true;
+        field.setAttribute("aria-readonly", "true");
+        field.classList.add("cursor-default");
+      }
+    });
+
     document.getElementById("profilePage")?.classList.remove("hidden");
   } catch (error) {
     console.error("Profile error:", error);
