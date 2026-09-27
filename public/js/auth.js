@@ -61,7 +61,19 @@ if (signinForm) {
         throw new Error("Supabase did not return a valid session.");
       }
 
-      
+      console.log("API response:", result);
+      console.log("Session received:", result.session);
+
+      const { data, error } = await supabaseClient.auth.setSession({
+        access_token: result.session.access_token,
+        refresh_token: result.session.refresh_token,
+      });
+
+      console.log("Set session data:", data);
+      console.log("Set session error:", error);
+
+      const check = await supabaseClient.auth.getSession();
+      console.log("Session after saving:", check.data.session);
 
       if (error) throw error;
 
