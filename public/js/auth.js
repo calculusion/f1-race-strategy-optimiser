@@ -24,10 +24,6 @@ async function authRequest(payload) {
 // EMAIL SIGN IN
 // ==========================================
 
-// ==========================================
-// EMAIL SIGN IN
-// ==========================================
-
 const signinForm = document.getElementById("signinForm");
 
 if (signinForm) {
@@ -39,42 +35,25 @@ if (signinForm) {
     const password = document.getElementById("signinPassword").value;
 
     try {
-      const result = await authRequest({
-        action: "signin",
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
         email,
         password,
-      });
-
-      if (!result.session?.access_token || !result.session?.refresh_token) {
-        throw new Error("Supabase did not return a valid session.");
-      }
-
-      console.log("API session received:", !!result.session);
-
-      const { data, error } = await supabaseClient.auth.setSession({
-        access_token: result.session.access_token,
-        refresh_token: result.session.refresh_token,
       });
 
       if (error) {
         throw error;
       }
 
-      console.log("Session established:", data.session);
+      console.log("Signed-in user:", data.user);
+      console.log("Session:", data.session);
 
-      const { data: sessionData, error: sessionError } =
-        await supabaseClient.auth.getSession();
-
-      console.log("Saved session:", sessionData.session);
-      console.log("Session error:", sessionError);
-
-      if (!sessionData.session) {
-        throw new Error("Session was not saved.");
+      if (!data.session) {
+        throw new Error("No session was created.");
       }
 
       window.location.replace("/profile.html");
     } catch (error) {
-      console.error("Manual sign-in failed:", error);
+      console.error("Sign-in error:", error);
       alert(error.message || "Unable to sign in.");
     }
   });
