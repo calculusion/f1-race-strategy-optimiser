@@ -21,6 +21,47 @@ async function authRequest(payload) {
 }
 
 // ==========================================
+// EMAIL SIGN IN
+// ==========================================
+
+const signinForm = document.getElementById("signinForm");
+
+if (signinForm) {
+  signinForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById("signinEmail").value.trim();
+    const password = document.getElementById("signinPassword").value;
+
+    try {
+      const data = await authRequest({
+        action: "signin",
+        email,
+        password,
+      });
+
+      if (!data.session) {
+        throw new Error("No session received.");
+      }
+
+      const { error } = await supabaseClient.auth.setSession({
+        access_token: data.session.access_token,
+        refresh_token: data.session.refresh_token,
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      window.location.href = "/profile.html";
+    } catch (error) {
+      console.error("Sign-in error:", error);
+      alert(error.message || "Unable to sign in.");
+    }
+  });
+}
+
+// ==========================================
 // SOCIAL LOGIN
 // ==========================================
 
