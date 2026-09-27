@@ -6,15 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeBtn = document.getElementById("closeSidebarBtn");
   const chatbot = document.getElementById("SavePointChatbot");
 
-  if (!menuBtn || !sidebar || !overlay) return;
+  if (!menuBtn || !sidebar || !overlay) {
+    console.error("Sidebar elements not found.");
+    return;
+  }
 
-  const mobileBreakpoint = 768;
+  const mobileBreakpoint = 1024;
 
-  // Keep the sidebar closed when a mobile page loads
-  if (window.innerWidth < mobileBreakpoint) {
-    sidebar.classList.add("-translate-x-full");
-    overlay.classList.add("opacity-0", "pointer-events-none");
-    document.body.classList.remove("overflow-hidden");
+  function setMenuIcon(icon) {
+    if (menuIcon) {
+      menuIcon.setAttribute("icon", `lucide:${icon}`);
+    }
   }
 
   function openSidebar() {
@@ -24,9 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.classList.add("overflow-hidden");
 
-    if (menuIcon) {
-      menuIcon.setAttribute("icon", "lucide:x");
-    }
+    menuBtn.setAttribute("aria-expanded", "true");
+    menuBtn.setAttribute("aria-label", "Close sidebar");
+
+    setMenuIcon("x");
 
     if (chatbot) {
       chatbot.style.visibility = "hidden";
@@ -41,14 +44,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.classList.remove("overflow-hidden");
 
-    if (menuIcon) {
-      menuIcon.setAttribute("icon", "lucide:menu");
-    }
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.setAttribute("aria-label", "Open sidebar");
+
+    setMenuIcon("menu");
 
     if (chatbot) {
       chatbot.style.visibility = "";
       chatbot.style.pointerEvents = "";
     }
+  }
+
+  // Set initial state
+  if (window.innerWidth < mobileBreakpoint) {
+    closeSidebar();
+  } else {
+    sidebar.classList.remove("-translate-x-full");
+    overlay.classList.add("opacity-0", "pointer-events-none");
+    setMenuIcon("menu");
   }
 
   // Toggle sidebar
@@ -60,22 +73,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Close when clicking outside the sidebar
+  // Close when clicking the overlay
   overlay.addEventListener("click", closeSidebar);
 
   // Close when pressing Escape
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
       closeSidebar();
     }
   });
 
-  // Close button inside the sidebar
+  // Close using an optional button inside the sidebar
   if (closeBtn) {
     closeBtn.addEventListener("click", closeSidebar);
   }
 
-  // Close sidebar after selecting a navigation link on mobile
+  // Close after selecting a navigation link on mobile
   sidebar.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
       if (window.innerWidth < mobileBreakpoint) {
@@ -88,12 +101,15 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", () => {
     if (window.innerWidth >= mobileBreakpoint) {
       sidebar.classList.remove("-translate-x-full");
+
       overlay.classList.add("opacity-0", "pointer-events-none");
+
       document.body.classList.remove("overflow-hidden");
 
-      if (menuIcon) {
-        menuIcon.setAttribute("icon", "lucide:menu");
-      }
+      menuBtn.setAttribute("aria-expanded", "false");
+      menuBtn.setAttribute("aria-label", "Open sidebar");
+
+      setMenuIcon("menu");
 
       if (chatbot) {
         chatbot.style.visibility = "";
