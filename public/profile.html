@@ -129,7 +129,7 @@
   </head>
 
   <body class="min-h-screen">
-    <div id="profilePage" class="hidden">
+    <div id="profilePage" class="">
       <!-- =====================================================
        APP
       ====================================================== -->
@@ -137,7 +137,7 @@
       <!-- Extreme Left Panel -->
       <div class="min-h-screen flex">
         <aside
-          class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[265px] bg-[#09090b] border-r border-[#B6B6B6]/15 z-50"
+          class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[265px] bg-[#0A0A0A] border-r border-[#B6B6B6]/15 z-50"
         >
           <div class="w-full flex">
             <!-- ICON RAIL -->
@@ -398,7 +398,7 @@
         ================================================== -->
 
           <header
-            class="h-[50px] border-b border-[#2E2F2F]/80 bg-[#09090b] fixed top-0 left-0 lg:left-[265px] right-0 z-40 flex items-center"
+            class="h-[50px] border-b border-[#2E2F2F]/80 bg-[#0A0A0A] fixed top-0 left-0 lg:left-[265px] right-0 z-40 flex items-center"
           >
             <div
               class="px-4 lg:px-6 w-full flex items-center justify-between gap-4"
@@ -406,26 +406,57 @@
               <!-- Breadcrumb -->
               <div class="flex items-center gap-1 min-w-0 text-[13px]">
                 <span class="text-[#B6B6B6] font-medium">Settings</span>
-                <re-icon icon="arrow-right2" class="w-3.5 h-3.5 text-[#B6B6B6]"></re-icon>
+                <re-icon
+                  icon="arrow-right2"
+                  class="w-3.5 h-3.5 text-[#B6B6B6]"
+                ></re-icon>
                 <span class="text-white font-medium">Workshop</span>
               </div>
 
-              <!-- Right -->
-              <div class="flex items-center gap-5">
-                <!-- Date -->
-                <div
-                  class="hidden sm:flex items-center gap-2 text-[12px] text-[#FFFFFF]"
+              <!-- Right: Quick Links -->
+              <div class="flex items-center gap-2 shrink-0">
+                <!-- Discord -->
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
                 >
-                  <re-icon
-                    icon="calendar3"
-                    weight="filled"
-                    class="w-4 h-4 text-[#888]"
-                  ></re-icon>
+                  <img
+                    src="https://cdn.reicon.dev/logos/discord/original.svg"
+                    alt="Discord"
+                    width="16"
+                    height="16"
+                  />
+                  <span class="text-[13px] font-medium">Discord</span>
+                </a>
 
-                  <span id="currentDate" class="text-[#FFFFFF]">
-                    Monday, 22 Jun 2027
-                  </span>
-                </div>
+                <!-- GitHub -->
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
+                >
+                  <img
+                    src="https://cdn.reicon.dev/logos/github/original.svg"
+                    alt="Github"
+                    width="16"
+                    height="16"
+                  />
+                  <span class="text-[13px] font-medium">GitHub</span>
+                </a>
+
+                <!-- Fast F1 API -->
+                <a
+                  href="https://docs.fastf1.dev/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
+                >
+                  <re-icon icon="database" weight="filled" class="h-4 text-white"></re-icon>
+                  <span class="text-[13px] font-medium">FastF1 API</span>
+                </a>
               </div>
             </div>
           </header>
@@ -855,7 +886,7 @@
                 <button
                   id="logoutbutton"
                   type="button"
-                  class="inline-flex h-8 items-center gap-2 rounded-[8px] border border-[#7A2929] bg-[#351919] px-3 text-[13px] font-medium text-[#FF5C5C] transition hover:bg-[#492020] hover:border-[#A33A3A]"
+                  class="inline-flex gap-2 px-2.5 h-8 rounded-[10px] items-center gap-2 border border-[#7A2929] bg-[#351919] px-3 text-[13px] font-medium text-[#FF5C5C] transition hover:bg-[#492020] hover:border-[#A33A3A]"
                 >
                   <re-icon icon="logout4" class="h-4 w-4"></re-icon>
                   Log Out
