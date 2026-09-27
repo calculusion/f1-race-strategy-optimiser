@@ -51,7 +51,7 @@ if (signinForm) {
         throw new Error("No session was created.");
       }
 
-      window.location.replace("/profile.html");
+      window.location.replace("/home/overview/race-overview.html");
     } catch (error) {
       console.error("Sign-in error:", error);
       alert(error.message || "Unable to sign in.");
