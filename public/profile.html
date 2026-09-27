@@ -454,7 +454,11 @@
                   rel="noopener noreferrer"
                   class="flex items-center gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
                 >
-                  <re-icon icon="database" weight="filled" class="h-4 text-white"></re-icon>
+                  <re-icon
+                    icon="database"
+                    weight="filled"
+                    class="h-4 text-white"
+                  ></re-icon>
                   <span class="text-[13px] font-medium">FastF1 API</span>
                 </a>
               </div>
@@ -467,34 +471,44 @@
           <main
             class="pl-4 pr-4 pb-4 pt-[70px] lg:pl-3 lg:pr-5 lg:pb-5 lg:pt-[64px]"
           >
+            <div class="mt-4 relative overflow-hidden rounded-[14px] mb-6">
+              <!-- NEAT Background -->
+              <canvas
+                id="newsletterGradient"
+                class="absolute inset-0 h-full w-full"
+              ></canvas>
+
+              <!-- Content -->
+              <div
+                class="relative z-10 min-h-[22vh] flex items-center justify-center py-12 sm:py-16"
+              >
+                <div class="w-full max-w-[620px] mx-auto text-center px-4">
+                  <h2
+                    class="font-serif text-[26px] sm:text-[30px] md:text-[30px] text-white leading-[1.15] tracking-[-0.02em]"
+                  >
+                    Manage Profile
+                  </h2>
+
+                  <p
+                    class="mt-3 mx-auto max-w-[480px] text-[11px] sm:text-[13px] md:text-[13px] leading-[1.6] text-white/70"
+                  >
+                    Manage the identity and regional details.
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <!-- =================================================
             PROFILE MANAGER
-          ================================================== -->
+            ================================================== -->
             <section
               id="profileSection"
               class="mt-0 w-full bg-[#090909] text-white px-1 sm:px-0 py-1"
             >
-              <div id="profileHeader" class="mb-7">
-                <h1
-                  id="profileTitle"
-                  class="text-[20px] sm:text-[18px] font-semibold tracking-tight text-white"
-                >
-                  Manage Profile
-                </h1>
-
-                <p
-                  id="profileDescription"
-                  class="mt-1 text-[12px] sm:text-[13px] text-[#B6B6B6]"
-                >
-                  Manage the identity and regional details shared across your
-                  workspace memberships.
-                </p>
-              </div>
-
               <!-- SHARED PROFILE WARNING-->
               <div
                 id="profileShareAlert"
-                class="mb-5 rounded-[9px] border border-[#705600] bg-[#17150B] px-3 py-2.5 sm:px-3.5"
+                class="mb- rounded-[9px] border border-[#705600] bg-[#17150B] px-3 py-2.5 sm:px-3.5"
               >
                 <div
                   class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
@@ -902,5 +916,170 @@
     <script src="/js/supabase.js"></script>
     <script src="/js/profile.js"></script>
     <script src="/js/page-transition.js"></script>
+
+    <script type="module">
+      import { NeatGradient } from "https://cdn.jsdelivr.net/npm/@firecms/neat/+esm";
+
+      const config = {
+        colors: [
+          {
+            color: "#09090B",
+            enabled: true,
+          },
+          {
+            color: "#180709",
+            enabled: true,
+          },
+          {
+            color: "#2A080B",
+            enabled: true,
+          },
+          {
+            color: "#400B0F",
+            enabled: true,
+          },
+          {
+            color: "#5A1014",
+            enabled: true,
+          },
+        ],
+
+        speed: 2,
+        horizontalPressure: 4,
+        verticalPressure: 4,
+        waveFrequencyX: 3,
+        waveFrequencyY: 2,
+        waveAmplitude: 1,
+
+        secondaryWaveEnabled: false,
+        secondaryWaveFrequencyX: 3,
+        secondaryWaveFrequencyY: 3,
+        secondaryWaveAmplitude: 5,
+        secondaryWaveSpeed: 0.6,
+        secondaryWaveAngle: 1,
+
+        shadows: 2,
+        highlights: 2,
+        colorBrightness: 1,
+        colorSaturation: -1,
+
+        wireframe: false,
+        antialias: false,
+        colorBlending: 7,
+
+        backgroundColor: "#09090b",
+        backgroundAlpha: 1,
+
+        grainScale: 2,
+        grainSparsity: 0,
+        grainIntensity: 0,
+        grainSpeed: 1,
+
+        resolution: 0.75,
+
+        yOffset: 0,
+        yOffsetWaveMultiplier: 2.2,
+        yOffsetColorMultiplier: 2.5,
+        yOffsetFlowMultiplier: 2.8,
+
+        flowDistortionA: 0,
+        flowDistortionB: 0,
+        flowScale: 1,
+        flowEase: 0,
+        flowEnabled: false,
+
+        enableProceduralTexture: false,
+
+        transparentTextureVoid: false,
+        textureMode: "bitmap",
+        bakeEdgeSoftness: 1,
+        textureVoidLikelihood: 0.45,
+        textureVoidWidthMin: 200,
+        textureVoidWidthMax: 486,
+        textureBandDensity: 2.15,
+        textureColorBlending: 0.01,
+        textureSeed: 333,
+        textureEase: 0.68,
+
+        proceduralBackgroundColor: "#000000",
+
+        textureShapeTriangles: 20,
+        textureShapeCircles: 15,
+        textureShapeBars: 15,
+        textureShapeSquiggles: 10,
+
+        domainWarpEnabled: false,
+        domainWarpIntensity: 0,
+        domainWarpScale: 3,
+
+        vignetteIntensity: 0,
+        vignetteRadius: 0.8,
+
+        fresnelEnabled: false,
+        fresnelPower: 2,
+        fresnelIntensity: 0.5,
+        fresnelColor: "#FFFFFF",
+
+        iridescenceEnabled: false,
+        iridescenceIntensity: 0.5,
+        iridescenceSpeed: 1,
+
+        prismEdgeEnabled: false,
+        prismEdgeIntensity: 0.5,
+        prismEdgeThinness: 3,
+        prismEdgeSpread: 1,
+        prismEdgeSpeed: 0.5,
+        prismEdgeRipple: 1,
+
+        bloomIntensity: 0,
+        bloomThreshold: 0.7,
+
+        chromaticAberration: 0,
+
+        shapeType: "plane",
+        shapeRotationX: 0,
+        shapeRotationY: 0,
+        shapeRotationZ: 0,
+
+        shapeAutoRotateSpeedX: 0,
+        shapeAutoRotateSpeedY: 0,
+
+        sphereRadius: 15,
+        torusRadius: 15,
+        torusTube: 5,
+
+        cylinderRadius: 10,
+        cylinderHeight: 40,
+
+        planeBend: 0,
+        planeTwist: 0,
+
+        silhouetteFade: 0.25,
+        cylinderFade: 0.08,
+        ribbonFade: 0.05,
+
+        flatShading: true,
+        cameraLock: true,
+
+        cameraX: 0,
+        cameraY: 0,
+        cameraZ: 0,
+
+        cameraRotationX: 0,
+        cameraRotationY: 0,
+        cameraRotationZ: 0,
+
+        cameraZoom: 1,
+      };
+
+      const newsletterCanvas = document.getElementById("newsletterGradient");
+
+      if (newsletterCanvas) {
+        new NeatGradient({
+          ref: newsletterCanvas,
+          ...config,
+        });
+      }
+    </script>
   </body>
 </html>
