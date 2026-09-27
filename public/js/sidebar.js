@@ -7,18 +7,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatbot = document.getElementById("SavePointChatbot");
 
   if (!menuBtn || !sidebar || !overlay) {
-    console.error("Sidebar elements not found.");
+    console.error("Sidebar elements not found:", {
+      menuBtn,
+      sidebar,
+      overlay,
+    });
     return;
   }
 
+  // Match the Tailwind lg breakpoint
   const mobileBreakpoint = 1024;
 
+  // Change the menu icon
   function setMenuIcon(icon) {
     if (menuIcon) {
-      menuIcon.setAttribute("icon", `lucide:${icon}`);
+      menuIcon.setAttribute("icon", icon);
     }
   }
 
+  // Open sidebar
   function openSidebar() {
     sidebar.classList.remove("-translate-x-full");
 
@@ -37,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Close sidebar
   function closeSidebar() {
     sidebar.classList.add("-translate-x-full");
 
@@ -60,20 +68,25 @@ document.addEventListener("DOMContentLoaded", () => {
     closeSidebar();
   } else {
     sidebar.classList.remove("-translate-x-full");
+
     overlay.classList.add("opacity-0", "pointer-events-none");
+
+    document.body.classList.remove("overflow-hidden");
     setMenuIcon("menu");
   }
 
-  // Toggle sidebar
+  // Toggle sidebar using the header button
   menuBtn.addEventListener("click", () => {
-    if (sidebar.classList.contains("-translate-x-full")) {
+    const isClosed = sidebar.classList.contains("-translate-x-full");
+
+    if (isClosed) {
       openSidebar();
     } else {
       closeSidebar();
     }
   });
 
-  // Close when clicking the overlay
+  // Close when clicking outside the sidebar
   overlay.addEventListener("click", closeSidebar);
 
   // Close when pressing Escape
@@ -83,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Close using an optional button inside the sidebar
+  // Optional close button inside the sidebar
   if (closeBtn) {
     closeBtn.addEventListener("click", closeSidebar);
   }
