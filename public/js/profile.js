@@ -8,12 +8,14 @@ const DEFAULT_AVATAR = "/website-icons/avatar.png";
 
 let currentUser = null;
 let currentProfile = null;
+let isAvatarProcessing = false;
 
 // =========================================
 // ELEMENTS
 // =========================================
 
 const profileAvatar = document.getElementById("profileAvatar");
+
 const profilePictureInput = document.getElementById("profilePictureInput");
 
 const uploadProfilePicture = document.getElementById("uploadProfilePicture");
@@ -21,7 +23,7 @@ const uploadProfilePicture = document.getElementById("uploadProfilePicture");
 const deleteProfilePicture = document.getElementById("deleteProfilePicture");
 
 // =========================================
-// STATUS MESSAGE
+// PROFILE IMAGE STATUS MESSAGE
 // =========================================
 
 function showProfileMessage(message, isError = false) {
@@ -31,12 +33,20 @@ function showProfileMessage(message, isError = false) {
     messageElement = document.createElement("p");
     messageElement.id = "profileImageMessage";
     messageElement.className = "mt-2 text-[11px]";
-    document
-      .getElementById("profilePictureActions")
-      ?.appendChild(messageElement);
+    messageElement.setAttribute("aria-live", "polite");
+
+    // Place the message below the image buttons.
+    const buttonContainer = uploadProfilePicture?.parentElement;
+
+    if (buttonContainer) {
+      buttonContainer.appendChild(messageElement);
+    } else {
+      return;
+    }
   }
 
   messageElement.textContent = message;
+
   messageElement.classList.toggle("text-red-400", isError);
   messageElement.classList.toggle("text-green-400", !isError);
 }
@@ -47,37 +57,40 @@ function showProfileMessage(message, isError = false) {
 
 function makeProfileReadOnly() {
   const profileCard = document.getElementById("profileCard");
+  const preferencesCard = document.getElementById("preferencesCard");
 
-  if (!profileCard) return;
+  [profileCard, preferencesCard].forEach((card) => {
+    if (!card) return;
 
-  // Text and email fields
-  profileCard
-    .querySelectorAll(
-      "input:not([type='file']):not([type='checkbox']), textarea",
-    )
-    .forEach((field) => {
-      field.readOnly = true;
-      field.setAttribute("aria-readonly", "true");
-      field.classList.add("cursor-default");
+    // Text, email, and other input fields
+    card
+      .querySelectorAll(
+        "input:not([type='file']):not([type='checkbox']), textarea",
+      )
+      .forEach((field) => {
+        field.readOnly = true;
+        field.setAttribute("aria-readonly", "true");
+        field.classList.add("cursor-default");
+      });
+
+    // Dropdown fields, if any
+    card.querySelectorAll("select").forEach((field) => {
+      field.disabled = true;
+      field.classList.add("cursor-not-allowed", "opacity-100");
     });
 
-  // Dropdowns
-  profileCard.querySelectorAll("select").forEach((field) => {
-    field.disabled = true;
-    field.classList.add("cursor-not-allowed", "opacity-100");
+    // Checkbox fields, if any
+    card.querySelectorAll("input[type='checkbox']").forEach((field) => {
+      field.disabled = true;
+    });
   });
 
-  // Toggles
-  profileCard.querySelectorAll("input[type='checkbox']").forEach((field) => {
-    field.disabled = true;
-  });
-
-  // Hide profile save/reset controls, if present.
+  // Hide Save and Cancel buttons, if present.
   document.getElementById("profileActionButtons")?.classList.add("hidden");
 }
 
 // =========================================
-// GET AUTH DISPLAY NAME
+// GET USER NAME FROM SUPABASE AUTH
 // =========================================
 
 function getAuthName(user) {
@@ -87,7 +100,7 @@ function getAuthName(user) {
 }
 
 // =========================================
-// GET PROVIDER AVATAR
+// GET GOOGLE / GITHUB PROFILE IMAGE
 // =========================================
 
 function getProviderAvatar(user) {
@@ -97,78 +110,74 @@ function getProviderAvatar(user) {
 }
 
 // =========================================
-// POPULATE PROFILE FIELDS
+// SET HTML FIELD VALUE
 // =========================================
 
 function setFieldValue(id, value) {
   const element = document.getElementById(id);
 
-  if (element) {
-    if (element.type === "checkbox") {
-      element.checked = Boolean(value);
-    } else {
-      element.value = value ?? "";
-    }
+  if (!element) return;
+
+  if (element.type === "checkbox") {
+    element.checked = Boolean(value);
+  } else {
+    element.value = value ?? "";
   }
 }
 
+// =========================================
+// POPULATE PROFILE FIELDS
+// =========================================
+
 function populateProfile(user, profile) {
   const authName = getAuthName(user);
-  const nameParts = authName.trim().split(/\s+/);
 
-  // Support either a single full-name field
-  // or separate first and last name fields.
+  // Supabase Auth fields
   setFieldValue("fullName", authName);
-  setFieldValue("firstName", nameParts[0] || "");
-  setFieldValue("lastName", nameParts.slice(1).join(" "));
-
-  // Email comes directly from Supabase Auth.
   setFieldValue("primaryEmail", user.email || "");
 
-  // Remaining details come from public.profiles.
+  // Custom profile fields
   setFieldValue("preferredName", profile.preferred_name);
   setFieldValue("username", profile.username);
   setFieldValue("role", profile.role);
   setFieldValue("website", profile.website);
   setFieldValue("bio", profile.bio);
 
+  // Profile preferences
   setFieldValue("language", profile.language);
   setFieldValue("landingView", profile.landing_view);
   setFieldValue("digestCadence", profile.digest_cadence);
 
-  // Display avatar.
+  // Profile picture
   updateAvatarDisplay(user, profile);
 }
 
 // =========================================
-// DISPLAY AVATAR
+// DISPLAY PROFILE IMAGE
 // =========================================
 
 function updateAvatarDisplay(user, profile) {
   if (!profileAvatar) return;
 
-  // If the user explicitly removed their image,
-  // show the local default avatar.
+  // User explicitly removed their image.
   if (profile.avatar_removed) {
     profileAvatar.src = DEFAULT_AVATAR;
     return;
   }
 
-  // A custom uploaded image takes priority.
+  // Custom uploaded image takes priority.
   if (profile.avatar_path) {
     const { data } = supabaseClient.storage
       .from(AVATAR_BUCKET)
       .getPublicUrl(profile.avatar_path);
 
     profileAvatar.src = data.publicUrl;
-    return;
+  } else {
+    // Otherwise, use the Google or GitHub avatar.
+    profileAvatar.src = getProviderAvatar(user) || DEFAULT_AVATAR;
   }
 
-  // Otherwise use the Google/GitHub profile image.
-  const providerAvatar = getProviderAvatar(user);
-
-  profileAvatar.src = providerAvatar || DEFAULT_AVATAR;
-
+  // Fall back to the default image if loading fails.
   profileAvatar.onerror = () => {
     profileAvatar.onerror = null;
     profileAvatar.src = DEFAULT_AVATAR;
@@ -182,39 +191,71 @@ function updateAvatarDisplay(user, profile) {
 async function loadProfile() {
   makeProfileReadOnly();
 
-  const {
-    data: { user },
-    error: authError,
-  } = await supabaseClient.auth.getUser();
+  try {
+    const {
+      data: { user },
+      error: authError,
+    } = await supabaseClient.auth.getUser();
 
-  if (authError || !user) {
-    window.location.href = "/signin.html";
-    return;
+    if (authError || !user) {
+      window.location.href = "/signin.html";
+      return;
+    }
+
+    currentUser = user;
+
+    const { data: profile, error: profileError } = await supabaseClient
+      .from(PROFILE_TABLE)
+      .select(
+        `
+          id,
+          preferred_name,
+          username,
+          role,
+          website,
+          bio,
+          language,
+          landing_view,
+          digest_cadence,
+          avatar_path,
+          avatar_removed
+        `,
+      )
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (profileError) {
+      console.error("Profile load error:", profileError);
+      showProfileMessage("Unable to load profile information.", true);
+      return;
+    }
+
+    if (!profile) {
+      console.error("No profile row found for user:", user.id);
+      showProfileMessage("Your profile has not been created yet.", true);
+      return;
+    }
+
+    currentProfile = profile;
+
+    populateProfile(user, profile);
+  } catch (error) {
+    console.error("Unexpected profile error:", error);
+
+    showProfileMessage(
+      "Something went wrong while loading your profile.",
+      true,
+    );
   }
-
-  currentUser = user;
-
-  const { data: profile, error: profileError } = await supabaseClient
-    .from(PROFILE_TABLE)
-    .select("*")
-    .eq("id", user.id)
-    .single();
-
-  if (profileError) {
-    console.error("Profile load error:", profileError);
-    showProfileMessage("Unable to load profile information.", true);
-    return;
-  }
-
-  currentProfile = profile;
-  populateProfile(user, profile);
 }
 
 // =========================================
-// OPEN FILE PICKER
+// OPEN IMAGE FILE PICKER
 // =========================================
 
 uploadProfilePicture?.addEventListener("click", () => {
+  if (isAvatarProcessing) return;
+
   profilePictureInput?.click();
 });
 
@@ -226,87 +267,104 @@ profilePictureInput?.addEventListener("change", async (event) => {
   const file = event.target.files?.[0];
 
   if (!file || !currentUser || !currentProfile) return;
+  if (isAvatarProcessing) return;
 
+  // Validate image type.
   const allowedTypes = ["image/png", "image/jpeg"];
 
   if (!allowedTypes.includes(file.type)) {
     showProfileMessage("Please select a PNG or JPG image.", true);
+
     event.target.value = "";
     return;
   }
 
+  // Validate file size: 5 MB maximum.
   if (file.size > 5 * 1024 * 1024) {
     showProfileMessage("Image must be smaller than 5 MB.", true);
+
     event.target.value = "";
     return;
   }
 
+  isAvatarProcessing = true;
   uploadProfilePicture.disabled = true;
+
+  if (deleteProfilePicture) {
+    deleteProfilePicture.disabled = true;
+  }
+
   showProfileMessage("Uploading profile picture...");
 
   const extension = file.type === "image/png" ? "png" : "jpg";
 
-  const newPath = `${currentUser.id}/${Date.now()}-${crypto.randomUUID()}.${extension}`;
+  const newPath = `${currentUser.id}/${crypto.randomUUID()}.${extension}`;
 
-  // Upload the new image.
-  const { error: uploadError } = await supabaseClient.storage
-    .from(AVATAR_BUCKET)
-    .upload(newPath, file, {
-      cacheControl: "3600",
-      upsert: false,
-      contentType: file.type,
-    });
-
-  if (uploadError) {
-    console.error("Avatar upload error:", uploadError);
-    showProfileMessage("Image upload failed.", true);
-    uploadProfilePicture.disabled = false;
-    event.target.value = "";
-    return;
-  }
-
-  // Save only the avatar fields in the profile row.
   const oldPath = currentProfile.avatar_path;
 
-  const { error: updateError } = await supabaseClient
-    .from(PROFILE_TABLE)
-    .update({
-      avatar_path: newPath,
-      avatar_removed: false,
-    })
-    .eq("id", currentUser.id);
-
-  if (updateError) {
-    console.error("Avatar profile update error:", updateError);
-
-    // Remove the newly uploaded file if the DB update fails.
-    await supabaseClient.storage.from(AVATAR_BUCKET).remove([newPath]);
-
-    showProfileMessage("Could not save the new profile picture.", true);
-    uploadProfilePicture.disabled = false;
-    event.target.value = "";
-    return;
-  }
-
-  currentProfile.avatar_path = newPath;
-  currentProfile.avatar_removed = false;
-
-  updateAvatarDisplay(currentUser, currentProfile);
-
-  // Remove the old custom image after the new one is saved.
-  if (oldPath) {
-    const { error: removeError } = await supabaseClient.storage
+  try {
+    // Upload image to Supabase Storage.
+    const { error: uploadError } = await supabaseClient.storage
       .from(AVATAR_BUCKET)
-      .remove([oldPath]);
+      .upload(newPath, file, {
+        cacheControl: "3600",
+        upsert: false,
+        contentType: file.type,
+      });
 
-    if (removeError) {
-      console.warn("Old avatar could not be removed:", removeError);
+    if (uploadError) {
+      throw uploadError;
     }
-  }
 
-  showProfileMessage("Profile picture updated.");
-  uploadProfilePicture.disabled = false;
-  event.target.value = "";
+    // Save the new image path in the profile table.
+    const { error: updateError } = await supabaseClient
+      .from(PROFILE_TABLE)
+      .update({
+        avatar_path: newPath,
+        avatar_removed: false,
+      })
+      .eq("id", currentUser.id);
+
+    if (updateError) {
+      // Remove the new upload if saving the path fails.
+      await supabaseClient.storage.from(AVATAR_BUCKET).remove([newPath]);
+
+      throw updateError;
+    }
+
+    // Update local profile data.
+    currentProfile.avatar_path = newPath;
+    currentProfile.avatar_removed = false;
+
+    // Display the new image immediately.
+    updateAvatarDisplay(currentUser, currentProfile);
+
+    // Remove the old custom image after the new one is saved.
+    if (oldPath) {
+      const { error: removeError } = await supabaseClient.storage
+        .from(AVATAR_BUCKET)
+        .remove([oldPath]);
+
+      if (removeError) {
+        console.warn("Old profile image could not be removed:", removeError);
+      }
+    }
+
+    showProfileMessage("Profile picture updated.");
+  } catch (error) {
+    console.error("Avatar upload error:", error);
+
+    showProfileMessage(error.message || "Image upload failed.", true);
+  } finally {
+    isAvatarProcessing = false;
+    uploadProfilePicture.disabled = false;
+
+    if (deleteProfilePicture) {
+      deleteProfilePicture.disabled = false;
+    }
+
+    event.target.value = "";
+  }
 });
 
 // =========================================
@@ -315,52 +373,65 @@ profilePictureInput?.addEventListener("change", async (event) => {
 
 deleteProfilePicture?.addEventListener("click", async () => {
   if (!currentUser || !currentProfile) return;
+  if (isAvatarProcessing) return;
 
+  isAvatarProcessing = true;
   deleteProfilePicture.disabled = true;
+  uploadProfilePicture.disabled = true;
+
   showProfileMessage("Removing profile picture...");
 
   const oldPath = currentProfile.avatar_path;
 
-  // Save the removal state first.
-  const { error } = await supabaseClient
-    .from(PROFILE_TABLE)
-    .update({
-      avatar_path: null,
-      avatar_removed: true,
-    })
-    .eq("id", currentUser.id);
+  try {
+    // Mark the avatar as removed in the database.
+    const { error: updateError } = await supabaseClient
+      .from(PROFILE_TABLE)
+      .update({
+        avatar_path: null,
+        avatar_removed: true,
+      })
+      .eq("id", currentUser.id);
 
-  if (error) {
-    console.error("Avatar delete error:", error);
-    showProfileMessage("Could not remove profile picture.", true);
-    deleteProfilePicture.disabled = false;
-    return;
-  }
-
-  currentProfile.avatar_path = null;
-  currentProfile.avatar_removed = true;
-
-  // Show the default image, even if the user has a
-  // Google or GitHub profile picture.
-  updateAvatarDisplay(currentUser, currentProfile);
-
-  // Remove the old custom image from Storage.
-  if (oldPath) {
-    const { error: removeError } = await supabaseClient.storage
-      .from(AVATAR_BUCKET)
-      .remove([oldPath]);
-
-    if (removeError) {
-      console.warn("Storage cleanup failed:", removeError);
+    if (updateError) {
+      throw updateError;
     }
-  }
 
-  showProfileMessage("Profile picture removed.");
-  deleteProfilePicture.disabled = false;
+    // Update local profile data.
+    currentProfile.avatar_path = null;
+    currentProfile.avatar_removed = true;
+
+    // Show the default image instead of the provider image.
+    updateAvatarDisplay(currentUser, currentProfile);
+
+    // Remove the old custom image from Storage.
+    if (oldPath) {
+      const { error: removeError } = await supabaseClient.storage
+        .from(AVATAR_BUCKET)
+        .remove([oldPath]);
+
+      if (removeError) {
+        console.warn("Profile image Storage cleanup failed:", removeError);
+      }
+    }
+
+    showProfileMessage("Profile picture removed.");
+  } catch (error) {
+    console.error("Avatar delete error:", error);
+
+    showProfileMessage(
+      error.message || "Could not remove profile picture.",
+      true,
+    );
+  } finally {
+    isAvatarProcessing = false;
+    deleteProfilePicture.disabled = false;
+    uploadProfilePicture.disabled = false;
+  }
 });
 
 // =========================================
-// INITIALIZE
+// INITIALIZE PROFILE PAGE
 // =========================================
 
 loadProfile();
