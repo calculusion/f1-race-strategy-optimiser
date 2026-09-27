@@ -102,9 +102,6 @@ function makeProfileReadOnly() {
       field.disabled = true;
     });
   });
-
-  // Hide Save and Cancel buttons, if present.
-  document.getElementById("profileActionButtons")?.classList.add("hidden");
 }
 
 // =========================================
@@ -438,3 +435,66 @@ deleteProfilePicture?.addEventListener("click", async () => {
 // =========================================
 
 loadProfile();
+
+// =========================================
+// SAVE PROFILE
+// =========================================
+
+document
+  .getElementById("saveProfileButton")
+  ?.addEventListener("click", async () => {
+    if (!currentUser || !currentProfile) return;
+
+    const saveButton = document.getElementById("saveProfileButton");
+    const cancelButton = document.getElementById("cancelProfileButton");
+
+    const updates = {
+      preferred_name:
+        document.getElementById("preferredName")?.value.trim() || null,
+      username: document.getElementById("username")?.value.trim() || null,
+      role: document.getElementById("role")?.value.trim() || null,
+      website: document.getElementById("website")?.value.trim() || null,
+      bio: document.getElementById("bio")?.value.trim() || null,
+      language: document.getElementById("language")?.value || null,
+      landing_view: document.getElementById("landingView")?.value || null,
+      digest_cadence: document.getElementById("digestCadence")?.value || null,
+    };
+
+    saveButton.disabled = true;
+    if (cancelButton) cancelButton.disabled = true;
+    saveButton.textContent = "Saving...";
+
+    try {
+      const { data, error } = await supabaseClient
+        .from(PROFILE_TABLE)
+        .update(updates)
+        .eq("id", currentUser.id)
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      currentProfile = data;
+      showProfileMessage("Profile updated successfully.");
+    } catch (error) {
+      console.error("Profile save error:", error);
+      showProfileMessage(error.message || "Unable to save profile.", true);
+    } finally {
+      saveButton.disabled = false;
+      if (cancelButton) cancelButton.disabled = false;
+      saveButton.textContent = "Save changes";
+    }
+  });
+
+// =========================================
+// CANCEL PROFILE CHANGES
+// =========================================
+
+document
+  .getElementById("cancelProfileButton")
+  ?.addEventListener("click", () => {
+    if (!currentUser || !currentProfile) return;
+
+    populateProfile(currentUser, currentProfile);
+    showProfileMessage("Changes discarded.");
+  });
