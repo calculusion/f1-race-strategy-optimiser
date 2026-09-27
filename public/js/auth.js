@@ -1,299 +1,34 @@
 // ==========================================
-// AUTH CONFIGURATION
-// ==========================================
-
-const DASHBOARD_URL = "/home/overview/race-overview.html";
-const SIGNIN_URL = "/signin.html";
-const API_URL = "/api/auth";
-
-// ==========================================
-// API REQUEST
+// EMAIL AUTH REQUEST
 // ==========================================
 
 async function authRequest(payload) {
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || "Something went wrong.");
-    }
-
-    return result;
-  } catch (error) {
-    console.error("Authentication request failed:", error);
-    throw error;
-  }
-}
-
-// ==========================================
-// MESSAGE DISPLAY
-// ==========================================
-
-function showAuthMessage(form, message, type = "error") {
-  let messageElement = form.querySelector("[data-auth-message]");
-
-  if (!messageElement) {
-    messageElement = document.createElement("div");
-    messageElement.setAttribute("data-auth-message", "");
-    messageElement.className = "mt-3 text-sm";
-    form.appendChild(messageElement);
-  }
-
-  messageElement.textContent = message;
-
-  messageElement.classList.remove(
-    "text-red-500",
-    "text-green-500",
-    "text-yellow-500",
-  );
-
-  if (type === "success") {
-    messageElement.classList.add("text-green-500");
-  } else if (type === "warning") {
-    messageElement.classList.add("text-yellow-500");
-  } else {
-    messageElement.classList.add("text-red-500");
-  }
-}
-
-function clearAuthMessage(form) {
-  const messageElement = form.querySelector("[data-auth-message]");
-
-  if (messageElement) {
-    messageElement.textContent = "";
-  }
-}
-
-// ==========================================
-// BUTTON LOADING STATE
-// ==========================================
-
-function setButtonLoading(button, loading, loadingText = "Please wait...") {
-  if (!button) return;
-
-  if (loading) {
-    button.dataset.originalText = button.textContent.trim();
-    button.disabled = true;
-    button.classList.add("opacity-60", "cursor-not-allowed");
-    button.textContent = loadingText;
-  } else {
-    button.disabled = false;
-    button.classList.remove("opacity-60", "cursor-not-allowed");
-
-    if (button.dataset.originalText) {
-      button.textContent = button.dataset.originalText;
-      delete button.dataset.originalText;
-    }
-  }
-}
-
-// ==========================================
-// MANUAL SIGN IN
-// ==========================================
-
-const signinForm = document.getElementById("signinForm");
-
-if (signinForm) {
-  signinForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    clearAuthMessage(signinForm);
-
-    const email = signinForm.elements.namedItem("email")?.value.trim();
-    const password = signinForm.elements.namedItem("password")?.value;
-
-    const submitButton = signinForm.querySelector('button[type="submit"]');
-
-    if (!email || !password) {
-      showAuthMessage(signinForm, "Please enter your email and password.");
-      return;
-    }
-
-    setButtonLoading(submitButton, true, "Signing in...");
-
-    try {
-      const result = await authRequest({
-        action: "signin",
-        email,
-        password,
-      });
-
-      if (!result.success || !result.session) {
-        throw new Error(result.message || "Sign-in failed. Please try again.");
-      }
-
-      // Save the session in the browser.
-      const { data, error } = await supabaseClient.auth.setSession({
-        access_token: result.session.access_token,
-        refresh_token: result.session.refresh_token,
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      if (!data.session) {
-        throw new Error("Your session could not be saved.");
-      }
-
-      // Confirm the session is available before navigating.
-      const { data: sessionData, error: sessionError } =
-        await supabaseClient.auth.getSession();
-
-      if (sessionError || !sessionData.session) {
-        throw new Error("Unable to verify your login session.");
-      }
-
-      window.location.replace(DASHBOARD_URL);
-    } catch (error) {
-      console.error("Sign-in error:", error);
-
-      showAuthMessage(
-        signinForm,
-        error.message || "Unable to sign in. Please try again.",
-      );
-
-      setButtonLoading(submitButton, false);
-    }
+  const response = await fetch("/api/auth", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
   });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Authentication failed.");
+  }
+
+  return data;
 }
 
 // ==========================================
-// SIGN UP
-// ==========================================
-
-const signupForm = document.getElementById("signupForm");
-
-if (signupForm) {
-  signupForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    clearAuthMessage(signupForm);
-
-    const name = signupForm.elements.namedItem("name")?.value.trim();
-    const email = signupForm.elements.namedItem("email")?.value.trim();
-    const password = signupForm.elements.namedItem("password")?.value;
-
-    const submitButton = signupForm.querySelector('button[type="submit"]');
-
-    if (!name || !email || !password) {
-      showAuthMessage(signupForm, "Please fill in all required fields.");
-      return;
-    }
-
-    if (password.length < 6) {
-      showAuthMessage(signupForm, "Password must be at least 6 characters.");
-      return;
-    }
-
-    setButtonLoading(submitButton, true, "Creating account...");
-
-    try {
-      const result = await authRequest({
-        action: "signup",
-        name,
-        email,
-        password,
-      });
-
-      if (!result.success) {
-        throw new Error(result.message || "Signup failed.");
-      }
-
-      showAuthMessage(
-        signupForm,
-        result.message ||
-          "Account created. Please check your email to confirm.",
-        "success",
-      );
-
-      signupForm.reset();
-    } catch (error) {
-      console.error("Signup error:", error);
-
-      showAuthMessage(
-        signupForm,
-        error.message || "Unable to create your account.",
-      );
-    } finally {
-      setButtonLoading(submitButton, false);
-    }
-  });
-}
-
-// ==========================================
-// FORGOT PASSWORD
-// ==========================================
-
-const forgotPasswordForm = document.getElementById("forgotPasswordForm");
-
-if (forgotPasswordForm) {
-  forgotPasswordForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    clearAuthMessage(forgotPasswordForm);
-
-    const email = forgotPasswordForm.elements.namedItem("email")?.value.trim();
-
-    const submitButton = forgotPasswordForm.querySelector(
-      'button[type="submit"]',
-    );
-
-    if (!email) {
-      showAuthMessage(forgotPasswordForm, "Please enter your email address.");
-      return;
-    }
-
-    setButtonLoading(submitButton, true, "Sending...");
-
-    try {
-      const result = await authRequest({
-        action: "forgot-password",
-        email,
-      });
-
-      if (!result.success) {
-        throw new Error(result.message || "Unable to send the reset email.");
-      }
-
-      showAuthMessage(
-        forgotPasswordForm,
-        result.message ||
-          "If an account exists, a password reset link has been sent.",
-        "success",
-      );
-
-      forgotPasswordForm.reset();
-    } catch (error) {
-      console.error("Forgot password error:", error);
-
-      showAuthMessage(
-        forgotPasswordForm,
-        error.message || "Unable to send the reset email.",
-      );
-    } finally {
-      setButtonLoading(submitButton, false);
-    }
-  });
-}
-
-// ==========================================
-// GOOGLE AND GITHUB LOGIN
+// SOCIAL LOGIN
 // ==========================================
 
 async function socialLogin(provider) {
   try {
-    const redirectTo = `${window.location.origin}${DASHBOARD_URL}`;
+    const redirectTo = `${window.location.origin}/home/overview/race-overview.html`;
 
-    const { data, error } = await supabaseClient.auth.signInWithOAuth({
+    const { error } = await supabaseClient.auth.signInWithOAuth({
       provider,
       options: {
         redirectTo,
@@ -301,46 +36,157 @@ async function socialLogin(provider) {
     });
 
     if (error) {
-      throw error;
-    }
+      console.error(`${provider} login error:`, error);
 
-    return data;
+      alert(error.message);
+    }
   } catch (error) {
-    console.error(`${provider} login error:`, error);
-    alert(error.message || `Unable to sign in with ${provider}.`);
+    console.error("Social login error:", error);
+
+    alert("Unable to continue with social login.");
   }
 }
 
-document.querySelectorAll("[data-provider]").forEach((button) => {
-  button.addEventListener("click", async () => {
-    const provider = button.dataset.provider;
+// ==========================================
+// GOOGLE SIGN IN
+// ==========================================
 
-    if (provider !== "google" && provider !== "github") {
-      return;
-    }
+const googleSigninBtn = document.getElementById("googleSigninBtn");
 
-    setButtonLoading(button, true, "Redirecting...");
-
-    await socialLogin(provider);
+if (googleSigninBtn) {
+  googleSigninBtn.addEventListener("click", () => {
+    socialLogin("google");
   });
-});
+}
 
 // ==========================================
-// PASSWORD VISIBILITY TOGGLE
+// GITHUB SIGN IN
 // ==========================================
 
-document.querySelectorAll("[data-password-toggle]").forEach((button) => {
+const githubSigninBtn = document.getElementById("githubSigninBtn");
+
+if (githubSigninBtn) {
+  githubSigninBtn.addEventListener("click", () => {
+    socialLogin("github");
+  });
+}
+
+// ==========================================
+// GOOGLE SIGN UP
+// ==========================================
+
+const googleSignupBtn = document.getElementById("googleSignupBtn");
+
+if (googleSignupBtn) {
+  googleSignupBtn.addEventListener("click", () => {
+    socialLogin("google");
+  });
+}
+
+// ==========================================
+// GITHUB SIGN UP
+// ==========================================
+
+const githubSignupBtn = document.getElementById("githubSignupBtn");
+
+if (githubSignupBtn) {
+  githubSignupBtn.addEventListener("click", () => {
+    socialLogin("github");
+  });
+}
+
+// ==========================================
+// PASSWORD VISIBILITY
+// ==========================================
+
+function setupPasswordToggle(buttonId, inputId) {
+  const button = document.getElementById(buttonId);
+  const input = document.getElementById(inputId);
+
+  if (!button || !input) {
+    return;
+  }
+
   button.addEventListener("click", () => {
-    const targetId = button.dataset.passwordToggle;
-    const input = document.getElementById(targetId);
+    const isHidden = input.type === "password";
 
-    if (!input) return;
-
-    input.type = input.type === "password" ? "text" : "password";
+    input.type = isHidden ? "text" : "password";
 
     button.setAttribute(
       "aria-label",
-      input.type === "password" ? "Show password" : "Hide password",
+      isHidden ? "Hide password" : "Show password",
     );
+
+    const icon = button.querySelector("i");
+
+    if (icon) {
+      icon.setAttribute("data-lucide", isHidden ? "eye-off" : "eye");
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
   });
-});
+}
+
+// ==========================================
+// PASSWORD VISIBILITY
+// ==========================================
+
+function setupPasswordToggle(buttonId, inputId) {
+  const button = document.getElementById(buttonId);
+  const input = document.getElementById(inputId);
+
+  if (!button || !input) return;
+
+  button.addEventListener("click", () => {
+    const isHidden = input.type === "password";
+
+    input.type = isHidden ? "text" : "password";
+
+    button.setAttribute(
+      "aria-label",
+      isHidden ? "Hide password" : "Show password",
+    );
+
+    // Replace the icon completely
+    button.innerHTML = `
+      <i
+        data-lucide="${isHidden ? "eye-off" : "eye"}"
+        class="w-4 h-4"
+      ></i>
+    `;
+
+    lucide.createIcons();
+  });
+}
+
+// ==========================================
+// SIGNUP PASSWORD
+// ==========================================
+
+setupPasswordToggle("toggleSignupPassword", "signupPassword");
+
+// ==========================================
+// SIGNUP CONFIRM PASSWORD
+// ==========================================
+
+setupPasswordToggle("toggleSignupConfirmPassword", "signupConfirmPassword");
+
+// ==========================================
+// SIGNIN PASSWORD
+// ==========================================
+
+setupPasswordToggle("toggleSigninPassword", "signinPassword");
+
+// ==========================================
+// RESET PASSWORD
+// ==========================================
+
+setupPasswordToggle("toggleResetPassword", "resetPassword");
+
+// ==========================================
+// RESET CONFIRM PASSWORD
+// ==========================================
+
+setupPasswordToggle("toggleResetConfirmPassword", "resetConfirmPassword");
