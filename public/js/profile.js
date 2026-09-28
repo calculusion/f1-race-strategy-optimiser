@@ -467,7 +467,6 @@ const logoutButton = document.getElementById("logoutButton");
 if (logoutButton) {
   logoutButton.addEventListener("click", async () => {
     logoutButton.disabled = true;
-    logoutButton.textContent = "Logging out...";
 
     try {
       const { error } = await supabaseClient.auth.signOut();
