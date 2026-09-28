@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Laps AccountㆍManage Profile</title>
+    <title>Laps AccountㆍTeam Members</title>
 
     <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
 
@@ -129,7 +129,7 @@
   </head>
 
   <body class="min-h-screen">
-    <div id="profilePage" class="hidden">
+    <div id="profilePage" class="">
       <!-- =====================================================
        APP
       ====================================================== -->
@@ -283,7 +283,7 @@
                 <nav class="space-y-0.5">
                   <a
                     href="profile.html"
-                    class="group flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[12px] font-medium text-white bg-[#171717]"
+                    class="group flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[12px] font-medium text-[#B6B6B6] hover:bg-[#171717] hover:text-[#FFFFFF]"
                   >
                     <re-icon
                       icon="user-edit"
@@ -294,7 +294,7 @@
 
                   <a
                     href="team-members.html"
-                    class="group flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[12px] font-medium text-[#B6B6B6] hover:bg-[#171717] hover:text-[#FFFFFF]"
+                    class="group flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[12px] font-medium text-white bg-[#171717]"
                   >
                     <re-icon
                       icon="users"
@@ -394,9 +394,7 @@
                     Documentation
                   </p>
 
-                  <p
-                    class="text-[12px] max-sm:text-[10px] text-[#B6B6B6]"
-                  >
+                  <p class="text-[12px] max-sm:text-[10px] text-[#B6B6B6]">
                     Read the project idea and research on Mintlify.
                   </p>
 
@@ -575,492 +573,348 @@
           <main
             class="pl-2 pr-2 pb-2 pt-[70px] lg:pl-3 lg:pr-5 lg:pb-5 lg:pt-[64px]"
           >
-            <div
-              class="relative mt-0 mb-4 sm:mt-3 sm:mb-6 overflow-hidden rounded-[14px] max-sm:rounded-[10px]"
-            >
-              <!-- NEAT Background -->
-              <canvas
-                id="newsletterGradient"
-                class="absolute inset-0 h-full w-full"
-              ></canvas>
-
-              <!-- Content -->
-              <div
-                class="relative z-10 flex min-h-[22vh] items-center justify-center py-12 sm:py-16 max-sm:min-h-[18vh] max-sm:py-8"
-              >
-                <div
-                  class="mx-auto w-full max-w-[620px] px-4 text-center max-sm:px-3"
-                >
-                  <h2
-                    class="font-serif text-[26px] leading-[1.15] tracking-[-0.02em] text-white sm:text-[30px] md:text-[30px] max-sm:text-[22px]"
-                  >
-                    Manage Profile
-                  </h2>
-
-                  <p
-                    class="mx-auto mt-1 max-w-[480px] text-[11px] leading-[1.6] text-white/70 sm:text-[13px] md:text-[13px] max-sm:text-[11px]"
-                  >
-                    Manage the identity and regional details.
-                  </p>
-                </div>
-              </div>
-            </div>
-
             <!-- =================================================
-            PROFILE MANAGER
+            TEAM Members
             ================================================== -->
             <section
-              id="profileSection"
-              class="mt-0 w-full bg-[#090909] text-white px-1 sm:px-0 py-1"
+              id="teamMemberSection"
+              class="mt-3 w-full bg-[#090909] text-white px-1 sm:px-0 py-1"
             >
-              <!-- SHARED PROFILE WARNING-->
+              <!-- MEMBERS TABLE -->
               <div
-                id="profileShareAlert"
-                class="rounded-[9px] max-sm:rounded-[8px] border border-[#705600] bg-[#17150B] px-3 py-2.5 sm:px-3.5 max-sm:px-2.5 max-sm:py-2"
+                class="w-full rounded-[16px] border border-[#252525] bg-[#171717] p-[4px] text-white"
               >
                 <div
-                  class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between max-sm:gap-2"
+                  class="overflow-hidden rounded-[12px] border border-[#2E2F2F] bg-[#171717]"
                 >
-                  <!-- Alert content -->
-                  <div class="flex items-start gap-2.5 max-sm:gap-2">
-                    <div
-                      id="profileAlertIcon"
-                      class="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center"
-                    >
-                      <re-icon
-                        icon="shield-check"
-                        weight="filled"
-                        class="w-4 h-4 max-sm:w-3.5 max-sm:h-3.5 text-[#F2C300]"
-                      ></re-icon>
-                    </div>
-
-                    <div class="min-w-0">
-                      <p
-                        id="profileAlertTitle"
-                        class="text-[11px] sm:text-[13px] font-semibold text-white max-sm:text-[12px]"
-                      >
-                        Profile updates are shared
-                      </p>
-
-                      <p
-                        id="profileAlertDescription"
-                        class="mt-0.5 text-[11px] sm:text-[13px] text-[#B6B6B6] max-sm:text-[11px] max-sm:leading-[1.4]"
-                      >
-                        Changes sync to mentions, approvals, and people
-                        directories in every workspace you join.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- PROFILE CARD -->
-              <div
-                id="profileCard"
-                class="relative mt-7 max-sm:mt-3 w-full overflow-hidden rounded-[13px] max-sm:rounded-[10px] border border-[#2E2F2F] bg-[#171717]"
-              >
-                <!-- CARD HEADER -->
-                <div
-                  id="profileDetailsHeader"
-                  class="px-3 pt-2.5 pb-3 max-sm:pt-2 max-sm:pb-2"
-                >
-                  <h2
-                    id="profileDetailsTitle"
-                    class="text-[14px] max-sm:text-[13px] font-semibold text-white"
-                  >
-                    Profile Details
-                  </h2>
-                  <p
-                    id="profileDetailsDescription"
-                    class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
-                  >
-                    Personal account info.
-                  </p>
-                </div>
-
-                <!-- CARD CONTENT -->
-                <div
-                  id="profileDetailsContent"
-                  class="mx-1 mb-1 overflow-hidden rounded-[11px] max-sm:rounded-[8px] border border-[#2E2F2F]"
-                >
-                  <!-- PROFILE PHOTO -->
+                  <!-- HEADER -->
                   <div
-                    id="profilePictureRow"
-                    class="grid grid-cols-1 border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
+                    class="flex min-h-[65px] items-center justify-between gap-4 border-b border-[#2E2F2F] px-5 py-4 max-md:flex-wrap"
                   >
-                    <div
-                      class="px-4 pt-3 pb-3 sm:px-5 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
-                    >
-                      <p
-                        class="text-[13px] max-sm:text-[12px] font-medium text-white"
+                    <!-- TITLE -->
+                    <div class="flex items-center gap-3">
+                      <h1
+                        class="text-[24px] font-semibold leading-none tracking-tight"
                       >
-                        Profile Photo
-                      </p>
-                      <p
-                        class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
-                      >
-                        Upload an image within 5MB in PNG or JPG.
-                      </p>
-                    </div>
+                        Members
+                      </h1>
 
-                    <div
-                      class="flex flex-wrap items-center gap-2 px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
-                    >
-                      <div
-                        id="profileAvatarWrapper"
-                        class="h-11 w-11 max-sm:h-9 max-sm:w-9 shrink-0 overflow-hidden rounded-full border border-[#333] bg-[#242424]"
+                      <span
+                        class="flex h-5 min-w-5 items-center justify-center rounded-full border border-[#383838] bg-[#202020] px-1.5 text-[10px] font-medium text-[#D4D4D4]"
                       >
-                        <img
-                          id="profileAvatar"
-                          src="/website-icons/avatar.png"
-                          alt="Profile picture"
-                          class="h-full w-full object-cover"
-                        />
-                      </div>
-
-                      <input
-                        id="profilePictureInput"
-                        type="file"
-                        accept="image/png,image/jpeg"
-                        class="hidden"
-                      />
-
-                      <button
-                        id="uploadProfilePicture"
-                        type="button"
-                        class="inline-flex h-7 max-sm:h-7 items-center gap-1.5 rounded-[8px] max-sm:rounded-[7px] border border-[#383838] bg-white px-3 max-sm:px-2.5 text-[12px] max-sm:text-[11px] font-medium text-black transition hover:bg-[#E5E5E5]"
-                      >
-                        <re-icon
-                          icon="upload"
-                          class="h-3.5 w-3.5 max-sm:h-3 max-sm:w-3"
-                        ></re-icon>
-                        Change
-                      </button>
-
-                      <button
-                        id="deleteProfilePicture"
-                        type="button"
-                        class="inline-flex h-7 max-sm:h-7 items-center gap-1.5 rounded-[8px] max-sm:rounded-[7px] border border-red-500/50 bg-red-500/10 px-3 max-sm:px-2.5 text-[12px] max-sm:text-[11px] font-medium text-red-500 transition hover:bg-red-500/20"
-                      >
-                        <re-icon
-                          icon="x"
-                          class="h-3.5 w-3.5 max-sm:h-3 max-sm:w-3"
-                        ></re-icon>
-                        Remove
-                      </button>
+                        4
+                      </span>
                     </div>
                   </div>
 
-                  <!-- FULL NAME -->
-                  <div
-                    id="fullNameRow"
-                    class="grid grid-cols-1 border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
-                  >
-                    <div
-                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
+                  <!-- TABLE -->
+                  <div class="w-full overflow-x-auto">
+                    <table
+                      class="w-full min-w-[900px] table-fixed border-collapse text-left"
                     >
-                      <label
-                        for="fullName"
-                        class="block text-[13px] max-sm:text-[12px] font-medium text-white"
-                      >
-                        Full Name
-                      </label>
-                      <p
-                        class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
-                      >
-                        Used across Laps Team
-                      </p>
-                    </div>
-                    <div
-                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
-                    >
-                      <input
-                        id="fullName"
-                        type="text"
-                        class="h-8 max-sm:h-8 w-full max-w-[560px] rounded-[10px] max-sm:rounded-[8px] border border-[#424242] bg-[#212121] px-3 max-sm:px-2.5 text-[13px] max-sm:text-[12px] text-white outline-none"
-                      />
-                    </div>
-                  </div>
+                      <colgroup>
+                        <col class="w-[22%]" />
+                        <col class="w-[20%]" />
+                        <col class="w-[18%]" />
+                        <col class="w-[15%]" />
+                        <col class="w-[8%]" />
+                        <col class="w-[13%]" />
+                      </colgroup>
 
-                  <!-- EMAIL ADDRESS -->
-                  <div
-                    id="emailAddressRow"
-                    class="grid grid-cols-1 border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
-                  >
-                    <div
-                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
-                    >
-                      <div class="flex items-center gap-2">
-                        <label
-                          for="primaryEmail"
-                          class="text-[13px] max-sm:text-[12px] font-medium text-white"
+                      <!-- TABLE HEADER -->
+                      <thead>
+                        <tr
+                          class="h-[35px] border-b border-[#2E2F2F] text-[#B6B6B6]"
                         >
-                          Email Address
-                        </label>
-                      </div>
-                      <p
-                        class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
-                      >
-                        Primary sign-in email used.
-                      </p>
-                    </div>
-                    <div
-                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
-                    >
-                      <input
-                        id="primaryEmail"
-                        type="email"
-                        class="h-8 max-sm:h-8 w-full max-w-[560px] rounded-[10px] max-sm:rounded-[8px] border border-[#424242] bg-[#212121] px-3 max-sm:px-2.5 text-[13px] max-sm:text-[12px] text-white outline-none"
-                      />
-                    </div>
-                  </div>
+                          <th class="px-5 text-[14px] font-medium">
+                            <button
+                              type="button"
+                              class="flex items-center gap-2"
+                            >
+                              Member
+                              <re-icon
+                                icon="users"
+                                class="h-3.5 w-3.5 text-[#B6B6B6]"
+                              ></re-icon>
+                            </button>
+                          </th>
 
-                  <!-- USERNAME -->
-                  <div
-                    id="usernameRow"
-                    class="grid grid-cols-1 border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
-                  >
-                    <div
-                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
-                    >
-                      <label
-                        for="username"
-                        class="block text-[13px] max-sm:text-[12px] font-medium text-white"
-                      >
-                        Username
-                      </label>
-                      <p
-                        class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
-                      >
-                        Used in mentions and links.
-                      </p>
-                    </div>
-                    <div
-                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
-                    >
-                      <div
-                        class="flex h-8 max-sm:h-8 w-full max-w-[560px] items-center rounded-[10px] max-sm:rounded-[8px] border border-[#424242] bg-[#212121] px-2.5 max-sm:px-2"
-                      >
-                        <span
-                          class="mr-0.5 text-[13px] max-sm:text-[12px] text-[#999]"
-                          >@</span
-                        >
-                        <input
-                          id="username"
-                          type="text"
-                          class="min-w-0 flex-1 bg-transparent text-[13px] max-sm:text-[12px] text-white outline-none"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                          <th class="px-5 text-[14px] font-medium">
+                            <button
+                              type="button"
+                              class="flex items-center gap-1"
+                            >
+                              Email
+                              <re-icon
+                                icon="arrows-down"
+                                class="h-4 w-4"
+                              ></re-icon>
+                            </button>
+                          </th>
 
-                  <!-- PUBLIC DETAILS -->
-                  <div
-                    id="publicDetailsRow"
-                    class="grid grid-cols-1 border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
-                  >
-                    <div
-                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
-                    >
-                      <p
-                        class="text-[13px] max-sm:text-[12px] font-medium text-white"
-                      >
-                        Public Details
-                      </p>
-                      <p
-                        class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
-                      >
-                        Shown across Laps.
-                      </p>
-                    </div>
+                          <th class="px-5 text-[14px] font-medium">
+                            <button
+                              type="button"
+                              class="flex items-center gap-1"
+                            >
+                              Role
+                              <re-icon
+                                icon="arrows-down"
+                                class="h-3.5 w-3.5"
+                              ></re-icon>
+                            </button>
+                          </th>
 
-                    <div
-                      id="publicDetailsFields"
-                      class="space-y-3 px-4 pb-4 sm:px-6 sm:py-4 max-sm:space-y-2 max-sm:px-3 max-sm:pb-3"
-                    >
-                      <div id="roleField">
-                        <label
-                          for="role"
-                          class="mb-1.5 max-sm:mb-1 block text-[13px] max-sm:text-[12px] font-medium text-white"
-                        >
-                          Role
-                        </label>
-                        <div
-                          class="flex h-8 max-sm:h-8 w-full max-w-[560px] items-center rounded-[10px] max-sm:rounded-[8px] border border-[#424242] bg-[#212121] px-3 max-sm:px-2.5"
-                        >
-                          <span class="text-[13px] text-[#999]"></span>
-                          <input
-                            id="role"
-                            type="text"
-                            class="min-w-0 flex-1 bg-transparent text-[13px] max-sm:text-[12px] text-white outline-none"
-                          />
-                        </div>
-                      </div>
+                          <th class="px-5 text-[14px] font-medium">
+                            <button
+                              type="button"
+                              class="flex items-center gap-1"
+                            >
+                              Group
+                              <re-icon
+                                icon="arrows-down"
+                                class="h-3.5 w-3.5"
+                              ></re-icon>
+                            </button>
+                          </th>
 
-                      <div id="websiteField">
-                        <label
-                          for="website"
-                          class="mb-1.5 max-sm:mb-1 block text-[13px] max-sm:text-[12px] font-medium text-white"
+                          <th class="px-5 text-[14px] font-medium">
+                            <button
+                              type="button"
+                              class="flex items-center gap-1"
+                            >
+                              Status
+                              <re-icon
+                                icon="arrows-down"
+                                class="h-3.5 w-3.5"
+                              ></re-icon>
+                            </button>
+                          </th>
+
+                          <th class="px-5 text-[14px] font-medium">
+                            <button
+                              type="button"
+                              class="flex items-center gap-1"
+                            >
+                              Joining date
+                              <re-icon
+                                icon="arrows-down"
+                                class="h-3.5 w-3.5"
+                              ></re-icon>
+                            </button>
+                          </th>
+                        </tr>
+                      </thead>
+
+                      <!-- TABLE BODY -->
+                      <tbody class="text-[14px]">
+                        <!-- Parantap Guha -->
+                        <tr
+                          class="h-[55px] border-b border-[#2E2F2F] transition hover:bg-[#1D1D1D]"
                         >
-                          Website
-                        </label>
-                        <div
-                          class="flex h-8 max-sm:h-8 w-full max-w-[560px] items-center rounded-[10px] max-sm:rounded-[8px] border border-[#424242] bg-[#212121] px-3 max-sm:px-2.5"
-                        >
-                          <span
-                            class="mr-0.5 text-[13px] max-sm:text-[11px] text-[#999]"
+                          <td class="px-5">
+                            <div class="flex items-center gap-2.5">
+                              <img
+                                src="/website-icons/alex.png"
+                                class="h-8 w-8 shrink-0 rounded-full border border-[#333333] object-cover"
+                              />
+
+                              <div class="min-w-0">
+                                <p class="font-medium text-[13px] text-white">
+                                  Parantap Guha
+                                </p>
+                                <p class="text-[13px] text-[#999999]">
+                                  @parantap.guha
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+
+                          <td
+                            class="truncate px-5 font-medium text-[13px] text-white"
                           >
-                            https://
-                          </span>
-                          <input
-                            id="website"
-                            type="text"
-                            value="nick.relay.app"
-                            class="min-w-0 flex-1 bg-transparent text-[13px] max-sm:text-[12px] text-white outline-none"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                            alex.johnson@acme.com
+                          </td>
 
-                  <!-- BIO -->
-                  <div
-                    id="bioRow"
-                    class="grid grid-cols-1 sm:grid-cols-[32%_68%]"
-                  >
-                    <div
-                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
-                    >
-                      <label
-                        for="bio"
-                        class="block text-[13px] max-sm:text-[12px] font-medium text-white"
-                      >
-                        Bio
-                      </label>
-                      <p
-                        class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
-                      >
-                        Short profile summary.
-                      </p>
-                    </div>
-                    <div
-                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
-                    >
-                      <textarea
-                        id="bio"
-                        rows="4"
-                        class="w-full max-w-[560px] resize-y rounded-[10px] max-sm:rounded-[8px] border border-[#424242] bg-[#212121] px-3 max-sm:px-2.5 py-2 text-[13px] max-sm:text-[12px] leading-5 text-white outline-none"
-                      ></textarea>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-white"
+                          >
+                            Model Optimiser
+                          </td>
 
-              <!-- PROFILE PREFERENCES CARD -->
-              <div
-                id="preferencesCard"
-                class="relative mt-5 w-full overflow-hidden rounded-[13px] border border-[#2E2F2F] bg-[#171717] max-sm:mt-3 max-sm:rounded-[10px]"
-              >
-                <!-- CARD HEADER -->
-                <div
-                  id="preferencesHeader"
-                  class="px-3 pt-2.5 pb-3 max-sm:px-3 max-sm:pt-2 max-sm:pb-2"
-                >
-                  <h2
-                    id="preferencesTitle"
-                    class="text-[14px] font-semibold text-white max-sm:text-[13px]"
-                  >
-                    Profile Preferences
-                  </h2>
-                  <p
-                    id="preferencesDescription"
-                    class="mt-0.5 text-[13px] text-[#B6B6B6] max-sm:text-[11px]"
-                  >
-                    Default workspace behavior.
-                  </p>
-                </div>
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-white"
+                          >
+                            Backend Developer
+                          </td>
 
-                <!-- PREFERENCES CONTENT -->
-                <div
-                  id="preferencesContent"
-                  class="mx-1 mb-1 overflow-hidden rounded-[11px] border border-[#2E2F2F] max-sm:rounded-[8px]"
-                >
-                  <!-- LANGUAGE -->
-                  <div
-                    id="languageRow"
-                    class="grid grid-cols-1 items-center border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
-                  >
-                    <div
-                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
-                    >
-                      <label
-                        for="language"
-                        class="text-[13px] font-medium text-white max-sm:text-[12px]"
-                      >
-                        Language
-                      </label>
-                    </div>
-                    <div
-                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
-                    >
-                      <input
-                        id="language"
-                        type="text"
-                        class="h-8 w-full max-w-[560px] rounded-[10px] border border-[#424242] bg-[#212121] px-3 text-[13px] text-white outline-none max-sm:h-8 max-sm:rounded-[8px] max-sm:px-2.5 max-sm:text-[12px]"
-                      />
-                    </div>
-                  </div>
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-white"
+                          >
+                            Active
+                          </td>
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-[#B6B6B6]"
+                          >
+                            April 14, 2026
+                          </td>
+                        </tr>
 
-                  <!-- LANDING VIEW -->
-                  <div
-                    id="landingViewRow"
-                    class="grid grid-cols-1 items-center border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
-                  >
-                    <div
-                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
-                    >
-                      <label
-                        for="landingView"
-                        class="text-[13px] font-medium text-white max-sm:text-[12px]"
-                      >
-                        Landing View
-                      </label>
-                    </div>
-                    <div
-                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
-                    >
-                      <input
-                        id="landingView"
-                        type="text"
-                        class="h-8 w-full max-w-[560px] rounded-[10px] border border-[#424242] bg-[#212121] px-3 text-[13px] text-white outline-none max-sm:h-8 max-sm:rounded-[8px] max-sm:px-2.5 max-sm:text-[12px]"
-                      />
-                    </div>
-                  </div>
+                        <!-- Ayush Giri -->
+                        <tr
+                          class="h-[55px] border-b border-[#2E2F2F] transition hover:bg-[#1D1D1D]"
+                        >
+                          <td class="px-5">
+                            <div class="flex items-center gap-2.5">
+                              <img
+                                src="/website-icons/alex.png"
+                                class="h-8 w-8 shrink-0 rounded-full border border-[#333333] object-cover"
+                              />
 
-                  <!-- DIGEST CADENCE -->
-                  <div
-                    id="digestCadenceRow"
-                    class="grid grid-cols-1 items-center border-b border-[#2E2F2F] last:border-b-0 sm:grid-cols-[32%_68%]"
-                  >
-                    <div
-                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
-                    >
-                      <label
-                        for="digestCadence"
-                        class="text-[13px] font-medium text-white max-sm:text-[12px]"
-                      >
-                        Digest Cadence
-                      </label>
-                    </div>
-                    <div
-                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
-                    >
-                      <input
-                        id="digestCadence"
-                        type="text"
-                        class="h-8 w-full max-w-[560px] rounded-[10px] border border-[#424242] bg-[#212121] px-3 text-[13px] text-white outline-none max-sm:h-8 max-sm:rounded-[8px] max-sm:px-2.5 max-sm:text-[12px]"
-                      />
-                    </div>
+                              <div class="min-w-0">
+                                <p class="font-medium text-[13px] text-white">
+                                  Ayush Giri
+                                </p>
+                                <p class="text-[13px] text-[#999999]">
+                                  @ayush.giri
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+
+                          <td
+                            class="truncate px-5 font-medium text-[13px] text-white"
+                          >
+                            alex.johnson@acme.com
+                          </td>
+
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-white"
+                          >
+                            Frontend & UI/UX
+                          </td>
+
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-white"
+                          >
+                            Product Design
+                          </td>
+
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-white"
+                          >
+                            Active
+                          </td>
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-[#B6B6B6]"
+                          >
+                            April 13, 2026
+                          </td>
+                        </tr>
+
+                        <!-- Bishal Laha -->
+                        <tr
+                          class="h-[55px] border-b border-[#2E2F2F] transition hover:bg-[#1D1D1D]"
+                        >
+                          <td class="px-5">
+                            <div class="flex items-center gap-2.5">
+                              <img
+                                src="/website-icons/alex.png"
+                                class="h-8 w-8 shrink-0 rounded-full border border-[#333333] object-cover"
+                              />
+
+                              <div class="min-w-0">
+                                <p class="font-medium text-[13px] text-white">
+                                  Bishal Laha
+                                </p>
+                                <p class="text-[13px] text-[#999999]">
+                                  @bishal.laha
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+
+                          <td
+                            class="truncate px-5 font-medium text-[13px] text-white"
+                          >
+                            alex.johnson@acme.com
+                          </td>
+
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-white"
+                          >
+                            Frontend & Research
+                          </td>
+
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-white"
+                          >
+                            Research
+                          </td>
+
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-white"
+                          >
+                            Active
+                          </td>
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-[#B6B6B6]"
+                          >
+                            April 14, 2026
+                          </td>
+                        </tr>
+
+                        <!-- Swastidip Maji -->
+                        <tr class="h-[55px] transition hover:bg-[#1D1D1D]">
+                          <td class="px-5">
+                            <div class="flex items-center gap-2.5">
+                              <img
+                                src="/website-icons/alex.png"
+                                class="h-8 w-8 shrink-0 rounded-full border border-[#333333] object-cover"
+                              />
+
+                              <div class="min-w-0">
+                                <p class="font-medium text-[13px] text-white">
+                                  Swastidip Maji
+                                </p>
+                                <p class="text-[13px] text-[#999999]">
+                                  @swastidip.maji
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+
+                          <td
+                            class="truncate px-5 font-medium text-[13px] text-white"
+                          >
+                            alex.johnson@acme.com
+                          </td>
+
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-white"
+                          >
+                            Model Developer
+                          </td>
+
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-white"
+                          >
+                            Backend Developer
+                          </td>
+
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-white"
+                          >
+                            Active
+                          </td>
+                          <td
+                            class="truncate px-5 text-[13px] text-medium text-[#B6B6B6]"
+                          >
+                            April 13, 2026
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
