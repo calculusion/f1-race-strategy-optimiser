@@ -222,11 +222,16 @@
                 </button>
               </div>
 
-              <!-- Bottom profile -->
-              <div id="sidebarProfileAvatar" class="mt-auto mb-5">
+              <!-- Bottom profile and logout -->
+              <div
+                id="sidebarProfileAvatar"
+                class="mt-auto mb-5 flex flex-col items-center gap-3"
+              >
+                <!-- Profile image -->
                 <a
                   href="profile.html"
                   class="block w-6 h-6 rounded-full overflow-hidden border border-[#333] hover:border-[#555] transition"
+                  title="Profile"
                 >
                   <img
                     id="sidebarAvatarImage"
@@ -235,6 +240,17 @@
                     alt="Profile"
                   />
                 </a>
+
+                <!-- Logout button -->
+                <button
+                  id="logoutbutton"
+                  type="button"
+                  title="Logout"
+                  aria-label="Logout"
+                  class="w-7 h-7 rounded-lg flex items-center justify-center text-white hover:text-red-500 hover:bg-[#B6B6B6]/10 transition-colors"
+                >
+                  <re-icon icon="logout" class="w-4 h-4"></re-icon>
+                </button>
               </div>
             </div>
 
@@ -396,7 +412,7 @@
 
         <!-- ===================================================
          MAIN AREA
-      ==================================================== -->
+        ==================================================== -->
 
         <div class="flex-1 lg:ml-[278px] min-w-0">
           <!-- =================================================
@@ -408,7 +424,7 @@
             class="h-[50px] border-b border-[#2E2F2F]/80 bg-[#0A0A0A] fixed top-0 left-0 lg:left-[265px] right-0 z-40 flex items-center"
           >
             <div
-              class="px-4 lg:px-6 w-full flex items-center justify-between gap-4"
+              class="relative px-4 lg:px-6 w-full flex items-center justify-between gap-4"
             >
               <!-- Left: Mobile Logo / Desktop Breadcrumb -->
               <div class="flex items-center gap-3 min-w-0">
@@ -430,35 +446,52 @@
                   class="hidden lg:flex items-center gap-1 min-w-0 text-[13px]"
                 >
                   <span class="text-[#B6B6B6] font-medium">Settings</span>
-
                   <re-icon
                     icon="arrow-right2"
                     class="w-3.5 h-3.5 text-[#B6B6B6]"
                   ></re-icon>
-
-                  <span class="text-white font-medium">Workshop</span>
+                  <span class="text-white font-medium">Workspace</span>
                 </div>
               </div>
 
-              <!-- Right: Quick Links + Mobile Menu -->
-              <div class="flex items-center gap-2 shrink-0">
+              <!-- Center: BetterStack (Desktop only) -->
+              <div class="hidden lg:block absolute left-1/2 -translate-x-1/2">
+                <a
+                  href="#"
+                  aria-label="Powered by BetterStack"
+                  class="flex items-center justify-center gap-2 h-8 px-3 rounded-[20px] border border-[#B6B6B6]/15 text-[#B6B6B6] hover:text-white hover:bg-[#171717] transition-colors"
+                >
+                  <img
+                    src="website-icons/betterstack-dark.svg"
+                    alt=""
+                    class="w-4 h-4 shrink-0"
+                  />
+                  <span class="text-[13px] font-medium">
+                    Powered by BetterStack
+                  </span>
+                </a>
+              </div>
+
+              <!-- Right: Quick Links + BetterStack (Mobile) + Menu -->
+              <div class="flex items-center gap-2 shrink-0 ml-auto">
                 <!-- Discord -->
                 <a
                   href="#"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Discord"
-                  class="flex items-center justify-center sm:gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
+                  class="flex items-center justify-center gap-2 px-2.5 h-8 rounded-[10px] max-sm:rounded-[8px] max-sm:w-8 max-sm:px-0 bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
                 >
                   <img
                     src="https://cdn.reicon.dev/logos/discord/original.svg"
                     alt=""
                     width="16"
                     height="16"
+                    class="shrink-0"
                   />
-                  <span class="hidden sm:inline text-[13px] font-medium"
-                    >Discord</span
-                  >
+                  <span class="hidden sm:inline text-[13px] font-medium">
+                    Discord
+                  </span>
                 </a>
 
                 <!-- GitHub -->
@@ -467,17 +500,18 @@
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
-                  class="flex items-center justify-center sm:gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
+                  class="flex items-center justify-center gap-2 px-2.5 h-8 rounded-[10px] max-sm:rounded-[8px] max-sm:w-8 max-sm:px-0 bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
                 >
                   <img
                     src="https://cdn.reicon.dev/logos/github/original.svg"
                     alt=""
                     width="16"
                     height="16"
+                    class="shrink-0"
                   />
-                  <span class="hidden sm:inline text-[13px] font-medium"
-                    >GitHub</span
-                  >
+                  <span class="hidden sm:inline text-[13px] font-medium">
+                    GitHub
+                  </span>
                 </a>
 
                 <!-- FastF1 API -->
@@ -486,16 +520,29 @@
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="FastF1 API"
-                  class="flex items-center justify-center sm:gap-2 px-2.5 h-8 rounded-[10px] bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
+                  class="flex items-center justify-center gap-2 px-2.5 h-8 rounded-[10px] max-sm:rounded-[8px] max-sm:w-8 max-sm:px-0 bg-[#171717] border border-[#252528] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
                 >
                   <re-icon
                     icon="database"
                     weight="filled"
-                    class="h-4 text-white"
+                    class="h-4 w-4 shrink-0"
                   ></re-icon>
                   <span class="hidden sm:inline text-[13px] font-medium">
                     FastF1 API
                   </span>
+                </a>
+
+                <!-- BetterStack (Mobile only) -->
+                <a
+                  href="#"
+                  aria-label="Powered by BetterStack"
+                  class="lg:hidden flex items-center justify-center h-8 w-8 rounded-[8px] border border-[#B6B6B6]/15 bg-[#171717] text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
+                >
+                  <img
+                    src="website-icons/betterstack-dark.svg"
+                    alt=""
+                    class="w-4 h-4 shrink-0"
+                  />
                 </a>
 
                 <!-- Mobile Menu Button -->
@@ -504,7 +551,7 @@
                   type="button"
                   aria-label="Open sidebar"
                   aria-expanded="false"
-                  class="lg:hidden w-9 h-8 rounded-[10px] bg-[#171717] border border-[#252528] flex items-center justify-center text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
+                  class="lg:hidden w-8 h-8 rounded-[8px] bg-[#171717] border border-[#252528] flex items-center justify-center text-[#B6B6B6] hover:text-white hover:bg-[#202024] transition-colors"
                 >
                   <re-icon
                     id="mobileMenuIcon"
@@ -520,9 +567,11 @@
            DASHBOARD
         ================================================== -->
           <main
-            class="pl-4 pr-4 pb-4 pt-[70px] lg:pl-3 lg:pr-5 lg:pb-5 lg:pt-[64px]"
+            class="pl-3 pr-3 pb-3 pt-[70px] lg:pl-3 lg:pr-5 lg:pb-5 lg:pt-[64px]"
           >
-            <div class="mt-4 relative overflow-hidden rounded-[14px] mb-6">
+            <div
+              class="relative mt-3 mb-6 overflow-hidden rounded-[14px] max-sm:rounded-[10px]"
+            >
               <!-- NEAT Background -->
               <canvas
                 id="newsletterGradient"
@@ -531,17 +580,19 @@
 
               <!-- Content -->
               <div
-                class="relative z-10 min-h-[22vh] flex items-center justify-center py-12 sm:py-16"
+                class="relative z-10 flex min-h-[22vh] items-center justify-center py-12 sm:py-16 max-sm:min-h-[18vh] max-sm:py-8"
               >
-                <div class="w-full max-w-[620px] mx-auto text-center px-4">
+                <div
+                  class="mx-auto w-full max-w-[620px] px-4 text-center max-sm:px-3"
+                >
                   <h2
-                    class="font-serif text-[26px] sm:text-[30px] md:text-[30px] text-white leading-[1.15] tracking-[-0.02em]"
+                    class="font-serif text-[26px] leading-[1.15] tracking-[-0.02em] text-white sm:text-[30px] md:text-[30px] max-sm:text-[22px]"
                   >
                     Manage Profile
                   </h2>
 
                   <p
-                    class="mt-3 mx-auto max-w-[480px] text-[11px] sm:text-[13px] md:text-[13px] leading-[1.6] text-white/70"
+                    class="mx-auto mt-1 max-w-[480px] text-[11px] leading-[1.6] text-white/70 sm:text-[13px] md:text-[13px] max-sm:text-[11px]"
                   >
                     Manage the identity and regional details.
                   </p>
@@ -559,13 +610,13 @@
               <!-- SHARED PROFILE WARNING-->
               <div
                 id="profileShareAlert"
-                class="mb- rounded-[9px] border border-[#705600] bg-[#17150B] px-3 py-2.5 sm:px-3.5"
+                class="rounded-[9px] max-sm:rounded-[8px] border border-[#705600] bg-[#17150B] px-3 py-2.5 sm:px-3.5 max-sm:px-2.5 max-sm:py-2"
               >
                 <div
-                  class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+                  class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between max-sm:gap-2"
                 >
                   <!-- Alert content -->
-                  <div class="flex items-start gap-2.5">
+                  <div class="flex items-start gap-2.5 max-sm:gap-2">
                     <div
                       id="profileAlertIcon"
                       class="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center"
@@ -573,21 +624,21 @@
                       <re-icon
                         icon="shield-check"
                         weight="filled"
-                        class="w-4 h-4 text-[#F2C300]"
+                        class="w-4 h-4 max-sm:w-3.5 max-sm:h-3.5 text-[#F2C300]"
                       ></re-icon>
                     </div>
 
-                    <div>
+                    <div class="min-w-0">
                       <p
                         id="profileAlertTitle"
-                        class="text-[11px] sm:text-[13px] font-semibold text-white"
+                        class="text-[11px] sm:text-[13px] font-semibold text-white max-sm:text-[12px]"
                       >
                         Profile updates are shared
                       </p>
 
                       <p
                         id="profileAlertDescription"
-                        class="mt-0.5 text-[11px] sm:text-[13px] text-[#B6B6B6]"
+                        class="mt-0.5 text-[11px] sm:text-[13px] text-[#B6B6B6] max-sm:text-[11px] max-sm:leading-[1.4]"
                       >
                         Changes sync to mentions, approvals, and people
                         directories in every workspace you join.
@@ -600,19 +651,22 @@
               <!-- PROFILE CARD -->
               <div
                 id="profileCard"
-                class="relative mt-7 w-full overflow-hidden rounded-[13px] border border-[#2E2F2F] bg-[#171717]"
+                class="relative mt-7 max-sm:mt-3 w-full overflow-hidden rounded-[13px] max-sm:rounded-[10px] border border-[#2E2F2F] bg-[#171717]"
               >
                 <!-- CARD HEADER -->
-                <div id="profileDetailsHeader" class="px-3 pt-2.5 pb-3">
+                <div
+                  id="profileDetailsHeader"
+                  class="px-3 pt-2.5 pb-3 max-sm:pt-2 max-sm:pb-2"
+                >
                   <h2
                     id="profileDetailsTitle"
-                    class="text-[14px] font-semibold text-white"
+                    class="text-[14px] max-sm:text-[13px] font-semibold text-white"
                   >
                     Profile Details
                   </h2>
                   <p
                     id="profileDetailsDescription"
-                    class="mt-0.5 text-[13px] text-[#B6B6B6]"
+                    class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
                   >
                     Personal account info.
                   </p>
@@ -621,28 +675,34 @@
                 <!-- CARD CONTENT -->
                 <div
                   id="profileDetailsContent"
-                  class="mx-1 mb-1 overflow-hidden rounded-[11px] border border-[#2E2F2F]"
+                  class="mx-1 mb-1 overflow-hidden rounded-[11px] max-sm:rounded-[8px] border border-[#2E2F2F]"
                 >
                   <!-- PROFILE PHOTO -->
                   <div
                     id="profilePictureRow"
-                    class="grid grid-cols-1 sm:grid-cols-[32%_68%] border-b border-[#2E2F2F]"
+                    class="grid grid-cols-1 border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
                   >
-                    <div class="px-4 pt-3 pb-3 sm:px-5">
-                      <p class="text-[13px] font-medium text-white">
+                    <div
+                      class="px-4 pt-3 pb-3 sm:px-5 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
+                    >
+                      <p
+                        class="text-[13px] max-sm:text-[12px] font-medium text-white"
+                      >
                         Profile Photo
                       </p>
-                      <p class="mt-0.5 text-[13px] text-[#B6B6B6]">
+                      <p
+                        class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
+                      >
                         Upload an image within 5MB in PNG or JPG.
                       </p>
                     </div>
 
                     <div
-                      class="flex flex-wrap items-center gap-2 px-4 pb-4 sm:px-6 sm:py-4"
+                      class="flex flex-wrap items-center gap-2 px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
                     >
                       <div
                         id="profileAvatarWrapper"
-                        class="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-[#333] bg-[#242424]"
+                        class="h-11 w-11 max-sm:h-9 max-sm:w-9 shrink-0 overflow-hidden rounded-full border border-[#333] bg-[#242424]"
                       >
                         <img
                           id="profileAvatar"
@@ -662,18 +722,24 @@
                       <button
                         id="uploadProfilePicture"
                         type="button"
-                        class="inline-flex h-7 items-center gap-1.5 rounded-[8px] border border-[#383838] bg-[#202020] px-3 text-[12px] font-medium text-white transition hover:bg-[#292929]"
+                        class="inline-flex h-7 max-sm:h-7 items-center gap-1.5 rounded-[8px] max-sm:rounded-[7px] border border-[#383838] bg-[#202020] px-3 max-sm:px-2.5 text-[12px] max-sm:text-[11px] font-medium text-white transition hover:bg-[#292929]"
                       >
-                        <re-icon icon="upload" class="h-3.5 w-3.5"></re-icon>
+                        <re-icon
+                          icon="upload"
+                          class="h-3.5 w-3.5 max-sm:h-3 max-sm:w-3"
+                        ></re-icon>
                         Change
                       </button>
 
                       <button
                         id="deleteProfilePicture"
                         type="button"
-                        class="inline-flex h-7 items-center gap-1.5 rounded-[8px] border border-[#383838] bg-[#202020] px-3 text-[12px] font-medium text-white transition hover:bg-[#292929]"
+                        class="inline-flex h-7 max-sm:h-7 items-center gap-1.5 rounded-[8px] max-sm:rounded-[7px] border border-[#383838] bg-[#202020] px-3 max-sm:px-2.5 text-[12px] max-sm:text-[11px] font-medium text-white transition hover:bg-[#292929]"
                       >
-                        <re-icon icon="x" class="h-3.5 w-3.5"></re-icon>
+                        <re-icon
+                          icon="x"
+                          class="h-3.5 w-3.5 max-sm:h-3 max-sm:w-3"
+                        ></re-icon>
                         Remove
                       </button>
                     </div>
@@ -682,24 +748,30 @@
                   <!-- FULL NAME -->
                   <div
                     id="fullNameRow"
-                    class="grid grid-cols-1 sm:grid-cols-[32%_68%] border-b border-[#2E2F2F]"
+                    class="grid grid-cols-1 border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
                   >
-                    <div class="px-4 py-4 sm:px-6">
+                    <div
+                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
+                    >
                       <label
                         for="fullName"
-                        class="block text-[13px] font-medium text-white"
+                        class="block text-[13px] max-sm:text-[12px] font-medium text-white"
                       >
                         Full Name
                       </label>
-                      <p class="mt-0.5 text-[13px] text-[#B6B6B6]">
+                      <p
+                        class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
+                      >
                         Used across Laps Team
                       </p>
                     </div>
-                    <div class="px-4 pb-4 sm:px-6 sm:py-4">
+                    <div
+                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
+                    >
                       <input
                         id="fullName"
                         type="text"
-                        class="h-8 w-full max-w-[560px] rounded-[10px] border border-[#424242] bg-[#212121] px-3 text-[13px] text-white outline-none"
+                        class="h-8 max-sm:h-8 w-full max-w-[560px] rounded-[10px] max-sm:rounded-[8px] border border-[#424242] bg-[#212121] px-3 max-sm:px-2.5 text-[13px] max-sm:text-[12px] text-white outline-none"
                       />
                     </div>
                   </div>
@@ -707,26 +779,32 @@
                   <!-- EMAIL ADDRESS -->
                   <div
                     id="emailAddressRow"
-                    class="grid grid-cols-1 sm:grid-cols-[32%_68%] border-b border-[#2E2F2F]"
+                    class="grid grid-cols-1 border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
                   >
-                    <div class="px-4 py-4 sm:px-6">
+                    <div
+                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
+                    >
                       <div class="flex items-center gap-2">
                         <label
                           for="primaryEmail"
-                          class="text-[13px] font-medium text-white"
+                          class="text-[13px] max-sm:text-[12px] font-medium text-white"
                         >
                           Email Address
                         </label>
                       </div>
-                      <p class="mt-0.5 text-[13px] text-[#B6B6B6]">
+                      <p
+                        class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
+                      >
                         Primary sign-in email used.
                       </p>
                     </div>
-                    <div class="px-4 pb-4 sm:px-6 sm:py-4">
+                    <div
+                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
+                    >
                       <input
                         id="primaryEmail"
                         type="email"
-                        class="h-8 w-full max-w-[560px] rounded-[10px] border border-[#424242] bg-[#212121] px-3 text-[13px] text-white outline-none"
+                        class="h-8 max-sm:h-8 w-full max-w-[560px] rounded-[10px] max-sm:rounded-[8px] border border-[#424242] bg-[#212121] px-3 max-sm:px-2.5 text-[13px] max-sm:text-[12px] text-white outline-none"
                       />
                     </div>
                   </div>
@@ -734,28 +812,37 @@
                   <!-- USERNAME -->
                   <div
                     id="usernameRow"
-                    class="grid grid-cols-1 sm:grid-cols-[32%_68%] border-b border-[#2E2F2F]"
+                    class="grid grid-cols-1 border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
                   >
-                    <div class="px-4 py-4 sm:px-6">
+                    <div
+                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
+                    >
                       <label
                         for="username"
-                        class="block text-[13px] font-medium text-white"
+                        class="block text-[13px] max-sm:text-[12px] font-medium text-white"
                       >
                         Username
                       </label>
-                      <p class="mt-0.5 text-[13px] text-[#B6B6B6]">
+                      <p
+                        class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
+                      >
                         Used in mentions and links.
                       </p>
                     </div>
-                    <div class="px-4 pb-4 sm:px-6 sm:py-4">
+                    <div
+                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
+                    >
                       <div
-                        class="flex h-8 w-full max-w-[560px] items-center rounded-[10px] border border-[#424242] bg-[#212121] px-2.5"
+                        class="flex h-8 max-sm:h-8 w-full max-w-[560px] items-center rounded-[10px] max-sm:rounded-[8px] border border-[#424242] bg-[#212121] px-2.5 max-sm:px-2"
                       >
-                        <span class="mr-0.5 text-[13px] text-[#999]">@</span>
+                        <span
+                          class="mr-0.5 text-[13px] max-sm:text-[12px] text-[#999]"
+                          >@</span
+                        >
                         <input
                           id="username"
                           type="text"
-                          class="min-w-0 flex-1 bg-transparent text-[13px] text-white outline-none"
+                          class="min-w-0 flex-1 bg-transparent text-[13px] max-sm:text-[12px] text-white outline-none"
                         />
                       </div>
                     </div>
@@ -764,36 +851,42 @@
                   <!-- PUBLIC DETAILS -->
                   <div
                     id="publicDetailsRow"
-                    class="grid grid-cols-1 sm:grid-cols-[32%_68%] border-b border-[#2E2F2F]"
+                    class="grid grid-cols-1 border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
                   >
-                    <div class="px-4 py-4 sm:px-6">
-                      <p class="text-[13px] font-medium text-white">
+                    <div
+                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
+                    >
+                      <p
+                        class="text-[13px] max-sm:text-[12px] font-medium text-white"
+                      >
                         Public Details
                       </p>
-                      <p class="mt-0.5 text-[13px] text-[#B6B6B6]">
+                      <p
+                        class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
+                      >
                         Shown across Laps.
                       </p>
                     </div>
 
                     <div
                       id="publicDetailsFields"
-                      class="space-y-3 px-4 pb-4 sm:px-6 sm:py-4"
+                      class="space-y-3 px-4 pb-4 sm:px-6 sm:py-4 max-sm:space-y-2 max-sm:px-3 max-sm:pb-3"
                     >
                       <div id="roleField">
                         <label
                           for="role"
-                          class="mb-1.5 block text-[13px] font-medium text-white"
+                          class="mb-1.5 max-sm:mb-1 block text-[13px] max-sm:text-[12px] font-medium text-white"
                         >
                           Role
                         </label>
                         <div
-                          class="flex h-8 w-full max-w-[560px] items-center rounded-[10px] border border-[#424242] bg-[#212121] px-3"
+                          class="flex h-8 max-sm:h-8 w-full max-w-[560px] items-center rounded-[10px] max-sm:rounded-[8px] border border-[#424242] bg-[#212121] px-3 max-sm:px-2.5"
                         >
                           <span class="text-[13px] text-[#999]"></span>
                           <input
                             id="role"
                             type="text"
-                            class="min-w-0 flex-1 bg-transparent text-[13px] text-white outline-none"
+                            class="min-w-0 flex-1 bg-transparent text-[13px] max-sm:text-[12px] text-white outline-none"
                           />
                         </div>
                       </div>
@@ -801,21 +894,23 @@
                       <div id="websiteField">
                         <label
                           for="website"
-                          class="mb-1.5 block text-[13px] font-medium text-white"
+                          class="mb-1.5 max-sm:mb-1 block text-[13px] max-sm:text-[12px] font-medium text-white"
                         >
                           Website
                         </label>
                         <div
-                          class="flex h-8 w-full max-w-[560px] items-center rounded-[10px] border border-[#424242] bg-[#212121] px-3"
+                          class="flex h-8 max-sm:h-8 w-full max-w-[560px] items-center rounded-[10px] max-sm:rounded-[8px] border border-[#424242] bg-[#212121] px-3 max-sm:px-2.5"
                         >
-                          <span class="mr-0.5 text-[13px] text-[#999]"
-                            >https://</span
+                          <span
+                            class="mr-0.5 text-[13px] max-sm:text-[11px] text-[#999]"
                           >
+                            https://
+                          </span>
                           <input
                             id="website"
                             type="text"
                             value="nick.relay.app"
-                            class="min-w-0 flex-1 bg-transparent text-[13px] text-white outline-none"
+                            class="min-w-0 flex-1 bg-transparent text-[13px] max-sm:text-[12px] text-white outline-none"
                           />
                         </div>
                       </div>
@@ -827,22 +922,28 @@
                     id="bioRow"
                     class="grid grid-cols-1 sm:grid-cols-[32%_68%]"
                   >
-                    <div class="px-4 py-4 sm:px-6">
+                    <div
+                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
+                    >
                       <label
                         for="bio"
-                        class="block text-[13px] font-medium text-white"
+                        class="block text-[13px] max-sm:text-[12px] font-medium text-white"
                       >
                         Bio
                       </label>
-                      <p class="mt-0.5 text-[13px] text-[#B6B6B6]">
+                      <p
+                        class="mt-0.5 text-[13px] max-sm:text-[11px] text-[#B6B6B6]"
+                      >
                         Short profile summary.
                       </p>
                     </div>
-                    <div class="px-4 pb-4 sm:px-6 sm:py-4">
+                    <div
+                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
+                    >
                       <textarea
                         id="bio"
                         rows="4"
-                        class="w-full max-w-[560px] resize-y rounded-[10px] border border-[#424242] bg-[#212121] px-3 py-2 text-[13px] leading-5 text-white outline-none"
+                        class="w-full max-w-[560px] resize-y rounded-[10px] max-sm:rounded-[8px] border border-[#424242] bg-[#212121] px-3 max-sm:px-2.5 py-2 text-[13px] max-sm:text-[12px] leading-5 text-white outline-none"
                       ></textarea>
                     </div>
                   </div>
@@ -852,19 +953,22 @@
               <!-- PROFILE PREFERENCES CARD -->
               <div
                 id="preferencesCard"
-                class="relative mt-7 w-full overflow-hidden rounded-[13px] border border-[#2E2F2F] bg-[#171717]"
+                class="relative mt-5 w-full overflow-hidden rounded-[13px] border border-[#2E2F2F] bg-[#171717] max-sm:mt-3 max-sm:rounded-[10px]"
               >
                 <!-- CARD HEADER -->
-                <div id="preferencesHeader" class="px-4 pt-3 pb-3 sm:px-5">
+                <div
+                  id="preferencesHeader"
+                  class="px-3 pt-2.5 pb-3 max-sm:px-3 max-sm:pt-2 max-sm:pb-2"
+                >
                   <h2
                     id="preferencesTitle"
-                    class="text-[14px] font-semibold text-white"
+                    class="text-[14px] font-semibold text-white max-sm:text-[13px]"
                   >
                     Profile Preferences
                   </h2>
                   <p
                     id="preferencesDescription"
-                    class="mt-0.5 text-[13px] text-[#B6B6B6]"
+                    class="mt-0.5 text-[13px] text-[#B6B6B6] max-sm:text-[11px]"
                   >
                     Default workspace behavior.
                   </p>
@@ -873,27 +977,30 @@
                 <!-- PREFERENCES CONTENT -->
                 <div
                   id="preferencesContent"
-                  class="mx-1 mb-1 overflow-hidden rounded-[11px] border border-[#2E2F2F]"
+                  class="mx-1 mb-1 overflow-hidden rounded-[11px] border border-[#2E2F2F] max-sm:rounded-[8px]"
                 >
                   <!-- LANGUAGE -->
                   <div
                     id="languageRow"
-                    class="grid grid-cols-1 sm:grid-cols-[32%_68%] items-center border-b border-[#2E2F2F]"
+                    class="grid grid-cols-1 items-center border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
                   >
-                    <div class="px-4 py-4 sm:px-6">
+                    <div
+                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
+                    >
                       <label
                         for="language"
-                        class="text-[13px] font-medium text-white"
+                        class="text-[13px] font-medium text-white max-sm:text-[12px]"
                       >
                         Language
                       </label>
                     </div>
-
-                    <div class="px-4 pb-4 sm:px-6 sm:py-4">
+                    <div
+                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
+                    >
                       <input
                         id="language"
                         type="text"
-                        class="h-8 w-full max-w-[560px] rounded-[10px] border border-[#424242] bg-[#212121] px-3 text-[13px] text-white outline-none"
+                        class="h-8 w-full max-w-[560px] rounded-[10px] border border-[#424242] bg-[#212121] px-3 text-[13px] text-white outline-none max-sm:h-8 max-sm:rounded-[8px] max-sm:px-2.5 max-sm:text-[12px]"
                       />
                     </div>
                   </div>
@@ -901,22 +1008,25 @@
                   <!-- LANDING VIEW -->
                   <div
                     id="landingViewRow"
-                    class="grid grid-cols-1 sm:grid-cols-[32%_68%] items-center border-b border-[#2E2F2F]"
+                    class="grid grid-cols-1 items-center border-b border-[#2E2F2F] sm:grid-cols-[32%_68%]"
                   >
-                    <div class="px-4 py-4 sm:px-6">
+                    <div
+                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
+                    >
                       <label
                         for="landingView"
-                        class="text-[13px] font-medium text-white"
+                        class="text-[13px] font-medium text-white max-sm:text-[12px]"
                       >
                         Landing View
                       </label>
                     </div>
-
-                    <div class="px-4 pb-4 sm:px-6 sm:py-4">
+                    <div
+                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
+                    >
                       <input
                         id="landingView"
                         type="text"
-                        class="h-8 w-full max-w-[560px] rounded-[10px] border border-[#424242] bg-[#212121] px-3 text-[13px] text-white outline-none"
+                        class="h-8 w-full max-w-[560px] rounded-[10px] border border-[#424242] bg-[#212121] px-3 text-[13px] text-white outline-none max-sm:h-8 max-sm:rounded-[8px] max-sm:px-2.5 max-sm:text-[12px]"
                       />
                     </div>
                   </div>
@@ -924,38 +1034,29 @@
                   <!-- DIGEST CADENCE -->
                   <div
                     id="digestCadenceRow"
-                    class="grid grid-cols-1 sm:grid-cols-[32%_68%] items-center border-b border-[#2E2F2F]"
+                    class="grid grid-cols-1 items-center border-b border-[#2E2F2F] last:border-b-0 sm:grid-cols-[32%_68%]"
                   >
-                    <div class="px-4 py-4 sm:px-6">
+                    <div
+                      class="px-4 py-4 sm:px-6 max-sm:px-3 max-sm:pt-3 max-sm:pb-1"
+                    >
                       <label
                         for="digestCadence"
-                        class="text-[13px] font-medium text-white"
+                        class="text-[13px] font-medium text-white max-sm:text-[12px]"
                       >
                         Digest Cadence
                       </label>
                     </div>
-
-                    <div class="px-4 pb-4 sm:px-6 sm:py-4">
+                    <div
+                      class="px-4 pb-4 sm:px-6 sm:py-4 max-sm:px-3 max-sm:pb-3"
+                    >
                       <input
                         id="digestCadence"
                         type="text"
-                        class="h-8 w-full max-w-[560px] rounded-[10px] border border-[#424242] bg-[#212121] px-3 text-[13px] text-white outline-none"
+                        class="h-8 w-full max-w-[560px] rounded-[10px] border border-[#424242] bg-[#212121] px-3 text-[13px] text-white outline-none max-sm:h-8 max-sm:rounded-[8px] max-sm:px-2.5 max-sm:text-[12px]"
                       />
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <!-- LOGOUT BUTTON -->
-              <div class="mt-5 flex justify-end">
-                <button
-                  id="logoutbutton"
-                  type="button"
-                  class="inline-flex gap-2 px-2.5 h-8 rounded-[10px] items-center gap-2 border border-[#7A2929] bg-[#351919] px-3 text-[13px] font-medium text-[#FF5C5C] transition hover:bg-[#492020] hover:border-[#A33A3A]"
-                >
-                  <re-icon icon="logout4" class="h-4 w-4"></re-icon>
-                  Log Out
-                </button>
               </div>
             </section>
           </main>
@@ -979,19 +1080,19 @@
             enabled: true,
           },
           {
-            color: "#180709",
+            color: "#3B0710",
             enabled: true,
           },
           {
-            color: "#2A080B",
+            color: "#750B18",
             enabled: true,
           },
           {
-            color: "#400B0F",
+            color: "#C41230",
             enabled: true,
           },
           {
-            color: "#5A1014",
+            color: "#FF1744",
             enabled: true,
           },
         ],
