@@ -576,31 +576,35 @@
             <!-- =================================================
             TEAM Members
             ================================================== -->
+            <!-- =================================================
+     TEAM MEMBERS
+     ================================================= -->
+
             <section
               id="teamMemberSection"
               class="mt-3 w-full bg-[#090909] text-white px-1 sm:px-0 py-1"
             >
               <!-- MEMBERS TABLE -->
               <div
-                class="w-full rounded-[16px] border border-[#252525] bg-[#171717] p-[4px] text-white"
+                class="w-full rounded-[16px] max-sm:rounded-[11px] border border-[#252525] bg-[#171717] p-[4px] max-sm:p-[3px] text-white"
               >
                 <div
-                  class="overflow-hidden rounded-[12px] border border-[#2E2F2F] bg-[#171717]"
+                  class="overflow-hidden rounded-[12px] max-sm:rounded-[9px] border border-[#2E2F2F] bg-[#171717]"
                 >
                   <!-- HEADER -->
                   <div
-                    class="flex min-h-[65px] items-center justify-between gap-4 border-b border-[#2E2F2F] px-5 py-4 max-md:flex-wrap"
+                    class="flex min-h-[65px] max-sm:min-h-[52px] items-center justify-between gap-4 max-sm:gap-2 border-b border-[#2E2F2F] px-5 max-sm:px-3 py-4 max-sm:py-3 max-md:flex-wrap"
                   >
                     <!-- TITLE -->
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-3 max-sm:gap-2">
                       <h1
-                        class="text-[24px] font-semibold leading-none tracking-tight"
+                        class="text-[20px] max-sm:text-[19px] font-semibold leading-none tracking-tight"
                       >
-                        Members
+                        Developers
                       </h1>
 
                       <span
-                        class="flex h-5 min-w-5 items-center justify-center rounded-full border border-[#383838] bg-[#202020] px-1.5 text-[10px] font-medium text-[#D4D4D4]"
+                        class="flex h-5 max-sm:h-[18px] min-w-5 max-sm:min-w-[18px] items-center justify-center rounded-full border border-[#383838] bg-[#202020] px-1.5 max-sm:px-1 text-[10px] max-sm:text-[9px] font-medium text-[#D4D4D4]"
                       >
                         4
                       </span>
@@ -624,82 +628,106 @@
                       <!-- TABLE HEADER -->
                       <thead>
                         <tr
-                          class="h-[35px] border-b border-[#2E2F2F] text-[#B6B6B6]"
+                          class="h-[35px] max-sm:h-[31px] border-b border-[#2E2F2F] text-[#B6B6B6]"
                         >
-                          <th class="px-5 text-[14px] font-medium">
+                          <!-- MEMBER -->
+                          <th
+                            class="px-5 max-sm:px-3 text-[14px] max-sm:text-[11px] font-medium"
+                          >
                             <button
                               type="button"
-                              class="flex items-center gap-2"
+                              class="flex items-center gap-2 max-sm:gap-1.5"
                             >
                               Member
+
                               <re-icon
                                 icon="users"
-                                class="h-3.5 w-3.5 text-[#B6B6B6]"
+                                class="h-3.5 w-3.5 max-sm:h-3 max-sm:w-3 text-[#B6B6B6]"
                               ></re-icon>
                             </button>
                           </th>
 
-                          <th class="px-5 text-[14px] font-medium">
+                          <!-- EMAIL -->
+                          <th
+                            class="px-5 max-sm:px-3 text-[14px] max-sm:text-[11px] font-medium"
+                          >
                             <button
                               type="button"
                               class="flex items-center gap-1"
                             >
                               Email
+
                               <re-icon
                                 icon="arrows-down"
-                                class="h-4 w-4"
+                                class="h-4 w-4 max-sm:h-3 max-sm:w-3"
                               ></re-icon>
                             </button>
                           </th>
 
-                          <th class="px-5 text-[14px] font-medium">
+                          <!-- ROLE -->
+                          <th
+                            class="px-5 max-sm:px-3 text-[14px] max-sm:text-[11px] font-medium"
+                          >
                             <button
                               type="button"
                               class="flex items-center gap-1"
                             >
                               Role
+
                               <re-icon
                                 icon="arrows-down"
-                                class="h-3.5 w-3.5"
+                                class="h-3.5 w-3.5 max-sm:h-3 max-sm:w-3"
                               ></re-icon>
                             </button>
                           </th>
 
-                          <th class="px-5 text-[14px] font-medium">
+                          <!-- GROUP -->
+                          <th
+                            class="px-5 max-sm:px-3 text-[14px] max-sm:text-[11px] font-medium"
+                          >
                             <button
                               type="button"
                               class="flex items-center gap-1"
                             >
                               Group
+
                               <re-icon
                                 icon="arrows-down"
-                                class="h-3.5 w-3.5"
+                                class="h-3.5 w-3.5 max-sm:h-3 max-sm:w-3"
                               ></re-icon>
                             </button>
                           </th>
 
-                          <th class="px-5 text-[14px] font-medium">
+                          <!-- STATUS -->
+                          <th
+                            class="px-5 max-sm:px-3 text-[14px] max-sm:text-[11px] font-medium"
+                          >
                             <button
                               type="button"
                               class="flex items-center gap-1"
                             >
                               Status
+
                               <re-icon
                                 icon="arrows-down"
-                                class="h-3.5 w-3.5"
+                                class="h-3.5 w-3.5 max-sm:h-3 max-sm:w-3"
                               ></re-icon>
                             </button>
                           </th>
 
-                          <th class="px-5 text-[14px] font-medium">
+                          <!-- JOINING DATE -->
+                          <th
+                            class="px-5 max-sm:px-3 text-[14px] max-sm:text-[11px] font-medium"
+                          >
                             <button
                               type="button"
                               class="flex items-center gap-1"
                             >
                               Joining date
+
                               <re-icon
                                 icon="arrows-down"
-                                class="h-3.5 w-3.5"
+                                class="h-3.5 w-3.5 max-sm:h-3 max-sm:w-3"
                               ></re-icon>
                             </button>
                           </th>
@@ -707,23 +735,31 @@
                       </thead>
 
                       <!-- TABLE BODY -->
-                      <tbody class="text-[14px]">
-                        <!-- Parantap Guha -->
+                      <tbody class="text-[14px] max-sm:text-[12px]">
+                        <!-- =================================================
+                        PARANTAP GUHA
+                        ================================================= -->
                         <tr
-                          class="h-[55px] border-b border-[#2E2F2F] transition hover:bg-[#1D1D1D]"
+                          class="h-[55px] max-sm:h-[48px] border-b border-[#2E2F2F] transition hover:bg-[#1D1D1D]"
                         >
-                          <td class="px-5">
-                            <div class="flex items-center gap-2.5">
+                          <td class="px-5 max-sm:px-3">
+                            <div class="flex items-center gap-2.5 max-sm:gap-2">
                               <img
                                 src="/website-icons/alex.png"
-                                class="h-8 w-8 shrink-0 rounded-full border border-[#333333] object-cover"
+                                class="h-8 w-8 max-sm:h-7 max-sm:w-7 shrink-0 rounded-full border border-[#333333] object-cover"
+                                alt="Parantap Guha"
                               />
 
                               <div class="min-w-0">
-                                <p class="font-medium text-[13px] text-white">
+                                <p
+                                  class="font-medium text-[13px] max-sm:text-[11px] text-white"
+                                >
                                   Parantap Guha
                                 </p>
-                                <p class="text-[13px] text-[#999999]">
+
+                                <p
+                                  class="text-[13px] max-sm:text-[11px] text-[#999999]"
+                                >
                                   @parantap.guha
                                 </p>
                               </div>
@@ -731,51 +767,60 @@
                           </td>
 
                           <td
-                            class="truncate px-5 font-medium text-[13px] text-white"
+                            class="truncate px-5 max-sm:px-3 font-medium text-[13px] max-sm:text-[11px] text-white"
                           >
                             alex.johnson@acme.com
                           </td>
 
                           <td
-                            class="truncate px-5 text-[13px] text-medium text-white"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-medium text-white"
                           >
                             Model Optimiser
                           </td>
 
                           <td
-                            class="truncate px-5 text-[13px] text-medium text-white"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-medium text-white"
                           >
                             Backend Developer
                           </td>
 
                           <td
-                            class="truncate px-5 text-[13px] text-semibold text-[#15E682]"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-semibold text-[#15E682]"
                           >
                             Active
                           </td>
+
                           <td
-                            class="truncate px-5 text-[13px] text-medium text-[#B6B6B6]"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-medium text-[#B6B6B6]"
                           >
                             April 14, 2026
                           </td>
                         </tr>
 
-                        <!-- Ayush Giri -->
+                        <!-- =================================================
+                        AYUSH GIRI
+                        ================================================= -->
                         <tr
-                          class="h-[55px] border-b border-[#2E2F2F] transition hover:bg-[#1D1D1D]"
+                          class="h-[55px] max-sm:h-[48px] border-b border-[#2E2F2F] transition hover:bg-[#1D1D1D]"
                         >
-                          <td class="px-5">
-                            <div class="flex items-center gap-2.5">
+                          <td class="px-5 max-sm:px-3">
+                            <div class="flex items-center gap-2.5 max-sm:gap-2">
                               <img
                                 src="/branding/ayush.jpg"
-                                class="h-8 w-8 shrink-0 rounded-full border border-[#333333] object-cover"
+                                class="h-8 w-8 max-sm:h-7 max-sm:w-7 shrink-0 rounded-full border border-[#333333] object-cover"
+                                alt="Ayush Giri"
                               />
 
                               <div class="min-w-0">
-                                <p class="font-medium text-[13px] text-white">
+                                <p
+                                  class="font-medium text-[13px] max-sm:text-[11px] text-white"
+                                >
                                   Ayush Giri
                                 </p>
-                                <p class="text-[13px] text-[#999999]">
+
+                                <p
+                                  class="text-[13px] max-sm:text-[11px] text-[#999999]"
+                                >
                                   @ayush.giri
                                 </p>
                               </div>
@@ -783,7 +828,7 @@
                           </td>
 
                           <td
-                            class="truncate px-5 font-medium text-[13px] text-white"
+                            class="truncate px-5 max-sm:px-3 font-medium text-[13px] max-sm:text-[11px] text-white"
                           >
                             <a
                               href="mailto:contactayushgiri@gmail.com"
@@ -794,45 +839,54 @@
                           </td>
 
                           <td
-                            class="truncate px-5 text-[13px] text-medium text-white"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-medium text-white"
                           >
                             Frontend & UI/UX
                           </td>
 
                           <td
-                            class="truncate px-5 text-[13px] text-medium text-white"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-medium text-white"
                           >
                             Product Design
                           </td>
 
                           <td
-                            class="truncate px-5 text-[13px] text-semibold text-[#15E682]"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-semibold text-[#15E682]"
                           >
                             Active
                           </td>
+
                           <td
-                            class="truncate px-5 text-[13px] text-medium text-[#B6B6B6]"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-medium text-[#B6B6B6]"
                           >
                             April 13, 2026
                           </td>
                         </tr>
 
-                        <!-- Bishal Laha -->
+                        <!-- =================================================
+                        BISHAL LAHA
+                        ================================================= -->
                         <tr
-                          class="h-[55px] border-b border-[#2E2F2F] transition hover:bg-[#1D1D1D]"
+                          class="h-[55px] max-sm:h-[48px] border-b border-[#2E2F2F] transition hover:bg-[#1D1D1D]"
                         >
-                          <td class="px-5">
-                            <div class="flex items-center gap-2.5">
+                          <td class="px-5 max-sm:px-3">
+                            <div class="flex items-center gap-2.5 max-sm:gap-2">
                               <img
                                 src="/branding/bishal.jpeg"
-                                class="h-8 w-8 shrink-0 rounded-full border border-[#333333] object-cover"
+                                class="h-8 w-8 max-sm:h-7 max-sm:w-7 shrink-0 rounded-full border border-[#333333] object-cover"
+                                alt="Bishal Laha"
                               />
 
                               <div class="min-w-0">
-                                <p class="font-medium text-[13px] text-white">
+                                <p
+                                  class="font-medium text-[13px] max-sm:text-[11px] text-white"
+                                >
                                   Bishal Laha
                                 </p>
-                                <p class="text-[13px] text-[#999999]">
+
+                                <p
+                                  class="text-[13px] max-sm:text-[11px] text-[#999999]"
+                                >
                                   @bishal.laha
                                 </p>
                               </div>
@@ -840,7 +894,7 @@
                           </td>
 
                           <td
-                            class="truncate px-5 font-medium text-[13px] text-white"
+                            class="truncate px-5 max-sm:px-3 font-medium text-[13px] max-sm:text-[11px] text-white"
                           >
                             <a
                               href="mailto:bishallaha93@gmail.com"
@@ -851,43 +905,54 @@
                           </td>
 
                           <td
-                            class="truncate px-5 text-[13px] text-medium text-white"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-medium text-white"
                           >
                             Frontend & Research
                           </td>
 
                           <td
-                            class="truncate px-5 text-[13px] text-medium text-white"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-medium text-white"
                           >
                             Research
                           </td>
 
                           <td
-                            class="truncate px-5 text-[13px] text-semibold text-[#15E682]"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-semibold text-[#15E682]"
                           >
                             Active
                           </td>
+
                           <td
-                            class="truncate px-5 text-[13px] text-medium text-[#B6B6B6]"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-medium text-[#B6B6B6]"
                           >
                             April 14, 2026
                           </td>
                         </tr>
 
-                        <!-- Swastidip Maji -->
-                        <tr class="h-[55px] transition hover:bg-[#1D1D1D]">
-                          <td class="px-5">
-                            <div class="flex items-center gap-2.5">
+                        <!-- =================================================
+               SWASTIDIP MAJI
+               ================================================= -->
+                        <tr
+                          class="h-[55px] max-sm:h-[48px] transition hover:bg-[#1D1D1D]"
+                        >
+                          <td class="px-5 max-sm:px-3">
+                            <div class="flex items-center gap-2.5 max-sm:gap-2">
                               <img
                                 src="/branding/swastidip.jpeg"
-                                class="h-8 w-8 shrink-0 rounded-full border border-[#333333] object-cover"
+                                class="h-8 w-8 max-sm:h-7 max-sm:w-7 shrink-0 rounded-full border border-[#333333] object-cover"
+                                alt="Swastidip Maji"
                               />
 
                               <div class="min-w-0">
-                                <p class="font-medium text-[13px] text-white">
+                                <p
+                                  class="font-medium text-[13px] max-sm:text-[11px] text-white"
+                                >
                                   Swastidip Maji
                                 </p>
-                                <p class="text-[13px] text-[#999999]">
+
+                                <p
+                                  class="text-[13px] max-sm:text-[11px] text-[#999999]"
+                                >
                                   @swastidip.maji
                                 </p>
                               </div>
@@ -895,30 +960,31 @@
                           </td>
 
                           <td
-                            class="truncate px-5 font-medium text-[13px] text-white"
+                            class="truncate px-5 max-sm:px-3 font-medium text-[13px] max-sm:text-[11px] text-white"
                           >
                             alex.johnson@acme.com
                           </td>
 
                           <td
-                            class="truncate px-5 text-[13px] text-medium text-white"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-medium text-white"
                           >
                             Model Developer
                           </td>
 
                           <td
-                            class="truncate px-5 text-[13px] text-medium text-white"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-medium text-white"
                           >
                             Backend Developer
                           </td>
 
                           <td
-                            class="truncate px-5 text-[13px] text-semibold text-[#15E682]"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-semibold text-[#15E682]"
                           >
                             Active
                           </td>
+
                           <td
-                            class="truncate px-5 text-[13px] text-medium text-[#B6B6B6]"
+                            class="truncate px-5 max-sm:px-3 text-[13px] max-sm:text-[11px] font-medium text-[#B6B6B6]"
                           >
                             April 13, 2026
                           </td>
