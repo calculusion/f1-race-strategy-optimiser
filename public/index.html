@@ -754,52 +754,42 @@
           },
         ],
 
-        speed: 2,
+        speed: 4,
         horizontalPressure: 4,
-        verticalPressure: 4,
-        waveFrequencyX: 3,
-        waveFrequencyY: 2,
-        waveAmplitude: 1,
-
+        verticalPressure: 3,
+        waveFrequencyX: 0,
+        waveFrequencyY: 0,
+        waveAmplitude: 0,
         secondaryWaveEnabled: false,
         secondaryWaveFrequencyX: 3,
         secondaryWaveFrequencyY: 3,
         secondaryWaveAmplitude: 5,
         secondaryWaveSpeed: 0.6,
         secondaryWaveAngle: 1,
-
         shadows: 2,
-        highlights: 2,
+        highlights: 7,
         colorBrightness: 1,
-        colorSaturation: -1,
-
+        colorSaturation: 8,
         wireframe: false,
         antialias: false,
-        colorBlending: 7,
-
-        backgroundColor: "#09090b",
+        colorBlending: 5,
+        backgroundColor: "#FF0000",
         backgroundAlpha: 1,
-
-        grainScale: 2,
+        grainScale: 0,
         grainSparsity: 0,
         grainIntensity: 0,
-        grainSpeed: 1,
-
-        resolution: 0.75,
-
+        grainSpeed: 0,
+        resolution: 0.5,
         yOffset: 0,
-        yOffsetWaveMultiplier: 2.2,
-        yOffsetColorMultiplier: 2.5,
-        yOffsetFlowMultiplier: 2.8,
-
+        yOffsetWaveMultiplier: 1.5,
+        yOffsetColorMultiplier: 1.8,
+        yOffsetFlowMultiplier: 2,
         flowDistortionA: 0,
         flowDistortionB: 0,
         flowScale: 1,
         flowEase: 0,
         flowEnabled: false,
-
         enableProceduralTexture: false,
-
         transparentTextureVoid: false,
         textureMode: "bitmap",
         bakeEdgeSoftness: 1,
@@ -809,76 +799,57 @@
         textureBandDensity: 2.15,
         textureColorBlending: 0.01,
         textureSeed: 333,
-        textureEase: 0.68,
-
-        proceduralBackgroundColor: "#000000",
-
+        textureEase: 0.75,
+        proceduralBackgroundColor: "#<n>000000</n>",
         textureShapeTriangles: 20,
         textureShapeCircles: 15,
         textureShapeBars: 15,
         textureShapeSquiggles: 10,
-
         domainWarpEnabled: false,
         domainWarpIntensity: 0,
         domainWarpScale: 3,
-
         vignetteIntensity: 0,
         vignetteRadius: 0.8,
-
         fresnelEnabled: false,
         fresnelPower: 2,
         fresnelIntensity: 0.5,
-        fresnelColor: "#09090b",
-
+        fresnelColor: "#FFFFFF",
         iridescenceEnabled: false,
         iridescenceIntensity: 0.5,
         iridescenceSpeed: 1,
-
         prismEdgeEnabled: false,
         prismEdgeIntensity: 0.5,
         prismEdgeThinness: 3,
         prismEdgeSpread: 1,
         prismEdgeSpeed: 0.5,
         prismEdgeRipple: 1,
-
         bloomIntensity: 0,
         bloomThreshold: 0.7,
-
         chromaticAberration: 0,
-
         shapeType: "plane",
         shapeRotationX: 0,
         shapeRotationY: 0,
         shapeRotationZ: 0,
-
         shapeAutoRotateSpeedX: 0,
         shapeAutoRotateSpeedY: 0,
-
         sphereRadius: 15,
         torusRadius: 15,
         torusTube: 5,
-
         cylinderRadius: 10,
         cylinderHeight: 40,
-
         planeBend: 0,
         planeTwist: 0,
-
         silhouetteFade: 0.25,
         cylinderFade: 0.08,
         ribbonFade: 0.05,
-
         flatShading: true,
         cameraLock: true,
-
         cameraX: 0,
         cameraY: 0,
         cameraZ: 0,
-
         cameraRotationX: 0,
         cameraRotationY: 0,
         cameraRotationZ: 0,
-
         cameraZoom: 1,
       };
 
@@ -887,6 +858,7 @@
         ...config,
       });
 
+      // Optional: react to scroll
       window.addEventListener("scroll", () => {
         gradient.yOffset = window.scrollY;
       });
